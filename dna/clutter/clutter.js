@@ -38,17 +38,150 @@ function unfollow(userAddress){
                   ]});
 }
 
+
 function post(post) {
-    var key = commit("post",post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
+    var post_hash = commit("post",post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
     var me = getMe();                       // Looks up my hash address and assign it to 'me'
                                             // which DHT nodes will use to request validation info from my source chain
+    commit("post_links",{Links:[{Base:me,Link:post_hash,Tag:"post"}]});
 
-      // On the DHT, puts a link on my hash to the new post
-    commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
+   // TODO detect a hash
+    debug(post);
+    debug(post.message);
+    debug("Starting HASHtag search");
+    hashTag=detectHashtag(post.message);
 
-    debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
-    debug(key);
-    return key;                                  // Returns the hash key of the new post to the calling function
+
+    if (hashTag != null)
+    {
+      debug(hashTag);
+      debug("Hashtag/s found in post");
+	     for(var i in hashtag)
+	      {
+		         var ht = hashtag[i];
+             LinkorCreateHT(ht,post_hash);
+      	}
+      }
+      else
+      {
+        debug("No Hashtags in post");
+      }
+
+   debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
+    debug(post_hash);
+    return post_hash;                                  // Returns the hash key of the new post to the calling function
+}
+
+
+function detectHashtag(postString)
+{
+//  String str="#important thing in #any programming #7 #& ";
+  debug("STARING");
+
+  debug("regexp");
+  var regexp = /\B\#\w\w+\b/g;
+  hashtag = String(postString).match(regexp);
+  debug("RETURNING hash tag");
+  a=hashtag;
+  debug("CHECKING THIS");
+  debug(typeof hashtag);
+  if (hashtag != null)
+  {
+    debug("hashtag");
+    return hashtag;
+  }
+  else
+  {
+    debug("NULL");
+    return null;
+  }
+
+  return hashtag;
+}
+
+function createHashTag(hashtag,post)
+{
+	var hashtag_hash= commit("hashtag",hashtag);
+	var me = getMe();
+	var directory = getDirectory();
+
+	commit("hashtag_links",{Links:[{Base:me,Link:hashtag_hash,Tag:"hashtag"}]});
+  commit("hashtagPost_links",{Links:[{Base:hashtag_hash,Link:post,Tag:"post"}]});
+	commit("directory_links",{Links:[{Base:directory,Link:hashtag_hash,Tag:"hashtag"}]});
+
+	debug(hashtag+" added with hash : "+hashtag_hash+"======================================");
+  return hashtag_hash;
+}
+
+function LinkorCreateHT(hashtag,post)
+{
+
+	var hash = getHashtag(hashtag);
+  var hashtagHash = makeHash(hashtag);
+	if(hash == "")
+	{
+		debug("creating..");
+		var createdHT=createHashTag(hashtag,post);
+    return createdHT;
+	}
+	else
+	{
+		debug("Hashtag Already Exisits !!!!!!!!!!!!!!!!!!!!!!!! Creating link for :"+hashtag);
+		commit("hashtagPost_links",{Links:[{Base:hashtagHash,Link:post,Tag:"post"}]});
+    gethashtagPosts(hashtagHash);
+    return hashtagHash;
+  }
+}
+
+function gethashtagPosts(hashtagHash)
+{
+  var me = getMe();
+
+  var HTLink = doGetLinkLoad(me,"hashtag");
+  debug("Printing HTLink length : "+HTLink.length);
+
+  for(i=0;i<HTLink.length;i++)
+  {
+    var ht = HTLink[i];
+    debug("Comparing Value with ht hash : "+ht.H+" -> "+hashtagHash);
+    if(ht.H == hashtagHash)
+    {
+      debug("Inside IF....")
+      var relatedPosts = doGetLinkLoad(ht.H,"post");
+      debug("Related posts of hashtag : "+ht.hashtag+" are : ");
+      for(var j=0;j<relatedPosts.length;j++)
+      {
+        var p = relatedPosts[j];
+        debug(p.post);
+        var checkP = get(p.H,{GetMask:HC.GetMask.Entry});
+        debug(property(checkP));
+      }
+      break;
+    }
+
+  }
+
+}
+
+function makeFavourite(handle,post)
+{
+  debug("Adding post to favourite for handle :"+handle);
+  commit("FavouritePost_links",{Links:[{Base:handle,Link:post,Tag:"favourite"}]});
+
+  getFavouritePosts(handle);
+}
+
+function getFavouritePosts(handleHash)
+{
+
+      var relatedPosts = doGetLinkLoad(handleHash,"favourite");
+      debug("Favourite posts for handle : "+handleHash+" are : ");
+      for(var j=0;j<relatedPosts.length;j++)
+      {
+        var p = relatedPosts[j];
+        debug(p.post);
+
+      }
 }
 
 function postMod(params) {
@@ -114,6 +247,7 @@ function newHandle(handle){
     return addHandle(handle);
 }
 
+
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
 function getHandle(userHash) {
     var handles = doGetLinkLoad(userHash,"handle");
@@ -137,6 +271,18 @@ function getAgent(handle) {
     return "";
 }
 
+function getHashtag(handle) {
+    var directory = getDirectory();
+    var handleHash = makeHash(handle);
+    var sources = get(handleHash,{GetMask:HC.GetMask.Sources});
+
+    if (isErr(sources)) {sources = [];}
+    if (sources != undefined) {
+        var n = sources.length -1;
+        return (n >= 0) ? sources[n] : "";
+    }
+    return "";
+}
 // ==============================================================================
 // HELPERS: unexposed functions
 // ==============================================================================

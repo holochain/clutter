@@ -1,0 +1,36 @@
+[
+  {
+      "Convey":"Detect hashtag from a post",
+      "Zome": "clutter",
+      "FnName": "detectHashtag",
+      "Input": "testing for hashtag #buffaloBill",
+      "Output": "#buffaloBill",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+  },
+  {
+    "Convey":"Create a hashtag if it doesn not exist",
+    "Zome": "clutter",
+    "FnName": "createHashTag",
+    "Input": {"hashtag":"#buffaloBill",
+              "post": {"stamp": 12346,
+                       "message":"testing for hashtag #buffaloBill"}},
+    "Output": "\"%h2%\"",
+    "Exposure":"public",
+    "Err": "",
+    "Regexp": ""
+  },
+  {
+      "Convey":"Link a post to hashtag or Create the hashtag if it does not exist",
+      "Zome":   "clutter",
+      "FnName": "LinkorCreateHT",
+      "Input": {"hashtag": "#buffaloBill",
+                "post": {"stamp": 12346,
+                         "message":"testing for hashtag #buffaloBill"}},
+      "Output": "\"%h2%\"",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+  }
+]

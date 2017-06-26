@@ -26,6 +26,11 @@
                     "DataFormat": "string",
                     "Sharing": "public"
                 },
+		{
+                    "Name": "hashtag",
+                    "DataFormat": "string",
+                    "Sharing": "public"
+                },
                 {
                     "Name": "post",
                     "DataFormat": "json",
@@ -40,6 +45,18 @@
                     "Name": "handle_links",
                     "DataFormat": "links"
                 },
+		            {
+                    "Name": "hashtag_links",
+                    "DataFormat": "links"
+                },
+		            {
+			              "Name": "hashtagPost_links",
+			              "DataFormat": "links"
+		            },
+                {
+			              "Name": "FavouritePost_links",
+			              "DataFormat": "links"
+		            },
                 {
                     "Name": "directory_links",
                     "DataFormat": "links"
@@ -119,6 +136,27 @@
                     "Name": "getFollow",
                     "CallingType": "json",
                     "Exposure":"public"
+                },
+
+                {
+                    "Name": "detectHashtag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "createHashTag",
+                    "CallingType": "json",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "LinkorCreateHT",
+                    "CallingType": "json",
+                    "Exposure":"public"
+                }
+                {
+                  "Name":"makeFavourite",
+                  "CallingType":"json",
+                  "Exposure":"public"
                 }
             ]
         }
