@@ -163,26 +163,6 @@ function gethashtagPosts(hashtagHash)
 
 }
 
-function makeFavourite(handle,post)
-{
-  debug("Adding post to favourite for handle :"+handle);
-  commit("FavouritePost_links",{Links:[{Base:handle,Link:post,Tag:"favourite"}]});
-
-  getFavouritePosts(handle);
-}
-
-function getFavouritePosts(handleHash)
-{
-
-      var relatedPosts = doGetLinkLoad(handleHash,"favourite");
-      debug("Favourite posts for handle : "+handleHash+" are : ");
-      for(var j=0;j<relatedPosts.length;j++)
-      {
-        var p = relatedPosts[j];
-        debug(p.post);
-
-      }
-}
 
 function postMod(params) {
     var hash = params.hash;
