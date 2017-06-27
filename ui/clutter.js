@@ -1,4 +1,4 @@
-var App = {posts:{},users:{},handles:{},follows:{},handle:"",me:""};
+var App = {posts:{},users:{},handles:{},follows:{},favorites:{},handle:"",me:""};
 
 function getHandle(who,callbackFn) {
     send("getHandle",who,function(handle) {
@@ -93,8 +93,27 @@ function getUserHandle(user) {
 
 function makePostHTML(id,post) {
     var d = new Date(post.stamp);
+    var likes=false;
     var handle = getUserHandle(post.author);
-    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'</div></div>';
+    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'</div><div id="like-post"><a class="meow-like" href="#" onclick="addToLikes('+id+','+likes+')"><img src="like.png" style="width: 3em; height: 3em;" /></a></div></div>';
+}
+
+// edited here
+function addToLikes(id,likes) {
+    var handle=getUserHandle(post.author);
+    var likes="true";
+    if (likes)
+    {
+        
+    }
+    else
+    {
+
+    }
+    //------
+    $("#editedMessage").val(App.posts[id].message);
+    $('#postID').val(id);
+    $('#editPostDialog').modal('show');
 }
 
 function makeUserHTML(user) {
@@ -283,6 +302,8 @@ function openEditPost(id) {
     $('#postID').val(id);
     $('#editPostDialog').modal('show');
 }
+
+
 
 function unfollow(button) {
     // pull the handle out from the HTML

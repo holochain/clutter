@@ -195,12 +195,18 @@ debug("POST DATA :: "+JSON.stringify(posts));
 return posts
 }
 
+// working on this
+function markAsFavorite(post){
 
+  var favorites=[];
+  var postHash=commit("post",post);
+  var me = getMe();
 
+  // link the post to the user who clicks on favorite
+  commit("post_links",{Links:[{Base:me,Link:postHash,Tag:"hashtag"}]});
+  commit("post_links",{Links:[{Base:me,Link:postHash,Tag:"hashtag"}]});
 
-
-
-
+}
 
 
 /*   ---------------- do not modify below this!-----------------   */

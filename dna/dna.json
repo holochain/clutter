@@ -55,6 +55,10 @@
                     "DataFormat": "links"
                 },
                 {
+                    "Name": "post_links",
+                    "DataFormat": "links"
+                },
+                {
                     "Name": "directory_links",
                     "DataFormat": "links"
                 },
