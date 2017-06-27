@@ -16,6 +16,10 @@
   <body>
     <div class="alphabox" style="float: right; padding-left: 1em; padding-right: 1em; margin-bottom: 0.5em; margin-left: 0.5em;">
       <button id="followButton">Follow</button>
+      <button id="tagButton">#TAG's</button>
+
+      <a href="fav.html"><button id="FavioriteButton">Faviorites</button></a>
+
       <form id="search-form" style="display:none;">
         <input id="search" name="search" type="text" size="20" />
 	<button type="submit" onClick="doSearch();return false;">Search</button>
@@ -68,7 +72,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Follow</h4>
+            <h4 class="modal-title" id="myModalLabel">Follow Changed</h4>
           </div>
           <div class="modal-body">
             <form>
@@ -88,6 +92,33 @@
         </div>
       </div>
     </div>
+    <h1>MY Code</h1>
+    <div class="modal fade" id="tagDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Search #TAGs</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="tagHandle">#Tag</label>
+                <input type="text" class="form-control" id="tagHandle" placeholder="#Hashtag">
+                <button id="submitTag" type="button" class="btn btn-primary">Search #Tags</button>
+              </div>
+            </form>
+            <h4>Tags:</h4>
+            <div id="tag_post"></div>
+
+          </div>
+          <div class="modal-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="modal fade" id="setHandleDialog" tabindex="-1" role="dialog" aria-labelledby="setHandleModalLabel">
       <div class="modal-dialog" role="document">
@@ -133,6 +164,5 @@
         </div>
       </div>
     </div>
-
   </body>
 </html>
