@@ -1,4 +1,4 @@
-var App = {posts:{},users:{},handles:{},follows:{},handle:"",me:""};
+var App = {posts:{},users:{},handles:{},follows:{},handle:"",me:"",tag_post:{}};
 
 function getHandle(who,callbackFn) {
     send("getHandle",who,function(handle) {
@@ -56,7 +56,38 @@ function addPost() {
         $("#meows").prepend(makePostHTML(id,post,App.handle));
     });
 }
+/*
+function addTag()//WAIST::-> IF YOUR DISPLAYING WHAT IS JUST TYPED
+{
+  var hashtag = $("#tagHandle").val();
+  send("getPostsByTag",JSON.stringify(hashtag),function(data) {
+      post.key = JSON.parse(data); // save the key of our post to the post
+      post.author = App.me;
+      var id = cachePost(post);
+      $("#meows").prepend(makePostHTML(id,post,App.handle));
+  });
+}
+*/
 
+function addFav(id,post)//TODO add a Favorite quickly
+{
+//a=App.post[id].author;
+//  var id = $('#postID').val();
+send("postFav",JSON.stringify({hash:App.posts[id].key,post:post}),function(data) {
+    post.key = JSON.parse(data); // save the key of our post to the post
+    post.author = App.me;
+    $("#"+id).remove();
+  //  id = cachePost(post);
+  //  $("#meows").prepend(makePostHTML(id,post,App.handle));
+});
+/*  send("postFav",JSON.stringify(posts),function(data){
+    //TODO nothing
+    post.key = JSON.parse(data); // save the key of our post to the post
+    post.author = App.me;
+    var id = cachePost(post);
+    $("#meows").prepend(makePostHTML(id,post,App.handle));
+  });*/
+}
 function doEditPost() {
     var now = new(Date);
     var id = $('#postID').val();
@@ -94,9 +125,17 @@ function getUserHandle(user) {
 function makePostHTML(id,post) {
     var d = new Date(post.stamp);
     var handle = getUserHandle(post.author);
-    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'</div></div>';
+    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><a class="meow-fav" href="#" onclick="addFav('+post+')">Add Favorite</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'</div></div>';
 }
-
+function makeTagPostHTML(id,tag_post) {
+  //  var d = new Date(tag_post.stamp);
+var d="DATE TO BE SEEN";
+author="JOEL";
+message="THIS IS MY message";
+    var handle =123;
+    //getUserHandle(tag_post.author);
+    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><a class="meow-fav" href="#" onclick="addFav('+post+')">Add Favorite</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+author+'\');">'+handle+'</a><div class="message">'+message+'</div></div>';
+}
 function makeUserHTML(user) {
     return '<div class="user">'+user.handle+'</div>';
 }
@@ -119,8 +158,7 @@ function getMyFeed() {
 }
 
 function getPosts(by) {
-
-    // check to see if we have the author's handles
+  // check to see if we have the author's handles
     for (var i=0;i<by.length;i++) {
         var author = by[i];
         var handle = App.handles[author];
@@ -143,14 +181,56 @@ function getPosts(by) {
         displayPosts();
     });
 }
+function getTag (tag) {
+  //debug("ENTERing getPostsByTag");
+    // check to see if we have the author's handles
+   send("getPostsByTag",tag,function(arr) {
+  //    debug("ENTERED THE FUNCTION");
+      //arr = JSON.parse(arr);
+    //  arr = JSON.stringify(arr);
+arr=JSON.parse(arr);
+    //   console.log("posts: " + JSON.stringify(arr));
 
+        $("#tag_post").prepend(makeTagHTML());
+        var len = arr.length;
+       if (len > 0) {
+           for (var i = 0; i < len; i++) {
+    //            var tag_post = JSON.parse(arr[0].tag_post);
+      //          tag_post.author = arr[i].author;
+    //            var id = cacheTagPost(tag_post);
+              //    $("#tag_post").html("");
+                //  $("#tag_post").append(makeTagPostHTML(id,post));
+              //    $("#tag_post").prepend(makeTagPostHTML(id,post));
+              //    $("#tag_post").prepend(makeTagHTML());
+              /*    $("#tag_post").html("");
+                  len = handles.length;
+                  for (i = 0; i < len; i++) {
+                      $("#tag_post").append(makeFollowingHTML(handles[i]));
+                  }*/
+            }
+        }
+
+    });
+
+    /*    $.getscript("/fn/clutter/",function(){
+      recived =   getPostsByTag(tag);
+      displayTagPosts(recived);
+        });
+
+    */
+}
 function cachePost(p) {
     //console.log("Caching:"+JSON.stringify(p));
     var id = p.stamp;
     App.posts[id] = p;
     return id;
 }
-
+function cacheTagPost(p) {
+    //console.log("Caching:"+JSON.stringify(p));
+    var id = p.stamp;
+    App.tag_posts[id] = p;
+    return id;
+}
 function cacheUser(u) {
     App.users[u.handle] = u;
     App.handles[u.hash] = u;
@@ -169,7 +249,17 @@ function uncacheFollow(f) {
 function makeFollowingHTML(handle) {
     return "<div class='following-handle'><span class='handle'>"+handle+'</span><button type="button" class="close" aria-label="Close" onclick="unfollow(this);"><span aria-hidden="true">&times;</span></button></div>';
 }
+function makeTagHTML() {
+  h=123;
+  id=1234;
+  d="12th SUNDAY"
+  author="joel";
+  message="THIS IS A TEST"
+  return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><a class="meow-fav" href="#" onclick="favPost('+post+')">Add Favorite</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+author+'\');">'+h+'</a><div class="message">'+message+'</div></div>';
 
+//  return "<div class='following-handle'><span class='handle'>"+handle+'</span><button type="button" class="close" aria-label="Close" onclick="unfollow(this);"><span aria-hidden="true">&times;</span></button></div>';
+
+  }
 function displayFollowing() {
     var handles = [];
     var following = Object.keys(App.follows);
@@ -187,7 +277,37 @@ function displayFollowing() {
         $("#following").append(makeFollowingHTML(handles[i]));
     }
 }
+function displayTAGS() {
 
+//WORKES FINE
+    $("#tag_post").html("");
+    len = 1;
+
+    for (i = 0; i < len; i++) {
+        //$("#tag_post").append(makeTagHTML());
+
+            $("#tag_post").append(makeTagPostHTML());
+    }
+}
+/*
+function displayTAGS() {
+    var handles = [];
+    var tag = Object.keys(App.hashTag);
+    var len = tag.length;
+    for (var i = 0; i < len; i++) {
+        var t = tag[i];
+        if (t != undefined) {
+            handles.push(t);
+        }
+    }
+    handles.sort();
+    $("#following").html("");
+    len = handles.length;
+    for (i = 0; i < len; i++) {
+        $("#following").append(makeFollowingHTML(handles[i]));
+    }
+}
+*/
 function displayPosts(filter) {
     var keys = [],
     k, i, len;
@@ -213,7 +333,31 @@ function displayPosts(filter) {
         $("#meows").append(makePostHTML(k,post));
     }
 }
+function displayTagPosts(filter) //TODO FOR THE SEARCH BAR
+ {
+    var keys = [],
+    k, i, len;
 
+    for (k in App.tag_posts) {
+        if (filter != undefined) {
+            if (filter.includes(App.tag_posts[k].handle)) {
+                keys.push(k);
+            }
+        } else {
+            keys.push(k);
+        }
+    }
+
+    keys.sort().reverse();
+    len = keys.length;
+
+    $("#tag_posts").html("");
+    for (i = 0; i < len; i++) {
+        k = keys[i];
+        var post = App.tag_posts[k];
+        $("#tag_posts").append(makeTagPostHTML(k,tag_post));
+    }
+}
 function doFollow() {
     var handle = $("#followHandle").val();
 
@@ -226,6 +370,13 @@ function doFollow() {
         }
         $('#followDialog').modal('hide');
     });
+}
+function passTag() {
+    var hashtag = $("#tagHandle").val();
+getTag(hashtag);
+
+        $('#followDialog').modal('hide');
+
 }
 
 function doSearch() {
@@ -273,6 +424,11 @@ function openFollow() {
     displayFollowing();
     $('#followDialog').modal('show');
 }
+function openTag(){
+  $("#tagHandle").val("");
+  displayTAGS(); //TODO displayTAGS
+  $('#tagDialog').modal('show');
+}
 
 function openSetHandle() {
     $('#setHandleDialog').modal('show');
@@ -283,6 +439,13 @@ function openEditPost(id) {
     $('#postID').val(id);
     $('#editPostDialog').modal('show');
 }
+/*function favPost(post) {
+//    $("#editedMessage").val(App.posts[id].message);
+  //  $('#postID').val(id);
+
+  //  $('#editPostDialog').modal('show');
+  addFav(post);
+}*/
 
 function unfollow(button) {
     // pull the handle out from the HTML
@@ -312,6 +475,8 @@ function showFeed() {
 $(window).ready(function() {
     $("#submitFollow").click(doFollow);
     $('#followButton').click(openFollow);
+    $('#tagButton').click(openTag);
+    $('#submitTag').click(passTag);
     $("#handle").on("click", "", openSetHandle);
     $('#setHandleButton').click(doSetHandle);
     $('#search-results.closer').click(hideSearchResults);

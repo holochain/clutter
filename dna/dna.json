@@ -26,6 +26,7 @@
                     "DataFormat": "string",
                     "Sharing": "public"
                 },
+
                 {
                     "Name": "post",
                     "DataFormat": "json",
@@ -47,6 +48,27 @@
                 {
                     "Name": "follow",
                     "DataFormat": "links"
+                },
+                {
+                    "Name": "faviorite",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "faviorite.json"
+                },
+                {
+                  "Name": "hashTag",
+                  "DataFormat": "string",
+                  "Sharing": "public"
+                },
+                {
+                    "Name": "hashTag_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "tag_post",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "tag_post.json"
                 },
                 {
                     "Name": "unfollow",
@@ -78,6 +100,46 @@
                 {
                     "Name": "addPost",
                     "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "addHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getPostsByTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "doGetTagLinkLoad",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "detectHashtag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "addHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "linkHashTags",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "postFav",
+                    "CallingType": "json",
                     "Exposure":"public"
                 },
                 {
