@@ -49,10 +49,10 @@ function post(post) {
     debug(post);
     debug(post.message);
     debug("Starting HASHtag search");
-    hashTag=detectHashtag(post.message);
+    hashTagList=detectHashtags(post.message);
 
 
-    if (hashTag != null)
+    if (hashTagList != null)
     {
       debug(hashTag);
       debug("Hashtag/s found in post");
@@ -73,7 +73,7 @@ function post(post) {
 }
 
 
-function detectHashtag(postString)
+function detectHashtags(postString)
 {
 //  String str="#important thing in #any programming #7 #& ";
   debug("STARING");
@@ -153,8 +153,8 @@ function gethashtagPosts(hashtagHash)
       {
         var p = relatedPosts[j];
         debug(p.post);
-        var checkP = get(p.H,{GetMask:HC.GetMask.Entry});
-        debug(property(checkP));
+        //var checkP = get(p.H,{GetMask:HC.GetMask.Entry});
+        //debug(property(checkP));
       }
       break;
     }
@@ -162,7 +162,6 @@ function gethashtagPosts(hashtagHash)
   }
 
 }
-
 
 function postMod(params) {
     var hash = params.hash;
