@@ -1,0 +1,44 @@
+[
+    {
+        "Convey":"Detect hashtags from the post",
+        "Zome": "clutter",
+        "FnName": "detectHashtag",
+        "Input": "This is a post for #buffaloBill",
+        "Output": "#buffaloBill",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"Search if hashtag preexists in the DHT",
+        "Zome": "clutter",
+        "FnName": "findHashtag",
+        "Input": "#buffaloBill1",
+        "Output": "",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"Search if hashtag preexists in the DHT",
+        "Zome": "clutter",
+        "FnName": "findHashtag",
+        "Input": "#buffaloBill2",
+        "Output": "H",//sources[n]
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"Search if hashtag preexists in the DHT",
+        "Zome": "clutter",
+        "FnName": "searchHashTag",
+        "Input": {"hashtag": "#buffaloBill",
+                  "post": {"stamp": 12346,
+                           "message":"this is the modified post"}},
+        "Output": "",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    }
+  ]

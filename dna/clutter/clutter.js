@@ -37,19 +37,173 @@ function unfollow(userAddress){
                       {Base:me,Link:userAddress,Tag:"following",LinkAction:HC.LinkAction.Del}
                   ]});
 }
-
+// -- post method modified  --
 function post(post) {
-    var key = commit("post",post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
-    var me = getMe();                       // Looks up my hash address and assign it to 'me'
-                                            // which DHT nodes will use to request validation info from my source chain
+   var key = commit("post",post);        // Commits the post block to  my source chain, assigns resulting hash to 'key'
+   var me = getMe();                       // Looks up my hash address and assign it to 'me'
+                                           // which DHT nodes will use to request validation info from my source chain
+   commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
+
+  // TODO detect a hash
+   debug(post);
+   debug(post.message);
+   debug("Starting HASHtag search");
+ //  var hashtag=[];
+   hashTag=detectHashtag(post.message);
+//  var a=hashtag[0];
+
+   if (hashTag != null)
+   {
+     debug(hashTag);
+     debug("Hashtag found");
+     //TODO searchHashTag(hashtag)}
+    searchHashTag(hashTag,post);
+     //debug(::HASHTAGE SAVED::);
+}
+else {
+     debug("Hashtag not found");
+
+   }      // On the DHT, puts a link on my hash to the new post
+
+
+  debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
+   debug(key);
+   return key;                                  // Returns the hash key of the new post to the calling function
+}
+function detectHashtag(postString)
+{
+//  String str="#important thing in #any programming #7 #& ";
+debug("STARTING");
+
+debug("regexp");
+ var regexp = /\B\#\w\w+\b/g;
+ hashtag = String(postString).match(regexp);
+debug("RETURNING hash tag");
+//debug(hashtag[0]);
+a=hashtag;
+debug("CHECKING THIS");
+debug(typeof hashtag);
+ if (hashtag != null)
+ {
+   debug("hashtag");
+   return hashtag;
+ }
+ else
+ {debug("NULL");
+   return null;
+}
+
+return hashtag;
+}
+
+// *** my modifications here ***
+
+function searchHashTag(hashtag,post)
+{
+  var len= hashtag.length;
+  var aux=[];
+  var directory=getDirectory();
+  for (var i=0;i <hashtag.length;i++) {
+
+    //aux[i]= commit("hashtag",hashtag[i]);
+    aux[i]= hashtag[i];
+    var x=findHashtag(aux[i]);
+    debug("value of x"+x);
+    if(x==="")
+    {
+      debug("creating new hashtag");
+      createHashTag(aux[i],post);
+    }
+    else{
 
       // On the DHT, puts a link on my hash to the new post
-    commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
+      debug("Adding to existing hashtag");
+      var y= commit("hashtag_links",{Links:[{Base: x,Link: post ,Tag:"post"}]});
+      debug("Look out for hash tag links here!!: "+JSON.stringify(getLink(directory,"hashtag",{Load:true})));
 
-    debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
-    debug(key);
-    return key;                                  // Returns the hash key of the new post to the calling function
+      debug("Linked hashtag!!: "+JSON.stringify(getLink(x,"post",{Load:true})));
+
+    }
+  }
+  return "";
 }
+//  temp is not yet hashed
+function findHashtag(hashtag)  //same as getAgent
+{
+  debug(" matching hash against DHT");
+  var tempHash=makeHash(hashtag);
+
+  var sources=get(tempHash,{GetMask:HC.GetMask.Sources});
+  if (isErr(sources)) {
+    sources = [];
+  }
+  if (sources != undefined) {
+      var n = sources.length -1;
+      return (n >= 0) ? sources[n] : "";
+  }
+  return "";
+}
+
+function createHashTag(hashtag,post){
+  var x=commit("hashtag",hashtag);
+  var directory = getDirectory();
+  var me = getMe();
+  // On the DHT, puts a link on the directory to the hashtag contained new post
+  commit("hashtag_links",{Links:[{Base:me,Link:x,Tag:"hashtag"}]});
+  // On the DHT, puts a link on my hash to the hashtag contained new post
+  commit("directory_links",{Links:[{Base: directory,Link: x,Tag:"hashtag"}]});
+  // linking my post to the new hash tag
+
+  var z=findHashtag(hashtag);
+  debug("(After creating hashtag)find hash tag is blank if not found so - "+z);
+  commit("hashtag_links",{Links:[{Base: x,Link: post ,Tag:"post"}]})
+  var arr;
+  arr=getPostsByHashTag(hashtag);
+  debug("**posts under hashtag ** -->:  "+arr);
+
+  debug("Look out for directory hash tag-links here!!: "+JSON.stringify(getLink(directory,"hashtag",{Load:true})));
+
+  debug("Look out for my source chain hash tag-links here!!: "+JSON.stringify(getLink(me,"hashtag",{Load:true})));
+
+
+
+}
+
+function getPostsByHashTag(hashtag){
+  var posts=[];
+  debug("**posts under hashtag ** :  "+hashtag);
+  debug(" searching hash against DHT to retrieve");
+  //var hashtagHash=makeHash(hashtag);
+  var z=findHashtag(hashtag);
+//  debug("(Inside getPostsByHashTag :hash tag if found  - ");
+//  if(z==="")
+//  {
+//    debug("Hash tag does not exist within DHT");
+//  }else{
+    var hashtagPosts=doGetLinkLoad(z,"post"); // how does doGetLinkLoad work?
+    debug("hashtagPosts;>"+hashtagPosts);  // not printing hashtagPosts
+    for(var j=0;j<hashtagPosts.length;j++) {
+            var post = hashtagPosts[j];
+            post.hashtag = hashtag;
+            posts.push(post);
+      }
+
+//  }
+
+debug("PRINT POST :: "+posts);
+debug("POST DATA :: "+JSON.stringify(posts));
+return posts
+}
+
+
+
+
+
+
+
+
+
+/*   ---------------- do not modify below this!-----------------   */
 
 function postMod(params) {
     var hash = params.hash;
@@ -132,6 +286,8 @@ function getAgent(handle) {
     if (isErr(sources)) {sources = [];}
     if (sources != undefined) {
         var n = sources.length -1;
+        debug("printing sources[n]"+sources[n]);
+
         return (n >= 0) ? sources[n] : "";
     }
     return "";

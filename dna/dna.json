@@ -27,6 +27,16 @@
                     "Sharing": "public"
                 },
                 {
+                    "Name": "hashtag",
+                    "DataFormat": "string",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "handle",
+                    "DataFormat": "string",
+                    "Sharing": "public"
+                },
+                {
                     "Name": "post",
                     "DataFormat": "json",
                     "Sharing": "public",
@@ -38,6 +48,10 @@
                 },
                 {
                     "Name": "handle_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "hashtag_links",
                     "DataFormat": "links"
                 },
                 {
@@ -119,7 +133,32 @@
                     "Name": "getFollow",
                     "CallingType": "json",
                     "Exposure":"public"
+                },
+                {
+                    "Name": "detectHashtag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "createHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },{
+                    "Name": "findHashtag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "searchHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getPostsByHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
                 }
+
             ]
         }
     ]
