@@ -1,0 +1,14 @@
+[
+  {
+      "Convey":"Tag a post as favourite",
+      "Zome": "clutter",
+      "FnName": "makeFavourite",
+      "Input": {"hashtag":"testHandle",
+                "post": {"stamp": 12346,
+                         "message":"testing for handle testHandle"}},
+      "Output": "abc",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+  }
+]

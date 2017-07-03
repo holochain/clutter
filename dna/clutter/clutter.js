@@ -49,17 +49,18 @@ function post(post) {
     debug(post);
     debug(post.message);
     debug("Starting HASHtag search");
-    hashTagList=detectHashtags(post.message);
+    var hashTag_List= call ("anchorHashtag","detectHashtags",post.message);
+    //$.post("/fn/anchorHashtag/detectHashtags",post.message,function(somevar){});
 
 
-    if (hashTagList != null)
+    if (hashTag_List != null)
     {
-      debug(hashTag);
+      debug(hashTag_List);
       debug("Hashtag/s found in post");
-	     for(var i in hashtag)
+	     for(var i in hashTag_List)
 	      {
-		         var ht = hashtag[i];
-             LinkorCreateHT(ht,post_hash);
+		         var ht = hashTag_List[i];
+             call ("anchorHashtag","LinkorCreateHT",ht,post_hash);
       	}
       }
       else
@@ -73,94 +74,29 @@ function post(post) {
 }
 
 
-function detectHashtags(postString)
+function makeFavourite(handle,post)
 {
-//  String str="#important thing in #any programming #7 #& ";
-  debug("STARING");
+  var hh = makeHash(handle);
+  var ph= makeHash(post);
+  debug("Adding post to favourite for handle :"+handle);
+  commit("FavouritePost_links",{Links:[{Base:handle,Link:post,Tag:"Favpost"}]});
 
-  debug("regexp");
-  var regexp = /\B\#\w\w+\b/g;
-  hashtag = String(postString).match(regexp);
-  debug("RETURNING hash tag");
-  a=hashtag;
-  debug("CHECKING THIS");
-  debug(typeof hashtag);
-  if (hashtag != null)
-  {
-    debug("hashtag");
-    return hashtag;
-  }
-  else
-  {
-    debug("NULL");
-    return null;
-  }
-
-  return hashtag;
+  getFavouritePosts(hh);
 }
 
-function createHashTag(hashtag,post)
-{
-	var hashtag_hash= commit("hashtag",hashtag);
-	var me = getMe();
-	var directory = getDirectory();
-
-	commit("hashtag_links",{Links:[{Base:me,Link:hashtag_hash,Tag:"hashtag"}]});
-  commit("hashtagPost_links",{Links:[{Base:hashtag_hash,Link:post,Tag:"post"}]});
-	commit("directory_links",{Links:[{Base:directory,Link:hashtag_hash,Tag:"hashtag"}]});
-
-	debug(hashtag+" added with hash : "+hashtag_hash+"======================================");
-  return hashtag_hash;
-}
-
-function LinkorCreateHT(hashtag,post)
+function getFavouritePosts(handleHash)
 {
 
-	var hash = getHashtag(hashtag);
-  var hashtagHash = makeHash(hashtag);
-	if(hash == "")
-	{
-		debug("creating..");
-		var createdHT=createHashTag(hashtag,post);
-    return createdHT;
-	}
-	else
-	{
-		debug("Hashtag Already Exisits !!!!!!!!!!!!!!!!!!!!!!!! Creating link for :"+hashtag);
-		commit("hashtagPost_links",{Links:[{Base:hashtagHash,Link:post,Tag:"post"}]});
-    gethashtagPosts(hashtagHash);
-    return hashtagHash;
-  }
-}
-
-function gethashtagPosts(hashtagHash)
-{
-  var me = getMe();
-
-  var HTLink = doGetLinkLoad(me,"hashtag");
-  debug("Printing HTLink length : "+HTLink.length);
-
-  for(i=0;i<HTLink.length;i++)
-  {
-    var ht = HTLink[i];
-    debug("Comparing Value with ht hash : "+ht.H+" -> "+hashtagHash);
-    if(ht.H == hashtagHash)
-    {
-      debug("Inside IF....")
-      var relatedPosts = doGetLinkLoad(ht.H,"post");
-      debug("Related posts of hashtag : "+ht.hashtag+" are : ");
+      var relatedPosts = doGetLinkLoad(handleHash,"Favpost");
+      debug("Favourite posts for handle : "+handleHash+" are : ");
       for(var j=0;j<relatedPosts.length;j++)
       {
         var p = relatedPosts[j];
-        debug(p.post);
-        //var checkP = get(p.H,{GetMask:HC.GetMask.Entry});
-        //debug(property(checkP));
+        debug(p.Favpost);
+
       }
-      break;
-    }
-
-  }
-
+      debug(relatedPosts);
+      return relatedPosts;
 }
 
 function postMod(params) {

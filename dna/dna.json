@@ -26,13 +26,15 @@
                     "DataFormat": "string",
                     "Sharing": "public"
                 },
-		{
-                    "Name": "hashtag",
-                    "DataFormat": "string",
-                    "Sharing": "public"
-                },
+
                 {
                     "Name": "post",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "post.json"
+                },
+                {
+                    "Name": "Favpost",
                     "DataFormat": "json",
                     "Sharing": "public",
                     "SchemaFile": "post.json"
@@ -45,14 +47,7 @@
                     "Name": "handle_links",
                     "DataFormat": "links"
                 },
-		            {
-                    "Name": "hashtag_links",
-                    "DataFormat": "links"
-                },
-		            {
-			              "Name": "hashtagPost_links",
-			              "DataFormat": "links"
-		            },
+
                 {
 			              "Name": "FavouritePost_links",
 			              "DataFormat": "links"
@@ -138,27 +133,79 @@
                     "Exposure":"public"
                 },
 
-                {
-                    "Name": "detectHashtag",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "createHashTag",
-                    "CallingType": "json",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "LinkorCreateHT",
-                    "CallingType": "json",
-                    "Exposure":"public"
-                }
+
                 {
                   "Name":"makeFavourite",
                   "CallingType":"json",
                   "Exposure":"public"
+                },
+                {
+                  "Name":"getFavouritePosts",
+                  "CallingType":"json",
+                  "Exposure":"public"
                 }
             ]
-        }
+        },
+        {
+          "Name": "holodex",
+          "Description": "zome that implements indexing ",
+          "RibosomeType": "js",
+          "CodeFile": "holodex.js",
+          "Entries": [
+            {
+              "Name" : "NumberOfIndexNodes",
+              "CallingType" : "integer",
+              "Exposure" : "public"
+            },
+            {
+              "Name" : "stringPassedToIndex", 
+              "CallingType" : "string",
+              "Exposure" : "public"
+            }
+          ],
+          "Functions":[
+
+          ]
+        },
+        {
+          "Name" : "anchorHashtag",
+          "Description" : "zome that implements the hashtag anchor",
+          "RibosomeType" : "js",
+          "CodeFile" : "anchorHashtag.js",
+          "Entries" : [
+            {
+                "Name": "hashtag",
+                "DataFormat": "string",
+                "Sharing": "public"
+            },
+            {
+                "Name": "hashtag_links",
+                "DataFormat": "links"
+            },
+            {
+                "Name": "hashtagPost_links",
+                "DataFormat": "links"
+            }
+
+          ],
+          "Functions" : [
+            {
+                "Name": "detectHashtags",
+                "CallingType": "string",
+                "Exposure":"public"
+            },
+            {
+                "Name": "createHashTag",
+                "CallingType": "json",
+                "Exposure":"public"
+            },
+            {
+                "Name": "LinkorCreateHT",
+                "CallingType": "json",
+                "Exposure":"public"
+            }
+          ]
+         }
+
     ]
 }
