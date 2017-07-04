@@ -1,0 +1,13 @@
+{
+    "title": "Anchor_Link Schema",
+    "type": "object",
+    "properties": {
+	"Base": {
+	    "type": "string"
+	},
+	"Target": {
+	    "type": "string"
+	}
+    },
+    "required": ["Base","Target"]
+}
