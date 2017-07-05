@@ -28,7 +28,7 @@
               },
               {
                   "Name": "anchor_link",
-                  "DataFormat": "json",
+                  "DataFormat": "links",
                   "Sharing": "public"
               }
           ],
