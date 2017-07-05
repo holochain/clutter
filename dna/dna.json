@@ -27,7 +27,7 @@
                   "Sharing": "public"
               },
               {
-                  "Name": "anchor_link",
+                  "Name": "anchor_links",
                   "DataFormat": "links",
                   "Sharing": "public"
               }
