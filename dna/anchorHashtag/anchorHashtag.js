@@ -27,7 +27,7 @@ function createHashTag(hashtag,post)
 {
 	var hashtag_hash= commit("hashtag",hashtag);
 	var me = getMe();
-	var directory = getDirectory();
+	var directory = App.DNA.Hash;
 
 	commit("hashtag_links",{Links:[{Base:me,Link:hashtag_hash,Tag:"hashtag"}]});
   commit("hashtagPost_links",{Links:[{Base:hashtag_hash,Link:post,Tag:"post"}]});
