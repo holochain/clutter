@@ -27,9 +27,14 @@
                   "Sharing": "public"
               },
               {
-                  "Name": "anchor_link",
+                  "Name": "anchor_links",
                   "DataFormat": "links",
                   "Sharing": "public"
+              },
+              {
+                "Name": "anchorType_links",
+                "DataFormat": "links",
+                "Sharing": "public"
               }
           ],
           "Functions": [
