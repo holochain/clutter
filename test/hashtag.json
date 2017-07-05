@@ -24,7 +24,7 @@
         "Zome": "clutter",
         "FnName": "findHashtag",
         "Input": "#buffaloBill2",
-        "Output": "H",//sources[n]
+        "Output": "%key%",
         "Exposure":"public",
         "Err": "",
         "Regexp": ""

@@ -32,11 +32,6 @@
                     "Sharing": "public"
                 },
                 {
-                    "Name": "handle",
-                    "DataFormat": "string",
-                    "Sharing": "public"
-                },
-                {
                     "Name": "post",
                     "DataFormat": "json",
                     "Sharing": "public",
@@ -55,8 +50,10 @@
                     "DataFormat": "links"
                 },
                 {
-                    "Name": "post_links",
-                    "DataFormat": "links"
+                  "Name": "favorites",
+                  "DataFormat": "json",
+                  "Sharing": "public",
+                  "SchemaFile": "post.json"
                 },
                 {
                     "Name": "directory_links",
@@ -75,7 +72,12 @@
                     "DataFormat": "json",
                     "Sharing": "public",
                     "SchemaFile": "anchor.json"
+                },
+                {
+                    "Name": "FavouritePost_links",
+                    "DataFormat": "links"
                 }
+
             ],
             "Functions": [
                 {
@@ -159,6 +161,16 @@
                 },
                 {
                     "Name": "getPostsByHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "markAsFavorite",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getFavoritePosts",
                     "CallingType": "string",
                     "Exposure":"public"
                 }

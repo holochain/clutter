@@ -37,51 +37,55 @@ function unfollow(userAddress){
                       {Base:me,Link:userAddress,Tag:"following",LinkAction:HC.LinkAction.Del}
                   ]});
 }
-// -- post method modified  --
+
+/* ---------- post method modified  ---------- */
 function post(post) {
    var key = commit("post",post);        // Commits the post block to  my source chain, assigns resulting hash to 'key'
-   var me = getMe();                       // Looks up my hash address and assign it to 'me'
-                                           // which DHT nodes will use to request validation info from my source chain
+   var me = getMe();                     // Looks up my hash address and assign it to 'me'
+                                         // which DHT nodes will use to request validation info from my source chain
    commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
 
-  // TODO detect a hash
-   debug(post);
-   debug(post.message);
-   debug("Starting HASHtag search");
- //  var hashtag=[];
+  //Bookmarking the posts
+   //markAsFavorite(post);
+   //makeFavourite(me,post);
+
+  // extracting hashtags from the author's post
+   //debug("post: "+post);
+   debug("post.message:  "+post.message);
+   debug("Begin detecting Hashtag");
+   //  var hashtag=[];
    hashTag=detectHashtag(post.message);
-//  var a=hashtag[0];
+
 
    if (hashTag != null)
    {
      debug(hashTag);
      debug("Hashtag found");
-     //TODO searchHashTag(hashtag)}
-    searchHashTag(hashTag,post);
-     //debug(::HASHTAGE SAVED::);
+     searchHashTag(hashTag,post);
+
 }
 else {
-     debug("Hashtag not found");
-
+     debug("User has not added Hashtag in her post");
    }      // On the DHT, puts a link on my hash to the new post
 
 
-  debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
+   debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
    debug(key);
    return key;                                  // Returns the hash key of the new post to the calling function
 }
+
 function detectHashtag(postString)
 {
 //  String str="#important thing in #any programming #7 #& ";
-debug("STARTING");
+debug("Inside detectHashtag");
 
-debug("regexp");
+// using regular expression to extract the relevant hash
  var regexp = /\B\#\w\w+\b/g;
  hashtag = String(postString).match(regexp);
-debug("RETURNING hash tag");
+debug("Returning hash tag");
 //debug(hashtag[0]);
-a=hashtag;
-debug("CHECKING THIS");
+//a=hashtag;
+//debug("type of hashtag:");
 debug(typeof hashtag);
  if (hashtag != null)
  {
@@ -89,7 +93,8 @@ debug(typeof hashtag);
    return hashtag;
  }
  else
- {debug("NULL");
+ {
+   debug("NULL");
    return null;
 }
 
@@ -112,7 +117,7 @@ function searchHashTag(hashtag,post)
     if(x==="")
     {
       debug("creating new hashtag");
-      createHashTag(aux[i],post);
+      x=createHashTag(aux[i],post);
     }
     else{
 
@@ -127,7 +132,7 @@ function searchHashTag(hashtag,post)
   }
   return "";
 }
-//  temp is not yet hashed
+//  hashtag is not yet hashed
 function findHashtag(hashtag)  //same as getAgent
 {
   debug(" matching hash against DHT");
@@ -145,22 +150,23 @@ function findHashtag(hashtag)  //same as getAgent
 }
 
 function createHashTag(hashtag,post){
-  var x=commit("hashtag",hashtag);
+  var hashtagHash=commit("hashtag",hashtag);
   var directory = getDirectory();
   var me = getMe();
   // On the DHT, puts a link on the directory to the hashtag contained new post
-  commit("hashtag_links",{Links:[{Base:me,Link:x,Tag:"hashtag"}]});
+  commit("hashtag_links",{Links:[{Base:me,Link:hashtagHash,Tag:"hashtag"}]});
   // On the DHT, puts a link on my hash to the hashtag contained new post
-  commit("directory_links",{Links:[{Base: directory,Link: x,Tag:"hashtag"}]});
+  commit("directory_links",{Links:[{Base: directory,Link: hashtagHash,Tag:"hashtag"}]});
   // linking my post to the new hash tag
 
-  var z=findHashtag(hashtag);
-  debug("(After creating hashtag)find hash tag is blank if not found so - "+z);
-  commit("hashtag_links",{Links:[{Base: x,Link: post ,Tag:"post"}]})
-  var arr;
-  arr=getPostsByHashTag(hashtag);
-  debug("**posts under hashtag ** -->:  "+arr);
+  commit("hashtag_links",{Links:[{Base: hashtagHash,Link: post ,Tag:"post"}]})
+  //var arr;
 
+  // testing out display posts by hashtags
+  //arr=getPostsByHashTag(hashtag);
+  //debug("**posts under hashtag ** -->:  "+arr);
+
+  // testing out display posts by hashtags
   debug("Look out for directory hash tag-links here!!: "+JSON.stringify(getLink(directory,"hashtag",{Load:true})));
 
   debug("Look out for my source chain hash tag-links here!!: "+JSON.stringify(getLink(me,"hashtag",{Load:true})));
@@ -175,11 +181,7 @@ function getPostsByHashTag(hashtag){
   debug(" searching hash against DHT to retrieve");
   //var hashtagHash=makeHash(hashtag);
   var z=findHashtag(hashtag);
-//  debug("(Inside getPostsByHashTag :hash tag if found  - ");
-//  if(z==="")
-//  {
-//    debug("Hash tag does not exist within DHT");
-//  }else{
+
     var hashtagPosts=doGetLinkLoad(z,"post"); // how does doGetLinkLoad work?
     debug("hashtagPosts;>"+hashtagPosts);  // not printing hashtagPosts
     for(var j=0;j<hashtagPosts.length;j++) {
@@ -188,24 +190,53 @@ function getPostsByHashTag(hashtag){
             posts.push(post);
       }
 
-//  }
+
 
 debug("PRINT POST :: "+posts);
 debug("POST DATA :: "+JSON.stringify(posts));
 return posts
 }
 
-// working on this
-function markAsFavorite(post){
+// Posts liked by author are marked as favorites
+/*function markAsFavorite(post){
 
-  var favorites=[];
+  //var favorites=[];
   var postHash=commit("post",post);
   var me = getMe();
 
   // link the post to the user who clicks on favorite
-  commit("post_links",{Links:[{Base:me,Link:postHash,Tag:"hashtag"}]});
-  commit("post_links",{Links:[{Base:me,Link:postHash,Tag:"hashtag"}]});
+  commit("favorites",{Links:[{Base:me,Link:postHash,Tag:"hashtag"}]});
+}*/
 
+/* Mark a post as favorite */
+function markAsFavorite(post)
+{
+  var me=getMe();
+  debug("post is :: "+post);
+  debug("user who liked the post:"+me);
+  //post=commit("favorites",post);
+  post =makeHash(post);
+  commit("FavouritePost_links",{Links:[{Base:me,Link:post,Tag:"favorites"}]});
+
+  got=getFavoritePosts(me);
+  debug("got"+got);
+}
+
+function getFavoritePosts(userHash)
+{
+      var myfav=[];
+
+      var favoritePosts = doGetLinkLoad(userHash,"favorites");
+      debug("Posts marked favorite by user-"+userHash+" are : ");
+      for(var i=0;i<favoritePosts.length;i++)
+      {
+        myfav = favoritePosts[i];
+        debug("myfav"+JSON.stringify(myfav));
+        //debug("testing out post.message"+myfav);
+
+      }
+      debug("favoritePosts="+JSON.stringify(favoritePosts));
+      return myfav;
 }
 
 
@@ -282,7 +313,7 @@ function getHandle(userHash) {
     return (n >= 0) ? h.handle : "";
 }
 
-// returns the agent associated agent by converting the handle to a hash
+// returns the associated agent by converting the handle to a hash
 // and getting that hash's source from the DHT
 function getAgent(handle) {
     var directory = getDirectory();
@@ -318,16 +349,16 @@ function getDirectory() {return App.DNA.Hash;}
 // updated using newHandle
 function addHandle(handle) {
     // TODO confirm no collision
-    var key = commit("handle",handle);        // On my source chain, commits a new handle entry
+    var handleHash = commit("handle",handle);        // On my source chain, commits a new handle entry
     var me = getMe();
     var directory = getDirectory();
 
-    debug(handle+" is "+key);
+    debug(handle+" is "+handleHash);
 
-    commit("handle_links", {Links:[{Base:me,Link:key,Tag:"handle"}]});
-    commit("directory_links", {Links:[{Base:directory,Link:key,Tag:"handle"}]});
+    commit("handle_links", {Links:[{Base:me,Link:handleHash,Tag:"handle"}]});
+    commit("directory_links", {Links:[{Base:directory,Link:handleHash,Tag:"handle"}]});
 
-    return key;
+    return handleHash;
 }
 
 // helper function to determine if value returned from holochain function is an error
