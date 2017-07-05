@@ -24,12 +24,12 @@ function addAnchor()
 function anchor_type_create(anchor_type)
 {
   var anchor_main_hash=getMainAchorHash();
-  var new_anchor= {Anchor_Type:anchor_type,Anchor_Text:""};
-  var key=commit("anchor",new_anchor);
+  var new_anchorType= {Anchor_Type:anchor_type,Anchor_Text:""};
+  var key=commit("anchor",new_anchorType);
   commit("anchor_Links",{Links:[{Base:anchor_main_hash,Link:key,Tag:"Anchor_Type"}]});
 }
 
 function anchor_create(anchor_type,anchor_text)
 {
-
+  
 }
