@@ -1,5 +1,5 @@
 function genesis() {
-  addAnchor();
+  //addAnchor();
   return true;
 }
 
@@ -16,14 +16,15 @@ function getAnchorTypeHash(anchor_type)
 {
   var anchorType = {Anchor_Type:anchor_type,Anchor_Text:""};
   var anchorTypeHash = makeHash(anchorType);
+  return anchorTypeHash;
 }
 function addAnchor()
 {
   var dna = App.DNA.Hash;
   var anchor_main = {Anchor_Type:"Anchor_Type",Anchor_Text:""};
-  var key=commit("anchor",anchor_main);
-  commit("directory_links", {Links:[{Base:dna,Link:key,Tag:"Anchor"}]});
-  return anchor;
+  var anchor_main_hash=commit("anchor",anchor_main);
+  commit("directory_links", {Links:[{Base:dna,Link:anchor_main_hash,Tag:"Anchor"}]});
+  return anchor_main_hash;
 }
 
 //USED TO CREATE A NEW Anchor_Type
@@ -46,7 +47,7 @@ function anchor_create(anchor_type,anchor_text)
 
 function anchor_link(anchor_type,anchor_text)
 {
-  commit("anchorType_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor"}]});
+  commit("anchor_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor_Text"}]});
 }
 
 function anchor_update(anchor_type,old_anchorText,new_anchorText)
@@ -66,10 +67,10 @@ function anchor_update(anchor_type,old_anchorText,new_anchorText)
 
 function anchor_updatelink(anchorTypeHash,oldAnchorHash,newAnchorHash)
 {
-  commit("anchorType_links",
+  commit("anchor_links",
          {Links:[
-             {Base:anchorTypeHash,Link:oldAnchorHash,Tag:"Anchor",LinkAction:HC.LinkAction.Del},
-             {Base:anchorTypeHash,Link:newAnchorHash,Tag:"Anchor"}
+             {Base:anchorTypeHash,Link:oldAnchorHash,Tag:"Anchor_Text",LinkAction:HC.LinkAction.Del},
+             {Base:anchorTypeHash,Link:newAnchorHash,Tag:"Anchor_Text"}
          ]});
 }
 
@@ -111,3 +112,33 @@ function doGetLinkLoad(base, tag) {
 function isErr(result) {
     return ((typeof result === 'object') && result.name == "HolochainError");
 }
+function validatePut(entry_type,entry,header,pkg,sources) {
+    return validate(entry_type,entry,header,sources);
+}
+function validateCommit(entry_type,entry,header,pkg,sources) {
+    return validate(entry_type,entry,header,sources);
+}
+// Local validate an entry before committing ???
+function validate(entry_type,entry,header,sources) {
+//debug("entry_type::"+entry_type+"entry"+entry+"header"+header+"sources"+sources);
+    if (entry_type == "anchor_links"||entry_type == "anchor") {
+      return true;
+    }
+    return true
+}
+
+function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){
+    // this can only be "room_message_link" type which is linking from room to message
+//debug("LinkingEntry_type:"+linkingEntryType+" baseHash:"+baseHash+" linkHash:"+linkHash+" tag:"+tag+" pkg:"+pkg+" sources:"+sources);
+if(linkingEntryType=="anchor_links")
+return true;
+
+
+return true;
+}
+function validateMod(entry_type,hash,newHash,pkg,sources) {return false;}
+function validateDel(entry_type,hash,pkg,sources) {return false;}
+function validatePutPkg(entry_type) {return null}
+function validateModPkg(entry_type) { return null}
+function validateDelPkg(entry_type) { return null}
+function validateLinkPkg(entry_type) { return null}

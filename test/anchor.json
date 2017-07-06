@@ -1,0 +1,12 @@
+[
+  {
+      "Convey":"Checking if the source anchor is getting created",
+      "Zome": "anchor",
+      "FnName": "addAnchor",
+      "Input" : "",
+      "Output": "%h1%",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+  }
+]
