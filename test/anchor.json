@@ -18,6 +18,16 @@
       "Exposure":"public",
       "Err": "",
       "Regexp": ""
+  },
+  {
+      "Convey":"Checking if the anchor type is getting created",
+      "Zome": "anchor",
+      "FnName": "anchor_create",
+      "Input" : {"Anchor_Type":"hashtag","Anchor_Text":"Rasika"},
+      "Output": "\"%h1%\"",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
   }
 
 ]

@@ -46,14 +46,17 @@ function anchor_create(new_anchor)
   var anchor_text=new_anchor.Anchor_Text;
   var new_anchor = {Anchor_Type:anchor_type,Anchor_Text:anchor_text};
   var new_anchorHash=commit("anchor",new_anchor);
-  var anchorTypeHash = getHashAnchorType(anchor_type);
+  var anchorTypeHash = getAnchorTypeHash(anchor_type);
   pass=anchor_link(anchorTypeHash,new_anchorHash);
-  return pass;
+  var lnk = getLink(anchorTypeHash,"Anchor_Text",{Load:true});
+  return lnk.Links[0].H;
 }
 
 function anchor_link(anchor_type,anchor_text)
 {
-  commit("anchor_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor_Text"}]});
+  var r =commit("anchor_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor_Text"}]});
+  return r;
+
 }
 
 function anchor_update(anchor_type,old_anchorText,new_anchorText)

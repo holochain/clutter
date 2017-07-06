@@ -42,7 +42,13 @@
                 "Name": "addAnchor",
                 "CallingType": "string",
                 "Exposure":"public"
+              },
+              {
+                "Name": "anchor_create",
+                "CallingType": "json",
+                "Exposure":"public"
               }
+
             ]
         },
         {
