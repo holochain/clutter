@@ -215,19 +215,27 @@ function markAsFavorite(post)
   debug("post is :: "+JSON.stringify(post));
   debug("user who liked the post:"+me);
   //post=commit("favorites",post);
-  //post=makeHash(post);
+  //posthash=makeHash(post); // only for the sake of testing. Remove this line later
   debug("hash of the post "+post);
-  commit("FavouritePost_links",{Links:[{Base:me,Link:post,Tag:"favorites"}]});
+  var favLinkhash=commit("FavouritePost_links",{Links:[{Base:me,Link:post,Tag:"favorites"}]});
 
   var got=getFavoritePosts(me);
-  debug("get all posts"+got);
+  debug("favLinkhash"+favLinkhash);
+  if(got!=null)
+  {
+    return favLinkhash;
+  }else{
+    return ""
+  }
+
+  return "";
 }
 
 function getFavoritePosts(userHash)
 {
      var myfavPosts=[];
 
-      var favoritePosts = doGetLinkLoad(userHash,"favorites");
+      var favoritePosts = doGetLinkLoad(userHash,"favorites"); // returns all the posts
       debug("Posts marked favorite by user-"+userHash+" are : ");
      for(var i=0;i<favoritePosts.length;i++)
       {
@@ -238,7 +246,7 @@ function getFavoritePosts(userHash)
       }
       debug("favoritePosts="+JSON.stringify(favoritePosts));
       //return favoritePosts;
-      return myfavPosts;
+      return JSON.stringify(myfavPosts);
 }
 
 
