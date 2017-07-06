@@ -24,7 +24,8 @@ function addAnchor()
   var anchor_main = {Anchor_Type:"Anchor_Type",Anchor_Text:""};
   var anchor_main_hash=commit("anchor",anchor_main);
   commit("directory_links", {Links:[{Base:dna,Link:anchor_main_hash,Tag:"Anchor"}]});
-  return anchor_main_hash;
+  var lnk = getLink(dna,"Anchor",{Load : true});
+  return lnk.Links[0].H;
 }
 
 //USED TO CREATE A NEW Anchor_Type
@@ -34,15 +35,20 @@ function anchor_type_create(anchor_type)
   var new_anchorType= {Anchor_Type:anchor_type,Anchor_Text:""};
   var key=commit("anchor",new_anchorType);
   commit("anchor_links",{Links:[{Base:anchor_main_hash,Link:key,Tag:"Anchor_Type"}]});
+  var anctyplnk= getLink(anchor_main_hash,"Anchor_Type",{Load:true});
+  return anctyplnk.Links[0].H;
 }
 
-function anchor_create(anchor_type,anchor_text)
+function anchor_create(new_anchor)
 {
-  var new_anchor = {Anchor_Type:anchor_type,Anchor_Text:anchor_text};
-  var anchorTypeHash = getAnchorTypeHash(anchor_type);
 
-  var new_anchorHash=commit(anchorTypeHash,new_anchor);
-  anchor_link(anchorTypeHash,new_anchorHash);
+  var anchor_type=new_anchor.Anchor_Type;
+  var anchor_text=new_anchor.Anchor_Text;
+  var new_anchor = {Anchor_Type:anchor_type,Anchor_Text:anchor_text};
+  var new_anchorHash=commit("anchor",new_anchor);
+  var anchorTypeHash = getHashAnchorType(anchor_type);
+  pass=anchor_link(anchorTypeHash,new_anchorHash);
+  return pass;
 }
 
 function anchor_link(anchor_type,anchor_text)

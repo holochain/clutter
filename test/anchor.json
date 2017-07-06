@@ -8,5 +8,16 @@
       "Exposure":"public",
       "Err": "",
       "Regexp": ""
+  },
+  {
+      "Convey":"Checking if the anchor type is getting created",
+      "Zome": "anchor",
+      "FnName": "anchor_type_create",
+      "Input" : "hashtag",
+      "Output": "%h1%",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
   }
+
 ]
