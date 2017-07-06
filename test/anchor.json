@@ -22,12 +22,42 @@
   {
       "Convey":"Checking if the anchor type is getting created",
       "Zome": "anchor",
+      "FnName": "anchor_type_create",
+      "Input" : "room",
+      "Output": "%h1%",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+  },
+  {
+      "Convey":"Checking if the anchor is getting created",
+      "Zome": "anchor",
       "FnName": "anchor_create",
       "Input" : {"Anchor_Type":"hashtag","Anchor_Text":"Rasika"},
       "Output": "\"%h1%\"",
       "Exposure":"public",
       "Err": "",
       "Regexp": ""
-  }
+  },
+  {
+    "Convey":"Checking if the update anchor text on an existing anchor works.",
+    "Zome": "anchor",
+    "FnName": "anchor_update",
+    "Input" : {"anchor_type":"hashtag","old_anchorText":"Rasika","new_anchorText":"UpdatedTextRasika"},
+    "Output": "\"%h1%\"",
+    "Exposure":"public",
+    "Err": "",
+    "Regexp": ""
+  },
+  {
+    "Convey":"Checking if we can retrieve the list of anchors types.",
+    "Zome": "anchor",
+    "FnName": "anchor_type_list",
+    "Input" : "",
+    "Output": "{\"Anchor_Text\":\"\",\"Anchor_Type\":\"room\"},{\"Anchor_Text\":\"\",\"Anchor_Type\":\"hashtag\"}",
+    "Exposure":"public",
+    "Err": "",
+    "Regexp": ""
+}
 
 ]

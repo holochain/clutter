@@ -47,7 +47,18 @@
                 "Name": "anchor_create",
                 "CallingType": "json",
                 "Exposure":"public"
+              },
+              {
+                "Name": "anchor_update",
+                "CallingType": "json",
+                "Exposure":"public"
+              },
+              {
+                "Name": "anchor_type_list",
+                "CallingType": "string",
+                "Exposure":"public"
               }
+
 
             ]
         },

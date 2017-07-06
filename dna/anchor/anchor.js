@@ -47,31 +47,40 @@ function anchor_create(new_anchor)
   var new_anchor = {Anchor_Type:anchor_type,Anchor_Text:anchor_text};
   var new_anchorHash=commit("anchor",new_anchor);
   var anchorTypeHash = getAnchorTypeHash(anchor_type);
-  pass=anchor_link(anchorTypeHash,new_anchorHash);
+  anchor_link(anchorTypeHash,new_anchorHash);
   var lnk = getLink(anchorTypeHash,"Anchor_Text",{Load:true});
   return lnk.Links[0].H;
 }
 
 function anchor_link(anchor_type,anchor_text)
 {
-  var r =commit("anchor_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor_Text"}]});
-  return r;
+  commit("anchor_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor_Text"}]});
 
 }
 
-function anchor_update(anchor_type,old_anchorText,new_anchorText)
+function anchor_update(updateText)
 {
+  var anchor_type = updateText.anchor_type;
+  var old_anchorText = updateText.old_anchorText;
+  var new_anchorText = updateText.new_anchorText;
+
   var oldAnchor={Anchor_Type:anchor_type,Anchor_Text:old_anchorText};
   var oldAnchorHash = makeHash(oldAnchor);
 
   var newAnchor={Anchor_Type:anchor_type,Anchor_Text:new_anchorText};
   var newAnchorHash = makeHash(newAnchor);
 
-  var anchorTypeHash = getFavouritePosts();
+  var anchorTypeHash = getAnchorTypeHash(anchor_type);
 
-  var updatedAnchor = update("anchor",newAnchorHash,oldAnchorHash);
+  var updatedAnchor = update("anchor",newAnchor,oldAnchorHash);
+  debug("Old text : "+updateText.old_anchorText+" Old hash : "+oldAnchorHash);
+  debug("New text : "+updateText.new_anchorText+" New hash : "+newAnchorHash);
   debug("Anchor text successfully updated ! New anchor hash : "+updatedAnchor);
+
   anchor_updatelink(anchorTypeHash,oldAnchorHash,newAnchorHash);
+
+  var updcheck = getLink(anchorTypeHash,"Anchor_Text",{Load:true});
+  return updcheck;
 }
 
 function anchor_updatelink(anchorTypeHash,oldAnchorHash,newAnchorHash)
@@ -84,18 +93,22 @@ function anchor_updatelink(anchorTypeHash,oldAnchorHash,newAnchorHash)
 }
 
 // List all the anchor types linked to from "AnchorType" created in genesis
-function anchor_type_list(anchor_type)
+function anchor_type_list()
 {
   var anchor_type_list=[];
   anchor_main_hash=getMainAchorHash();
-  var anchor_type=doGetLinkLoad(anchor_main_hash,"");
+  var anchor_type=doGetLinkLoad(anchor_main_hash,"Anchor_Type");
 
-  for(var j=0;j<anchor_type.length;j++){
-    anchor_type_list=push(anchor_type[j]);
+  debug("AnchorType:"+anchor_type);
+  for(var j=0;j<anchor_type.length;j++)
+  {
+    var temp = anchor_type[j].Anchor_Type;
+    debug(temp);
+    anchor_type_list.push(anchor_type[j].Anchor_Type);
   }
-return anchor_type_list;
-}
 
+  return anchor_type_list.toString();
+}
 
 /*****
 *****/
