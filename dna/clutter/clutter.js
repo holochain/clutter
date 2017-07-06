@@ -212,31 +212,33 @@ return posts
 function markAsFavorite(post)
 {
   var me=getMe();
-  debug("post is :: "+post);
+  debug("post is :: "+JSON.stringify(post));
   debug("user who liked the post:"+me);
   //post=commit("favorites",post);
-  post =makeHash(post);
+  //post=makeHash(post);
+  debug("hash of the post "+post);
   commit("FavouritePost_links",{Links:[{Base:me,Link:post,Tag:"favorites"}]});
 
-  got=getFavoritePosts(me);
-  debug("got"+got);
+  var got=getFavoritePosts(me);
+  debug("get all posts"+got);
 }
 
 function getFavoritePosts(userHash)
 {
-      var myfav=[];
+     var myfavPosts=[];
 
       var favoritePosts = doGetLinkLoad(userHash,"favorites");
       debug("Posts marked favorite by user-"+userHash+" are : ");
-      for(var i=0;i<favoritePosts.length;i++)
+     for(var i=0;i<favoritePosts.length;i++)
       {
-        myfav = favoritePosts[i];
-        debug("myfav"+JSON.stringify(myfav));
+        myfavPosts.push(favoritePosts[i]);
+        debug("Check out myfavPosts here!! : "+myfavPosts[i]);
         //debug("testing out post.message"+myfav);
 
       }
       debug("favoritePosts="+JSON.stringify(favoritePosts));
-      return myfav;
+      //return favoritePosts;
+      return myfavPosts;
 }
 
 
