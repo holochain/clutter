@@ -46,7 +46,7 @@ function post(post) {
       // On the DHT, puts a link on my hash to the new post
     commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
 
-    debug("meta: "+JSON.stringify(getLink(me,"post",{Load:true})));
+    debug("meta: "+JSON.stringify(getLinks(me,"post",{Load:true})));
     debug(key);
     return key;                                  // Returns the hash key of the new post to the calling function
 }
@@ -126,9 +126,8 @@ function getHandle(userHash) {
 // and getting that hash's source from the DHT
 function getAgent(handle) {
     var directory = getDirectory();
-    var handleHash = makeHash(handle);
+    var handleHash = makeHash("handle",handle);
     var sources = get(handleHash,{GetMask:HC.GetMask.Sources});
-
     if (isErr(sources)) {sources = [];}
     if (sources != undefined) {
         var n = sources.length -1;
@@ -173,19 +172,19 @@ function isErr(result) {
     return ((typeof result === 'object') && result.name == "HolochainError");
 }
 
-// helper function to do getLink call, handle the no-link error case, and copy the returned entry values into a nicer array
+// helper function to do getLinks call, handle the no-link error case, and copy the returned entry values into a nicer array
 function doGetLinkLoad(base, tag) {
     // get the tag from the base in the DHT
-    var links = getLink(base, tag,{Load:true});
+    var links = getLinks(base, tag,{Load:true});
     if (isErr(links)) {
         links = [];
     } else {
-        links = links.Links;
+        links = links;
     }
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
-        var link = {H:links[i].H};
-        link[tag] = links[i].E;
+        var link = {H:links[i].Hash};
+        link[tag] = links[i].Entry;
         links_filled.push(link);
     }
     debug("Links Filled:"+JSON.stringify(links_filled));
@@ -195,17 +194,17 @@ function doGetLinkLoad(base, tag) {
 // helper function to call getLinks, handle the no links entry error, and build a simpler links array.
 function doGetLink(base,tag) {
     // get the tag from the base in the DHT
-    var links = getLink(base, tag,{Load:true});
+    var links = getLinks(base, tag,{Load:false});
     if (isErr(links)) {
         links = [];
     }
      else {
-        links = links.Links;
+        links = links;
     }
     debug("Links:"+JSON.stringify(links));
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
-        links_filled.push(links[i].H);
+        links_filled.push(links[i].Hash);
     }
     return links_filled;
 }
@@ -306,7 +305,7 @@ function validateMod(entry_type,entry,header,replaces,pkg,sources) {
         // check that source is same as creator
         if (orig.Sources.length !=1 || orig.Sources[0] != sources[0]) {return false;}
 
-        var orig_message = JSON.parse(orig.Entry.C).message;
+        var orig_message = JSON.parse(orig.Entry).message;
         // message must actually be different
         return orig_message != entry.message;
     }
