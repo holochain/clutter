@@ -34,7 +34,7 @@
         "Zome": "clutter",
         "Time":4050,
         "Raw": true,
-        "Input": "serverID=parseInt(\"%server%\".split(\".\")[1]);serverID--;if (serverID<0){serverID=0};clone=%clone%; clone--; if (clone<0){clone=1}; agent = \"clone.\"+clone+\"@%server%-new\";agent",
+        "Input": "numClones=2;numServers=1;serverID=parseInt(\"%server%\".split(\".\")[1]);serverID--;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result5%.\"+serverID+\"-new\";agent",
         "Regexp": "clone.[0-9]+@%result5%.[0-9]+-new"
      },     {
         "Convey":"get the n-1th clone agent key",
