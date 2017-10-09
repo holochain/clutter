@@ -2,6 +2,7 @@
 
 [![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)
 [![In Progress](https://img.shields.io/waffle/label/metacurrency/holochain/in%20progress.svg)](http://waffle.io/Holochain/clutter)
+[![Gitter](https://badges.gitter.im/metacurrency/holochain.svg)](https://gitter.im/metacurrency/holochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 **P2P twitter-clone built on holochain**
@@ -38,9 +39,6 @@ Copying chain to: /home/bootstrap/.holochaindev
 Serving holochain with DNA hash:QmZYxoxcqgCp6Xf6xVe8ptzPkmH8QMzxqp4r49QYpS2fEF on port:4141
 ```
 Then simply point your browser to http://localhost:4141 access the clutter UI.
-
-## Contribute
-Contributors to this project are expected to follow our [development protocols & practices](https://github.com/metacurrency/holochain/wiki/Development-Protocols).
 
 ### Tests
 To run all the stand alone tests:
@@ -98,6 +96,11 @@ This test is designed to be run on separate machines and spins up many clones on
  - [ ] Integrate with Twitter for publishing mews to tweets from your unique userspace
  - [ ] Integrate with DPKI for bridging app contexts
 
+
+## Contribute
+We welcome pull requests and issue tickets.  Find us on [gitter](https://gitter.im/metacurrency/holochain) to chat.
+
+Contributors to this project are expected to follow our [development protocols & practices](https://github.com/metacurrency/holochain/wiki/Development-Protocols).
 
 ## License
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
