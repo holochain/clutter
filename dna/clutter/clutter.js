@@ -98,7 +98,8 @@ function newHandle(handle){
         var oldKey = handles[n];
         var key = update("handle",handle,oldKey);
 
-        debug(handle+" is "+key);
+        debug("new handle: "+handle+" is "+key);
+        debug("old handle: was "+oldKey);
         commit("handle_links",
                {Links:[
                    {Base:me,Link:oldKey,Tag:"handle",LinkAction:HC.LinkAction.Del},
@@ -128,7 +129,7 @@ function getAgent(handle) {
     var directory = getDirectory();
     var handleHash = makeHash("handle",handle);
     var sources = get(handleHash,{GetMask:HC.GetMask.Sources});
-    if (isErr(sources)) {sources = [];}
+    if (isErr(sources)) {debug(sources);sources = [];}
     if (sources != undefined) {
         var n = sources.length -1;
         return (n >= 0) ? sources[n] : "";
@@ -259,7 +260,7 @@ function validate(entry_type,entry,header,sources) {
 //   - Only Bob should be able to make Bob a "follower" of Alice
 //   - Only Bob should be able to list Alice in his people he is "following"
 function validateLink(linkEntryType,baseHash,links,pkg,sources){
-    debug("validate link: "+linkEntryType);
+ //   debug("validate link: "+linkEntryType);
     if (linkEntryType=="handle_links") {
         var length = links.length;
         // a valid handle is when:

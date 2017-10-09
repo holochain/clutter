@@ -17,7 +17,8 @@
         "Exposure":"public",
         "Err": "",
         "Regexp": ""
-    },    {
+    },
+    {
         "Zome": "clutter",
         "FnName": "appProperty",
         "Input": "garbage",

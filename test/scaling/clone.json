@@ -1,0 +1,64 @@
+[
+    {
+        "Convey":"setup handle: clone",
+        "Zome": "clutter",
+        "FnName": "newHandle",
+        "Input": "%agentstr%-new",
+        "Output": "%h2%",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"post a bunch",
+        "Zome": "clutter",
+        "Time":1000,
+        "Wait": 200,
+        "Repeat": 4,
+        "FnName": "post",
+        "Input": {"message": "hello world from %agentstr%-new repetition: %reps%",
+                  "stamp":1234},
+        "Output": "\"%h1%\"",
+        "Exposure":"public"
+    },
+    {
+        "Convey":"extract the server name from %server% for testing",
+        "Zome": "clutter",
+        "Time":4000,
+        "Raw": true,
+        "Input": "server = \"%server%\".split(\".\")[0];server",
+        "Regexp": "fish"
+     },
+    {
+        "Convey":"calculate the n-1th clone agent name for testing",
+        "Zome": "clutter",
+        "Time":4050,
+        "Raw": true,
+        "Input": "serverID=parseInt(\"%server%\".split(\".\")[1]);serverID--;if (serverID<0){serverID=0};clone=%clone%; clone--; if (clone<0){clone=1}; agent = \"clone.\"+clone+\"@%server%-new\";agent",
+        "Regexp": "clone.[0-9]+@%result5%.[0-9]+-new"
+     },     {
+        "Convey":"get the n-1th clone agent key",
+        "Zome": "clutter",
+        "Time":4100,
+        "FnName": "getAgent",
+        "Input": "%result6%",
+        "Regexp": "Qm[a-zA-Z0-9]*"
+     },
+    {
+        "Time":5000,
+        "Convey":"follow it",
+        "Zome": "clutter",
+        "FnName": "follow",
+        "Input": "%r1%",
+        "Output": "%h%"
+    },
+    {
+        "Time":6000,
+        "Convey":"retrieve the posts",
+        "Zome":   "clutter",
+        "FnName": "getPostsBy",
+        "Input":  "[\"%r2%\"]",
+        "Exposure":"public",
+        "Regexp": ".*hello world from %result6% repetition: 2.*"
+    }
+]
