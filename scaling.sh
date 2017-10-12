@@ -4,6 +4,9 @@ CLONES=2
 REPS=4
 PAUSE=10
 SERVERS=1
+KEEPALIVE="-keepalive"
+OUTPUT="-outputDir=../results"
+
 for i in "$@"
 do
     case $i in
@@ -22,6 +25,15 @@ do
         -s=*|--servers=*)
             SERVERS="${i#*=}"
             shift # past argument=value
+            ;;
+        -d|--debug)
+            DEBUG="-debug"
+            shift # past argument with no value
+            ;;
+        -l|--local)
+            KEEPALIVE=""
+            OUTPUT=""
+            shift # past argument with no value
             ;;
         --default)
             DEFAULT=YES
@@ -49,4 +61,4 @@ sed -i "s/!REPS!/$REPS/" clone.json
 sed -i "s/!PAUSE!/$PAUSE/" clone.json
 echo "starting hcdev for $SERVER_ID"
 cd ../..
-$HOME/go/bin/hcdev -bootstrapServer=bootstrap.holochain.net:10000 -keepalive -serverID=fish.$SERVER_ID scenario -outputDir=../results scaling
+$HOME/go/bin/hcdev $DEBUG -bootstrapServer=bootstrap.holochain.net:10000 $KEEPALIVE -serverID=fish.$SERVER_ID scenario $OUTPUT scaling
