@@ -35,6 +35,8 @@ done
 
 DURATION=$((PAUSE+2))
 
+SERVER_ID=$(<scaling.serverid)
+
 cd clutter
 git checkout test
 cd test/scaling
