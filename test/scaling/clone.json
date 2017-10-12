@@ -1,5 +1,26 @@
 [
     {
+        "Convey":"extract the server name from %server% for testing",
+        "Zome": "clutter",
+        "Raw": true,
+        "Input": "server = \"%server%\".split(\".\")[0];server",
+        "Regexp": "fish"
+    },
+    {
+        "Convey":"extract the server ID from %server% for testing",
+        "Zome": "clutter",
+        "Raw": true,
+        "Input": "serverID=parseInt(\"%server%\".split(\".\")[1])",
+        "Regexp": "[0-9]+"
+    },
+    {
+        "Convey":"calculate the n-1th clone agent name for testing",
+        "Zome": "clutter",
+        "Raw": true,
+        "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=%result1%-1;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result0%.\"+serverID+\"-new\";agent",
+        "Regexp": "clone.[0-9]+@%result0%.[0-9]+-new"
+    },
+    {
         "Convey":"setup handle: clone",
         "Zome": "clutter",
         "FnName": "newHandle",
@@ -22,28 +43,13 @@
         "Exposure":"public"
     },
     {
-        "Convey":"extract the server name from %server% for testing",
-        "Zome": "clutter",
-        "Time":!PAUSE!000,
-        "Raw": true,
-        "Input": "server = \"%server%\".split(\".\")[0];server",
-        "Regexp": "fish"
-     },
-    {
-        "Convey":"calculate the n-1th clone agent name for testing",
-        "Zome": "clutter",
-        "Time":!PAUSE!050,
-        "Raw": true,
-        "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=parseInt(\"%server%\".split(\".\")[1]);serverID--;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result5%.\"+serverID+\"-new\";agent",
-        "Regexp": "clone.[0-9]+@%result5%.[0-9]+-new"
-     },     {
         "Convey":"get the n-1th clone agent key",
         "Zome": "clutter",
         "Time":!PAUSE!100,
         "FnName": "getAgent",
-        "Input": "%result6%",
+        "Input": "%result2%",
         "Regexp": "Qm[a-zA-Z0-9]*"
-     },
+    },
     {
         "Time":!PAUSE!800,
         "Convey":"follow it",
@@ -59,6 +65,6 @@
         "FnName": "getPostsBy",
         "Input":  "[\"%r2%\"]",
         "Exposure":"public",
-        "Regexp": ".*hello world from %result6% repetition: 2.*"
+        "Regexp": ".*hello world from %result2% repetition: 2.*"
     }
 ]
