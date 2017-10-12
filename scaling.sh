@@ -46,4 +46,5 @@ sed -i "s/!SERVERS!/$SERVERS/" clone.json
 sed -i "s/!REPS!/$REPS/" clone.json
 sed -i "s/!PAUSE!/$PAUSE/" clone.json
 echo "starting hcdev for $SERVER_ID"
+cd ../..
 $HOME/go/bin/hcdev -bootstrapServer=bootstrap.holochain.net:10000 -keepalive -serverID=fish.$SERVER_ID scenario -outputDir=../results scaling
