@@ -14,7 +14,7 @@
         "Zome": "clutter",
         "Time":1000,
         "Wait": 200,
-        "Repeat": 4,
+        "Repeat": !REPS!,
         "FnName": "post",
         "Input": {"message": "hello world from %agentstr%-new repetition: %reps%",
                   "stamp":1234},
@@ -24,7 +24,7 @@
     {
         "Convey":"extract the server name from %server% for testing",
         "Zome": "clutter",
-        "Time":4000,
+        "Time":!PAUSE!000,
         "Raw": true,
         "Input": "server = \"%server%\".split(\".\")[0];server",
         "Regexp": "fish"
@@ -32,20 +32,20 @@
     {
         "Convey":"calculate the n-1th clone agent name for testing",
         "Zome": "clutter",
-        "Time":4050,
+        "Time":!PAUSE!050,
         "Raw": true,
-        "Input": "numClones=2;numServers=1;serverID=parseInt(\"%server%\".split(\".\")[1]);serverID--;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result5%.\"+serverID+\"-new\";agent",
+        "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=parseInt(\"%server%\".split(\".\")[1]);serverID--;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result5%.\"+serverID+\"-new\";agent",
         "Regexp": "clone.[0-9]+@%result5%.[0-9]+-new"
      },     {
         "Convey":"get the n-1th clone agent key",
         "Zome": "clutter",
-        "Time":4100,
+        "Time":!PAUSE!100,
         "FnName": "getAgent",
         "Input": "%result6%",
         "Regexp": "Qm[a-zA-Z0-9]*"
      },
     {
-        "Time":5000,
+        "Time":!PAUSE!800,
         "Convey":"follow it",
         "Zome": "clutter",
         "FnName": "follow",
@@ -53,7 +53,7 @@
         "Output": "%h%"
     },
     {
-        "Time":6000,
+        "Time":!PAUSE!999,
         "Convey":"retrieve the posts",
         "Zome":   "clutter",
         "FnName": "getPostsBy",

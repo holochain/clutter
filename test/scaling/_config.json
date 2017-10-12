@@ -1,5 +1,5 @@
 {
     "GossipInterval":500,
-    "Duration":7,
-    "Clone": [{"Role":"clone","Number":2}]
+    "Duration":!DURATION!,
+    "Clone": [{"Role":"clone","Number":!CLONES!}]
 }
