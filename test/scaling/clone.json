@@ -17,18 +17,8 @@
         "Convey":"calculate the n-1th clone agent name for testing",
         "Zome": "clutter",
         "Raw": true,
-        "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=%result1%-1;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result0%.\"+serverID+\"-new\";agent",
-        "Regexp": "clone.[0-9]+@%result0%.[0-9]+-new"
-    },
-    {
-        "Convey":"setup handle: clone",
-        "Zome": "clutter",
-        "FnName": "newHandle",
-        "Input": "%agentstr%-new",
-        "Output": "%h2%",
-        "Exposure":"public",
-        "Err": "",
-        "Regexp": ""
+        "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=%result1%-1;if (serverID<0){serverID=numServers-1};clone=%clone%; clone--; if (clone<0){clone=numClones-1}; agent = \"clone.\"+clone+\"@%result0%.\"+serverID;agent",
+        "Regexp": "clone.[0-9]+@%result0%.[0-9]"
     },
     {
         "Convey":"post a bunch",
@@ -37,7 +27,7 @@
         "Wait": 200,
         "Repeat": !REPS!,
         "FnName": "post",
-        "Input": {"message": "hello world from %agentstr%-new repetition: %reps%",
+        "Input": {"message": "hello world from %agentstr% repetition: %reps%",
                   "stamp":1234},
         "Output": "\"%h1%\"",
         "Exposure":"public"
