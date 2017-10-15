@@ -1,10 +1,10 @@
 [
     {
-        "Convey":"extract the server name from %server% for testing",
+        "Convey":"extract the server name from %server% for testing (which is just 'server' in this test)",
         "Zome": "clutter",
         "Raw": true,
         "Input": "server = \"%server%\".split(\".\")[0];server",
-        "Regexp": "fish"
+        "Regexp": "server"
     },
     {
         "Convey":"extract the server ID from %server% for testing",
