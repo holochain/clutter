@@ -49,8 +49,11 @@ do
         -k|--keepalive)
             KEEPALIVE="-keepalive"
             ;;
-        -l|--local)
+        -o|--output)
             OUTPUT=""
+            shift # past argument with no value
+            ;;
+        -l|--local)
             BOOTSTRAP="-bootstrapServer=_"
             shift # past argument with no value
             ;;
