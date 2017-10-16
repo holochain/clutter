@@ -23,7 +23,7 @@
     {
         "Convey":"post a bunch",
         "Zome": "clutter",
-        "Time":1000,
+        "Time":!START!000,
         "Wait": 200,
         "Repeat": !REPS!,
         "FnName": "post",

@@ -3,6 +3,8 @@
 CLONES=2
 REPS=4
 PAUSE=10
+START=2
+GOSSIP=500
 SERVERS=1
 KEEPALIVE=""
 OUTPUT="-outputDir=../results"
@@ -20,8 +22,16 @@ do
             CLONES="${i#*=}"
             shift # past argument=value
             ;;
+        -g=*|--gossip=*)
+            GOSSIP="${i#*=}"
+            shift # past argument=value
+            ;;
         -p=*|--pause=*)
             PAUSE="${i#*=}"
+            shift # past argument=value
+            ;;
+        -t=*|--start=*)
+            START="${i#*=}"
             shift # past argument=value
             ;;
         -s=*|--servers=*)
@@ -63,11 +73,13 @@ git checkout test
 cd test/scaling
 echo "DURATION:$DURATION"
 sed -i "s/!DURATION!/$DURATION/" _config.json
+sed -i "s/!GOSSIP!/$GOSSIP/" _config.json
 sed -i "s/!CLONES!/$CLONES/" _config.json
 sed -i "s/!CLONES!/$CLONES/" clone.json
 sed -i "s/!SERVERS!/$SERVERS/" clone.json
 sed -i "s/!REPS!/$REPS/" clone.json
 sed -i "s/!PAUSE!/$PAUSE/" clone.json
+sed -i "s/!START!/$START/" clone.json
 echo "starting hcdev for $SERVER_ID"
 cd ../..
 
