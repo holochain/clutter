@@ -1,4 +1,4 @@
-var App = {posts:{},users:{},handles:{},follows:{},handle:"",me:""};
+var App = {posts:{},users:{},handles:{},follows:{},favorites:{},handle:"",me:""};
 
 function getHandle(who,callbackFn) {
     send("getHandle",who,function(handle) {
@@ -92,9 +92,32 @@ function getUserHandle(user) {
 }
 
 function makePostHTML(id,post) {
-    var d = new Date(post.stamp);
+    var date = new Date(post.stamp);
+    var favorites=false;
+    var mypost=post;
+  //  alert("post: "+mypost);
     var handle = getUserHandle(post.author);
-    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'</div></div>';
+    var author=post.author;
+    var message=post.message;
+    //  alert("author: "+message);
+  //  var message=post.message;
+    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+date+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'<div id="like-post" style="float:right;"><a class="meow-like" href="#" onclick="addToLikes('+id+',\''+post.author+'\',\''+post.message+'\',\''+date+'\',\''+post+'\')"><img src="rmFav.png" style="width: 1.5em; height: 1.5em; " /></a></div></div></div>';
+}
+
+
+
+// edited here replacing id with handle
+function addToLikes(id,author,message,date,post) {
+
+  alert("This post passed Author:-"+author+" and  message :- "+message+ "and post:-"+post);
+  var handle=getUserHandle(author);
+  var postId='<a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+date+'</div><a href="#" class="user" onclick="showUser(\''+author+'\');">'+handle+'</a><div class="message">'+message+'<div id="like-post" style="float:right;"><a class="meow-like" href="#" ><img src="Fav.png" style="width: 1.5em; height: 1.5em; " /></a></div></div>';
+  document.getElementById(id).innerHTML=postId;
+
+ send("markAsFavorite",App.posts[id].key,function(data){
+  //  message.fav=App.me;
+
+  });
 }
 
 function makeUserHTML(user) {
@@ -283,6 +306,8 @@ function openEditPost(id) {
     $('#postID').val(id);
     $('#editPostDialog').modal('show');
 }
+
+
 
 function unfollow(button) {
     // pull the handle out from the HTML

@@ -27,6 +27,11 @@
                     "Sharing": "public"
                 },
                 {
+                    "Name": "hashtag",
+                    "DataFormat": "string",
+                    "Sharing": "public"
+                },
+                {
                     "Name": "post",
                     "DataFormat": "json",
                     "Sharing": "public",
@@ -39,6 +44,16 @@
                 {
                     "Name": "handle_links",
                     "DataFormat": "links"
+                },
+                {
+                    "Name": "hashtag_links",
+                    "DataFormat": "links"
+                },
+                {
+                  "Name": "favorites",
+                  "DataFormat": "json",
+                  "Sharing": "public",
+                  "SchemaFile": "post.json"
                 },
                 {
                     "Name": "directory_links",
@@ -57,7 +72,12 @@
                     "DataFormat": "json",
                     "Sharing": "public",
                     "SchemaFile": "anchor.json"
+                },
+                {
+                    "Name": "FavouritePost_links",
+                    "DataFormat": "links"
                 }
+
             ],
             "Functions": [
                 {
@@ -119,7 +139,42 @@
                     "Name": "getFollow",
                     "CallingType": "json",
                     "Exposure":"public"
+                },
+                {
+                    "Name": "detectHashtag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "createHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },{
+                    "Name": "findHashtag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "searchHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getPostsByHashTag",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "markAsFavorite",
+                    "CallingType": "string",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getFavoritePosts",
+                    "CallingType": "string",
+                    "Exposure":"public"
                 }
+
             ]
         }
     ]
