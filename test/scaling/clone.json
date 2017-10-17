@@ -16,6 +16,7 @@
     {
         "Convey":"calculate the n-1th clone agent name for testing",
         "Zome": "clutter",
+        "Wait":!START!000,
         "Raw": true,
         "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=%result1%-1;if (serverID<0){serverID=numServers-1};clone=(%clone%+1)%numClones;prefix=(numClones==1)?\"clone\":\"clone.\"+clone; ;agent = prefix+\"@%result0%.\"+serverID;agent",
         "Regexp": "clone(.[0-9]+)*@%result0%.[0-9]"
@@ -23,7 +24,6 @@
     {
         "Convey":"post a bunch",
         "Zome": "clutter",
-        "Time":!START!000,
         "Wait": 200,
         "Repeat": !REPS!,
         "FnName": "post",
@@ -35,13 +35,13 @@
     {
         "Convey":"get the n-1th clone agent key",
         "Zome": "clutter",
-        "Time":!PAUSE!100,
+        "Wait":!PAUSE!000,
         "FnName": "getAgent",
         "Input": "%result2%",
         "Regexp": "Qm[a-zA-Z0-9]*"
     },
     {
-        "Time":!PAUSE!800,
+        "Wait":1000,
         "Convey":"follow it",
         "Zome": "clutter",
         "FnName": "follow",
@@ -49,7 +49,7 @@
         "Output": "%h%"
     },
     {
-        "Time":!PAUSE!999,
+        "Wait":2000,
         "Convey":"retrieve the posts",
         "Zome":   "clutter",
         "FnName": "getPostsBy",
