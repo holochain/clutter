@@ -10,6 +10,7 @@ KEEPALIVE=""
 OUTPUT="-outputDir=../results"
 hcd=0
 BOOTSTRAP="-bootstrapServer=bootstrap.holochain.net:10000"
+MDNS="false"
 
 for i in "$@"
 do
@@ -55,6 +56,11 @@ do
             ;;
         -l|--local)
             BOOTSTRAP="-bootstrapServer=_"
+            MDNS="true"
+            shift # past argument with no value
+            ;;
+        -m|--mdns)
+            MDNS="${i#*=}"
             shift # past argument with no value
             ;;
         --default)
