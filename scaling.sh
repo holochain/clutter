@@ -73,7 +73,7 @@ do
     esac
 done
 
-DURATION=$((START+PAUSE+2))
+DURATION=$((START+PAUSE+10))
 
 SERVER_ID=$(<scaling.serverid)
 
