@@ -135,7 +135,7 @@ function getPosts(by) {
         var len = len = arr.length;
         if (len > 0) {
             for (var i = 0; i < len; i++) {
-                var post = JSON.parse(arr[i].post);
+                var post = arr[i].post;
                 post.author = arr[i].author;
                 var id = cachePost(post);
             }
@@ -319,4 +319,7 @@ $(window).ready(function() {
     $('#editPostButton').click(doEditPost);
 
     getProfile();
+    //setInterval(getMyFeed, 1000)
+
 });
+2
