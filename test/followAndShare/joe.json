@@ -20,7 +20,7 @@
         "Regexp": "Qm[a-zA-Z0-9]*"
     },
     {
-        "Time":2100,
+        "Time":2500,
         "Convey":"follow jane",
         "Zome": "clutter",
         "FnName": "follow",
@@ -31,7 +31,7 @@
         "Regexp": ""
     },
     {
-        "Time":2150,
+        "Time":3000,
         "Convey":"retrieve jane's posts",
         "Zome":   "clutter",
         "FnName": "getPostsBy",

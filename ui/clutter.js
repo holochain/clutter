@@ -11,10 +11,14 @@ function getHandle(who,callbackFn) {
 
 function getMyHandle(callbackFn) {
     getHandle(App.me,function(hash,handle){
-        App.handle = handle;
-        $("#handle").html(handle);
-        if (callbackFn!=undefined) {
-            callbackFn();
+        if (handle != "") {
+          App.handle = handle;
+          $("#handle").html(handle);
+          if (callbackFn!=undefined) {
+              callbackFn();
+          }
+        } else {
+          openSetHandle();
         }
     });
 }
@@ -49,6 +53,7 @@ function addPost() {
         message:$('#meow').val(),
         stamp: now.valueOf()
     };
+    message:$('#meow').val('')
     send("post",JSON.stringify(post),function(data) {
         post.key = JSON.parse(data); // save the key of our post to the post
         post.author = App.me;
@@ -135,7 +140,7 @@ function getPosts(by) {
         var len = len = arr.length;
         if (len > 0) {
             for (var i = 0; i < len; i++) {
-                var post = JSON.parse(arr[i].post);
+                var post = arr[i].post;
                 post.author = arr[i].author;
                 var id = cachePost(post);
             }
@@ -275,6 +280,7 @@ function openFollow() {
 }
 
 function openSetHandle() {
+    $('#myHandle').text(App.handle)
     $('#setHandleDialog').modal('show');
 }
 
@@ -313,10 +319,25 @@ $(window).ready(function() {
     $("#submitFollow").click(doFollow);
     $('#followButton').click(openFollow);
     $("#handle").on("click", "", openSetHandle);
+    $("#changeHandleButton").on("click", "", openSetHandle);
     $('#setHandleButton').click(doSetHandle);
     $('#search-results.closer').click(hideSearchResults);
     $('#user-header').click(showFeed);
     $('#editPostButton').click(doEditPost);
 
+    $("#myHandle").on('keyup', function (e) {
+      if (e.keyCode == 13) {
+          doSetHandle()
+      }
+    })
+
+    $("#followHandle").on('keyup', function (e) {
+      if (e.keyCode == 13) {
+          doFollow();
+      }
+    })
+
     getProfile();
+    setInterval(getMyFeed, 1000)
+
 });

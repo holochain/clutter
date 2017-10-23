@@ -25,7 +25,7 @@
         "FnName": "post",
         "Input": {"message": "",
                   "stamp":12345},
-        "Output": "{\"message\":\"Invalid entry: {\\\"message\\\":\\\"\\\",\\\"stamp\\\":12345}\",\"name\":\"HolochainError\"}",
+        "Output": "{\"message\":\"Validation Failed\",\"name\":\"HolochainError\"}",
         "Exposure":"public",
         "Err": "",
         "Regexp": ""
@@ -55,7 +55,7 @@
         "Zome":   "clutter",
         "FnName": "getPostsBy",
         "Input":  "[\"%r1%\"]",
-        "Output": "[{\"H\":\"%h1%\",\"author\":\"%key%\",\"post\":\"{\\\"message\\\":\\\"here is a test post\\\",\\\"stamp\\\":12345}\"}]",
+        "Output": "[{\"H\":\"%h1%\",\"author\":\"%key%\",\"post\":{\"message\":\"here is a test post\",\"stamp\":12345}}]",
         "Exposure":"public",
         "Err": "",
         "Regexp": ""
@@ -77,7 +77,7 @@
         "Zome":   "clutter",
         "FnName": "getPostsBy",
         "Input":  "[\"%r3%\"]",
-        "Output": "[{\"H\":\"%h2%\",\"author\":\"%key%\",\"post\":\"{\\\"message\\\":\\\"this is the modified post\\\",\\\"stamp\\\":12346}\"}]",
+        "Output": "[{\"H\":\"%h2%\",\"author\":\"%key%\",\"post\":{\"message\":\"this is the modified post\",\"stamp\":12346}}]",
         "Exposure":"public",
         "Err": "",
         "Regexp": ""
@@ -90,7 +90,7 @@
                   "post": {"stamp": 12346,
                            "message":"this is the modified post"}},
         "Exposure":"public",
-        "Output": "{\"message\":\"Invalid entry: {\\\"message\\\":\\\"this is the modified post\\\",\\\"stamp\\\":12346}\",\"name\":\"HolochainError\"}",
+        "Output": "{\"message\":\"Validation Failed\",\"name\":\"HolochainError\"}",
         "Regexp": ""
     }
 ]
