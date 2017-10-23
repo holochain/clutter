@@ -53,6 +53,7 @@ function addPost() {
         message:$('#meow').val(),
         stamp: now.valueOf()
     };
+    message:$('#meow').val('')
     send("post",JSON.stringify(post),function(data) {
         post.key = JSON.parse(data); // save the key of our post to the post
         post.author = App.me;
@@ -325,12 +326,18 @@ $(window).ready(function() {
     $('#editPostButton').click(doEditPost);
 
     $("#myHandle").on('keyup', function (e) {
-    if (e.keyCode == 13) {
-        doSetHandle()
-    }
-});
+      if (e.keyCode == 13) {
+          doSetHandle()
+      }
+    })
+
+    $("#followHandle").on('keyup', function (e) {
+      if (e.keyCode == 13) {
+          doFollow();
+      }
+    })
 
     getProfile();
-    //setInterval(getMyFeed, 1000)
+    setInterval(getMyFeed, 1000)
 
 });
