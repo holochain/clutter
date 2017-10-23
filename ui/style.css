@@ -19,6 +19,9 @@ body {
 	padding-left: 9px; /* Recenter page from scrollbar width adjustment */
 }
 
+.row {
+  margin-top: 1em;
+}
 #container {
 	margin: 0;
 	width: 100%;
