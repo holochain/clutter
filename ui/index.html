@@ -14,54 +14,59 @@
     <title>Clutter</title>
   </head>
   <body>
-    <div class="alphabox" style="float: right; padding-left: 1em; padding-right: 1em; margin-bottom: 0.5em; margin-left: 0.5em;">
-
-      <form id="search-form" style="display:none;">
-        <input id="search" name="search" type="text" size="20" />
-        <button type="submit" onClick="doSearch();return false;">Search</button>
-      </form>
-
-      <div id="search-results" style="display:none">
-        <span class="closer">Close</span>
-        <div id="results-tabs">
-          <div id="people-tab" class="results-tab active-tab" onClick="searchTab('people');">people</div>
-          <div id="posts-tab" class="results-tab" onClick="searchTab('posts');">posts</div>
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="logo">
+          <img src="cat-eating-bird-circle.png" style="width: 13em; height: 13em;" />
         </div>
-        <div id="people-results" class="search-results-data">people search not implemented</div>
-        <div id="posts-results" class="search-results-data" style="display:none">post search not implemented</div>
       </div>
-
-      <div id="about">
-      	<h2>What is Clutter?</h2>
-      	<p>A <a href="https://en.wiktionary.org/wiki/clutter"><em>clutter</em></a> is a flock of cats.</p>
-      	<p><strong>Clutter</strong> is a fully decentralized alternative to Twitter.</p>
-      	<p>Impossible to censor or control.</p>
-      	<p>Join the mewvolution on <a href="http://ceptr.org">Ceptr.org</a>.</p>
+      <div class="col-sm-7">
+        <div class="contentcontainer">
+          <div>
+            <a id="handle" href="#"></a>
+            <button id="changeHandleButton" class="btn btn-success">Change handle</button>
+          </div>
+          <button id="followButton" class="btn btn-success">Follow somebody</button>
+          <div id="banner">Clutter
+	    <div class="subtitle">can haz herd cats?</div>
+          </div>
+          <div id="content">
+            <h2 id="user-header" style="display:none"></h2>
+	    <form id="meow-form" action="" style="text-align: center; margin-bottom: 1.75em;">
+	      <input id="meow" name="meow" type="text" size="64" />
+	      <button type="submit" class="btn btn-primary" onclick="addPost();return false;">Meow</button>
+	    </form>
+	    <div id="meows">
+	    </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="col-sm-3">
+        <div class="alphabox">
 
-    <div style="position: absolute; left: 2.8em; top: 1em;">
-      <img src="cat-eating-bird-circle.png" style="width: 13em; height: 13em;" />
+          <form id="search-form" style="display:none;">
+            <input id="search" name="search" type="text" size="20" />
+            <button type="submit" onClick="doSearch();return false;">Search</button>
+          </form>
 
-    </div>
+          <div id="search-results" style="display:none">
+            <span class="closer">Close</span>
+            <div id="results-tabs">
+              <div id="people-tab" class="results-tab active-tab" onClick="searchTab('people');">people</div>
+              <div id="posts-tab" class="results-tab" onClick="searchTab('posts');">posts</div>
+            </div>
+            <div id="people-results" class="search-results-data">people search not implemented</div>
+            <div id="posts-results" class="search-results-data" style="display:none">post search not implemented</div>
+          </div>
 
-    <div class="contentcontainer">
-      <div>
-        <a id="handle" href="#"></a>
-        <button id="changeHandleButton" class="btn btn-success">Change handle</button>
-      </div>
-      <button id="followButton" class="btn btn-success">Follow somebody</button>
-      <div id="banner">Clutter
-	       <div class="subtitle">can haz herd cats?</div>
-      </div>
-      <div id="content">
-        <h2 id="user-header" style="display:none"></h2>
-	       <form id="meow-form" action="" style="text-align: center; margin-bottom: 1.75em;">
-	          <input id="meow" name="meow" type="text" size="64" />
-	          <button type="submit" class="btn btn-primary" onclick="addPost();return false;">Meow</button>
-	       </form>
-	       <div id="meows">
-	       </div>
+          <div id="about">
+      	    <h2>What is Clutter?</h2>
+      	    <p>A <a href="https://en.wiktionary.org/wiki/clutter"><em>clutter</em></a> is a flock of cats.</p>
+      	    <p><strong>Clutter</strong> is a fully decentralized alternative to Twitter.</p>
+      	    <p>Impossible to censor or control.</p>
+      	    <p>Join the mewvolution on <a href="http://ceptr.org">Ceptr.org</a>.</p>
+          </div>
+        </div>
       </div>
     </div>
 
