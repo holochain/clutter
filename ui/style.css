@@ -232,6 +232,9 @@ blockquote {
 	border-radius: 10px;
         color: wheat;
 }
+.meow-edit {
+  display: none;
+}
 .closer {
   float:right;
 }
