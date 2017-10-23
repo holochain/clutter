@@ -11,10 +11,14 @@ function getHandle(who,callbackFn) {
 
 function getMyHandle(callbackFn) {
     getHandle(App.me,function(hash,handle){
-        App.handle = handle;
-        $("#handle").html(handle);
-        if (callbackFn!=undefined) {
-            callbackFn();
+        if (handle != "") {
+          App.handle = handle;
+          $("#handle").html(handle);
+          if (callbackFn!=undefined) {
+              callbackFn();
+          }
+        } else {
+          openSetHandle();
         }
     });
 }

@@ -219,7 +219,7 @@ function doGetLink(base,tag) {
 function genesis() {                            // 'hc gen chain' calls the genesis function in every zome file for the app
 
     // use the agent string (usually email) used with 'hc init' to identify myself and create a new handle
-    addHandle(App.Agent.String);
+    //addHandle(App.Agent.String);
     //commit("anchor",{type:"sys",value:"directory"});
     return true;
 }
