@@ -279,6 +279,7 @@ function openFollow() {
 }
 
 function openSetHandle() {
+    $('#myHandle').text(App.handle)
     $('#setHandleDialog').modal('show');
 }
 
@@ -317,13 +318,19 @@ $(window).ready(function() {
     $("#submitFollow").click(doFollow);
     $('#followButton').click(openFollow);
     $("#handle").on("click", "", openSetHandle);
+    $("#changeHandleButton").on("click", "", openSetHandle);
     $('#setHandleButton').click(doSetHandle);
     $('#search-results.closer').click(hideSearchResults);
     $('#user-header').click(showFeed);
     $('#editPostButton').click(doEditPost);
 
+    $("#myHandle").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        doSetHandle()
+    }
+});
+
     getProfile();
     //setInterval(getMyFeed, 1000)
 
 });
-2

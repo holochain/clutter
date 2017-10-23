@@ -25,6 +25,20 @@ body {
 	padding: 0;
 }
 
+#changeHandleButton {
+  float: left;
+  margin: 8px;
+}
+
+#followButton {
+  float: right;
+  margin: 8px;
+}
+
+#meow {
+  margin: 10px;
+}
+
 p {
 	margin-top: 0;
 }
