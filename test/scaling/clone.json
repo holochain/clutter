@@ -3,7 +3,7 @@
         "Convey":"extract the server name from %server% for testing (which is just 'server' in this test)",
         "Zome": "clutter",
         "Raw": true,
-        "Input": "server = \"%server%\".split(\".\")[0];server",
+        "Input": "addHandle(\"%agentstr%\");server = \"%server%\".split(\".\")[0];server",
         "Regexp": "server"
     },
     {
