@@ -1,3 +1,31 @@
+Clutter = 
+{ "debug": false,
+
+  "functionSpecDict":
+      { "appProperty":{"preSendHook":"Clutter.noOp=true;","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
+        "getPostsBy":{"preSendHook":"Clutter.noOp=true;","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
+        "newHandle":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".spinner\").toggleClass(\"show\", false);"},
+        "getAgent":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
+        "follow":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".spinner\").toggleClass(\"show\", false);"},
+        "post":{"preSendHook":"$(\".logo > img\").toggleClass(\"spin\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".logo > img\").toggleClass(\"spin\", false);"},
+        "manual":{"clearUI":"$(\".spinner\").toggleClass(\"show\", false);","normalUI":"$(\".spinner\").toggleClass(\"show\", false);"},
+        "getHandle":{"preSendHook":"$(\"#changeHandleButton\").toggleClass(\"colorCycle\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\"#changeHandleButton\").toggleClass(\"colorCycle\", false);"},
+        "getFollow":{"preSendHook":"$('#followButton').toggleClass('colorCycle', true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$('#followButton').toggleClass('colorCycle', false);"},
+
+      },
+  "getHook": 
+      (functionName, hookName) =>
+      { if (!Clutter.functionSpecDict.hasOwnProperty(functionName))
+        { Clutter.functionSpecDict[functionName]  = {};
+        }
+        if (!Clutter.functionSpecDict[functionName].hasOwnProperty(hookName))
+        { Clutter.functionSpecDict[functionName][hookName] = "";
+        }
+        return Clutter.functionSpecDict[functionName][hookName];
+      },
+};
+console.log("type 'Clutter.debug=true' into the console to see messages back and forth to the server. 'Clutter.debug=false' to stop");
+
 var App = {posts:{},users:{},handles:{},follows:{},handle:"",me:""};
 
 function getHandle(who,callbackFn) {
@@ -146,7 +174,8 @@ function getPosts(by) {
             }
         }
         displayPosts();
-    });
+    },
+    true);
 }
 
 function cachePost(p) {
@@ -230,6 +259,7 @@ function doFollow() {
             alert(handle+" not found");
         }
         $('#followDialog').modal('hide');
+        eval(Clutter.getHook("manual", "normalUI"));
     });
 }
 
@@ -270,6 +300,7 @@ function doSetHandle() {
             getMyHandle();
         }
         $('#setHandleDialog').modal('hide');
+        $(".spinner").toggleClass("show", false);
     });
 }
 
