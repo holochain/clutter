@@ -15,7 +15,7 @@
         "FnName": "post",
         "Input": {"message": "hello world",
                   "stamp":12345},
-        "Output": "\"%h1%\"",
+        "Output": "%h1%",
         "Exposure":"public",
         "Err": "",
         "Regexp": "",
