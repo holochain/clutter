@@ -4,7 +4,7 @@
         "Zome": "clutter",
         "FnName": "getFollow",
         "Input": {"from":"%key%","type":"foo"},
-        "Output": "{\"error\":\"bad type: foo\"}",
+        "Output": {"error":"bad type: foo"},
         "Exposure":"public",
         "Err": "",
         "Regexp": ""
@@ -24,7 +24,7 @@
         "Zome": "clutter",
         "FnName": "getFollow",
         "Input": {"from":"%key%","type":"following"},
-        "Output": "{\"result\":[\"%key%\"]}",
+        "Output": {"result":["%key%"]},
         "Exposure":"public",
         "Err": "",
         "Regexp": ""
