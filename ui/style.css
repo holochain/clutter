@@ -263,3 +263,64 @@ blockquote {
 .meow-edit {
   float:right;
 }
+
+
+.spinner
+{ display: none;
+
+	position: absolute;
+
+	width: 		100%;
+	height: 	100%;
+
+	z-index:  314159;
+
+	background-color: rgba(0,0,0,0.4);
+}
+.error
+{ display: none;
+
+	position: absolute;
+
+	width: 		30%;
+	height: 	30%;
+
+	z-index:  3141592;
+
+	background-color: rgba(128,0,0,0.3);
+}
+
+/*
+ TOOLS
+*/
+.transition500
+{ transition: all 0.5s ease;
+}
+
+.show
+{ display: block;
+}
+.spin
+{ animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes spin { 
+    from { 
+        transform: rotate(0deg); 
+    } to { 
+        transform: rotate(360deg); 
+    }
+}
+
+.colorCycle
+{ animation: color_change 1s infinite alternate;
+}
+@keyframes color_change {
+	0% { background-color: blue; }
+	25% { background-color: orange; }
+	50% { background-color: yellow; }
+	75% { background-color: black; }
+	100% { background-color: red; }
+}
