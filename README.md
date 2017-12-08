@@ -36,7 +36,7 @@ you should see something like:
 ``` shell
 Copying chain to: /home/bootstrap/.holochaindev
 ...
-Serving holochain with DNA hash:QmZYxoxcqgCp6Xf6xVe8ptzPkmH8QMzxqp4r49QYpS2fEF on port:4141
+Serving holochain with DNA hash:QmQEaXCa8QHHpwcK79AmQPU2cXHCpyvfohPcMEb3qteQD5 on port:4141
 ```
 Then simply point your browser to http://localhost:4141 access the clutter UI.
 
@@ -51,12 +51,12 @@ Currently there are two scenario tests:
 
 #### followAndShare
 ``` shell
-hcdev scenario followAndShare
+hcdev -mdns=true scenario followAndShare
 ```
 This test spins up two nodes `jane` and `joe` and tests that following and reading posts works. To watch the network traffic and details try:
 
 ``` shell
-hcdev -debug scenario followAndShare
+hcdev -debug -mdns=true scenario followAndShare
 ```
 #### scaling
 
