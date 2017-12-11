@@ -260,6 +260,10 @@ blockquote {
   color:white;
 }
 
+#usersDialog .user {
+  margin: 5px 10px 5px 10px;
+}
+
 .meow-edit {
   float:right;
 }
@@ -306,11 +310,11 @@ blockquote {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-@keyframes spin { 
-    from { 
-        transform: rotate(0deg); 
-    } to { 
-        transform: rotate(360deg); 
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
     }
 }
 

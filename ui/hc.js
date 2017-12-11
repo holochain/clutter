@@ -6,21 +6,22 @@
 
 // use send to make an ajax call to your exposed functions
 function send(fn,data,resultFn) {
-    if (Clutter.debug) console.log("calling: " + fn+" with "+JSON.stringify(data));
-    
+    var debug = (Clutter.debug && fn != "getPostsBy");
+    if (debug) console.log("calling: " + fn+" with "+JSON.stringify(data));
+
     eval(Clutter.getHook(fn, "preSendHook"));
     $.post(
         "/fn/clutter/"+fn,
         data,
         function(response) {
-            if (Clutter.debug) console.log("response: " + response);
+            if (debug) console.log("response: " + response);
             eval(Clutter.getHook(fn, "successPreResult"));
             resultFn(response);
             eval(Clutter.getHook(fn, "successPostResult"));
         }
     ).error(function(response) {
         console.log("response failed: " + response.responseText);
-        $(".error").html("<span>" + response.responseText + "<span>").toggleClass("show", true)
+        $(".error").html("<span>" + response.responseText + "<span>").toggleClass("show", true);
         setTimeout
         ( () =>
           { $(".error")  .toggleClass("show", false);

@@ -115,6 +115,25 @@ function newHandle(handle){
     return addHandle(handle);
 }
 
+// returns a map of user keys to handles
+function getHandles() {
+    if (property("enableDirectoryAccess") != "true") {
+        return undefined;
+    }
+    var directory = getDirectory();
+    var links = getLinks(directory, "handle",{Load:true});
+    if (isErr(links)) {
+        links = [];
+    } else {
+        links = links;
+    }
+    var handles = {};
+    for (var i=0;i <links.length;i++) {
+        handles[links[i].Source] = links[i].Entry;
+    }
+    return handles;
+}
+
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
 function getHandle(userHash) {
     var handles = doGetLinkLoad(userHash,"handle");
@@ -188,7 +207,6 @@ function doGetLinkLoad(base, tag) {
         link[tag] = links[i].Entry;
         links_filled.push(link);
     }
-    debug("Links Filled:"+JSON.stringify(links_filled));
     return links_filled;
 }
 

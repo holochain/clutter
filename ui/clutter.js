@@ -1,19 +1,20 @@
-Clutter = 
+Clutter =
 { "debug": false,
 
   "functionSpecDict":
       { "appProperty":{"preSendHook":"Clutter.noOp=true;","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
         "getPostsBy":{"preSendHook":"Clutter.noOp=true;","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
+        "getHandles":{"preSendHook":"Clutter.noOp=true;","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
         "newHandle":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".spinner\").toggleClass(\"show\", false);"},
         "getAgent":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
         "follow":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".spinner\").toggleClass(\"show\", false);"},
+        "unfollow":{"preSendHook":"$(\".spinner\").toggleClass(\"show\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".spinner\").toggleClass(\"show\", false);"},
         "post":{"preSendHook":"$(\".logo > img\").toggleClass(\"spin\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\".logo > img\").toggleClass(\"spin\", false);"},
         "manual":{"clearUI":"$(\".spinner\").toggleClass(\"show\", false);","normalUI":"$(\".spinner\").toggleClass(\"show\", false);"},
         "getHandle":{"preSendHook":"$(\"#changeHandleButton\").toggleClass(\"colorCycle\", true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$(\"#changeHandleButton\").toggleClass(\"colorCycle\", false);"},
-        "getFollow":{"preSendHook":"$('#followButton').toggleClass('colorCycle', true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$('#followButton').toggleClass('colorCycle', false);"},
-
+        "getFollow":{"preSendHook":"$('#followButton').toggleClass('colorCycle', true);","successPreResult":"Clutter.noOp=true;","successPostResult":"$('#followButton').toggleClass('colorCycle', false);"}
       },
-  "getHook": 
+  "getHook":
       (functionName, hookName) =>
       { if (!Clutter.functionSpecDict.hasOwnProperty(functionName))
         { Clutter.functionSpecDict[functionName]  = {};
@@ -33,6 +34,22 @@ function getHandle(who,callbackFn) {
         cacheUser({handle:handle,hash:who});
         if (callbackFn!=undefined) {
             callbackFn(who,handle);
+        }
+    });
+}
+
+function getHandles(callbackFn) {
+    send("getHandles","",function(handles) {
+        handles = JSON.parse(handles);
+        var keys = Object.keys(handles);
+        var len = keys.length;
+        if (Clutter.debug) console.log(JSON.stringify(handles));
+        for (var i = 0; i < len; i++) {
+            var k = keys[i];
+            cacheUser({handle:handles[k],hash:k});
+        }
+        if (callbackFn!=undefined) {
+            callbackFn();
         }
     });
 }
@@ -81,7 +98,7 @@ function addPost() {
         message:$('#meow').val(),
         stamp: now.valueOf()
     };
-    message:$('#meow').val('')
+    message:$('#meow').val('');
     send("post",JSON.stringify(post),function(data) {
         post.key = JSON.parse(data); // save the key of our post to the post
         post.author = App.me;
@@ -107,9 +124,15 @@ function doEditPost() {
     });
 }
 
-function follow(w) {
-    send("follow",w,function(data) {
-        cacheFollow(w);
+function follow(hash) {
+    send("follow",hash,function(data) {
+        cacheFollow(hash);
+    });
+}
+
+function unfollow(hash) {
+    send("unfollow",hash,function(data) {
+        uncacheFollow(hash);
     });
 }
 
@@ -163,7 +186,7 @@ function getPosts(by) {
     }
     send("getPostsBy",JSON.stringify(by),function(arr) {
         arr = JSON.parse(arr);
-        console.log("posts: " + JSON.stringify(arr));
+        if (Clutter.debug) console.log("posts: " + JSON.stringify(arr));
 
         var len = len = arr.length;
         if (len > 0) {
@@ -179,29 +202,28 @@ function getPosts(by) {
 }
 
 function cachePost(p) {
-    //console.log("Caching:"+JSON.stringify(p));
+    if (Clutter.debug) console.log("caching post:"+JSON.stringify(p));
     var id = p.stamp;
     App.posts[id] = p;
     return id;
 }
 
 function cacheUser(u) {
+    if (Clutter.debug) console.log("caching user:",JSON.stringify(u));
     App.users[u.handle] = u;
     App.handles[u.hash] = u;
 }
 
 function cacheFollow(f) {
-    console.log("caching: "+f);
     App.follows[f] = true;
 }
 
 function uncacheFollow(f) {
-    console.log("uncaching: "+f);
     delete App.follows[f];
 }
 
 function makeFollowingHTML(handle) {
-    return "<div class='following-handle'><span class='handle'>"+handle+'</span><button type="button" class="close" aria-label="Close" onclick="unfollow(this);"><span aria-hidden="true">&times;</span></button></div>';
+    return "<div class='following-handle'><span class='handle'>"+handle+'</span><button type="button" class="close" aria-label="Close" onclick="doUnfollow(this);"><span aria-hidden="true">&times;</span></button></div>';
 }
 
 function displayFollowing() {
@@ -221,6 +243,39 @@ function displayFollowing() {
         $("#following").append(makeFollowingHTML(handles[i]));
     }
 }
+
+function updateFollowing(user) {
+    var hash = user.getAttribute("hash");
+    if (user.checked) {
+        follow(hash);
+    } else {
+        unfollow(hash);
+    }
+}
+
+function makeUserHTML(user) {
+    var following = App.follows[user.hash] === true ? "checked" : "";
+    return '<div class="user"><span class="following"><input hash="'+user.hash+'" onclick="updateFollowing(this);" type="checkbox" '+following+'></span> <span class="handle" title="'+user.hash+'">'+user.handle+'</span> </div>';
+}
+
+function displayUsers() {
+    var handles = [];
+    var users = Object.keys(App.users);
+    var len = users.length;
+    for (var i = 0; i < len; i++) {
+        var user = App.users[users[i]];
+        if (user != undefined && users[i] != "" && user.hash != App.me) {
+            handles.push(user.handle);
+        }
+    }
+    handles.sort();
+    $("#users").html("");
+    len = handles.length;
+    for (i = 0; i < len; i++) {
+        $("#users").append(makeUserHTML(App.users[handles[i]]));
+    }
+}
+
 
 function displayPosts(filter) {
     var keys = [],
@@ -305,13 +360,21 @@ function doSetHandle() {
 }
 
 function openFollow() {
-    $("#followHandle").val("");
-    displayFollowing();
-    $('#followDialog').modal('show');
+    if (App.enableDirectoryAccess) {
+        getHandles(function() {
+            displayUsers();
+            $('#usersDialog').modal('show');
+        });
+    }
+    else {
+        $("#followHandle").val("");
+        displayFollowing();
+        $('#followDialog').modal('show');
+    }
 }
 
 function openSetHandle() {
-    $('#myHandle').text(App.handle)
+    $('#myHandle').text(App.handle);
     $('#setHandleDialog').modal('show');
 }
 
@@ -321,14 +384,12 @@ function openEditPost(id) {
     $('#editPostDialog').modal('show');
 }
 
-function unfollow(button) {
+function doUnfollow(button) {
     // pull the handle out from the HTML
     var handle = $(button).parent().find('.handle')[0].innerHTML;
     var user = App.users[handle].hash;
-    send("unfollow",user,function(data) {
-        uncacheFollow(user);
-        $('#followDialog').modal('hide');
-    });
+    unfollow(user);
+    $('#followDialog').modal('hide');
 }
 
 function showUser(user) {
@@ -347,6 +408,10 @@ function showFeed() {
 }
 
 $(window).ready(function() {
+    send("getProperty","enableDirectoryAccess", function(val) {
+        if (Clutter.debug) console.log("enableDirectoryAccess=",val);
+        App.enableDirectoryAccess = val == "true";
+    });
     $("#submitFollow").click(doFollow);
     $('#followButton').click(openFollow);
     $("#handle").on("click", "", openSetHandle);
@@ -360,15 +425,15 @@ $(window).ready(function() {
       if (e.keyCode == 13) {
           doSetHandle()
       }
-    })
+    });
 
     $("#followHandle").on('keyup', function (e) {
       if (e.keyCode == 13) {
           doFollow();
       }
-    })
+    });
 
     getProfile();
-    setInterval(getMyFeed, 1000)
+    setInterval(getMyFeed, 1000);
 
 });
