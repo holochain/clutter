@@ -24,7 +24,7 @@ function follow(userAddress) {
        // On the DHT, puts a link on my hash to their hash as a "following"
     return commit("follow",
                   {Links:[
-                      {Base:userAddress,Link:me,Tag:"follower"},
+                      {Base:userAddress,Link:me,Tag:"followers"},
                       {Base:me,Link:userAddress,Tag:"following"}
                   ]});
 }
@@ -33,7 +33,7 @@ function unfollow(userAddress){
     var me = getMe();
     return commit("unfollow",  // On my source chain, commits the unfollow entry
                   {Links:[
-                      {Base:userAddress,Link:me,Tag:"follower",LinkAction:HC.LinkAction.Del},
+                      {Base:userAddress,Link:me,Tag:"followers",LinkAction:HC.LinkAction.Del},
                       {Base:me,Link:userAddress,Tag:"following",LinkAction:HC.LinkAction.Del}
                   ]});
 }
@@ -80,7 +80,7 @@ function getFollow(params) {
     var type = params.type;
     var  base = params.from;
     var result = {};
-    if ((type == "follows") || (type == "following")) {
+    if ((type == "followers") || (type == "following")) {
         result["result"] = doGetLink(base,type);
     }
     else {

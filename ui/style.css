@@ -264,6 +264,36 @@ blockquote {
   margin: 5px 10px 5px 10px;
 }
 
+.modal-title {
+	font-weight: bold;
+}
+
+/* organization of user information */
+.user .follow-button {
+	float:right;
+	padding-right: 15px;
+}
+
+.user .follow-text {
+	float:right;
+}
+
+.user .handle {
+	display:inline-block;
+	width: 200px;
+}
+
+.user .audience {
+	display:inline-block;
+	width: 100px;
+}
+
+.user .listening-to {
+	display:inline-block;
+	width: 100px;
+}
+
+
 .meow-edit {
   float:right;
 }
@@ -327,4 +357,25 @@ blockquote {
 	50% { background-color: yellow; }
 	75% { background-color: black; }
 	100% { background-color: red; }
+}
+
+/* make @ symbol always in handle input field. */
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 17px;
+	padding-right: 0;
 }

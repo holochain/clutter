@@ -1,5 +1,5 @@
 Clutter =
-{ "debug": false,
+{ "debug": true,
 
   "functionSpecDict":
       { "appProperty":{"preSendHook":"Clutter.noOp=true;","successPreResult":"Clutter.noOp=true;","successPostResult":"Clutter.noOp=true;"},
@@ -78,7 +78,7 @@ function getFollow(who,type,callbackFn) {
                 cacheFollow(following[i]);
             }
             if (callbackFn!=undefined) {
-                callbackFn();
+                callbackFn(following);
             }
         }
     });
@@ -88,7 +88,7 @@ function getProfile() {
     send("appProperty","App_Key_Hash", function(me) {
         App.me = me;
         getMyHandle();
-        getFollow(me,"following",getMyFeed);
+        getFollow(me,"listening_to",getMyFeed);
     });
 }
 
@@ -150,7 +150,7 @@ function getUserHandle(user) {
 function makePostHTML(id,post) {
     var d = new Date(post.stamp);
     var handle = getUserHandle(post.author);
-    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">'+handle+'</a><div class="message">'+post.message+'</div></div>';
+    return '<div class="meow" id="'+id+'"><a class="meow-edit" href="#" onclick="openEditPost('+id+')">edit</a><div class="stamp">'+d+'</div><a href="#" class="user" onclick="showUser(\''+post.author+'\');">@'+handle+'</a><div class="message">'+post.message+'</div></div>';
 }
 
 function makeUserHTML(user) {
@@ -253,9 +253,9 @@ function updateFollowing(user) {
     }
 }
 
-function makeUserHTML(user) {
+function makeUserHTML(user, audience, listening_to) {
     var following = App.follows[user.hash] === true ? "checked" : "";
-    return '<div class="user"><span class="following"><input hash="'+user.hash+'" onclick="updateFollowing(this);" type="checkbox" '+following+'></span> <span class="handle" title="'+user.hash+'">'+user.handle+'</span> </div>';
+    return '<div class="user"> <span class="handle" title="'+user.hash+'">@'+user.handle+'</span> <span class="audience">'+audience+'</span> <span class="listening-to">'+listening_to+'</span> <span class="follow-button"><input hash="'+user.hash+'" onclick="updateFollowing(this);" type="checkbox" '+following+'></span> </div>';
 }
 
 function displayUsers() {
@@ -272,7 +272,18 @@ function displayUsers() {
     $("#users").html("");
     len = handles.length;
     for (i = 0; i < len; i++) {
-        $("#users").append(makeUserHTML(App.users[handles[i]]));
+      var audience = 0;
+      var listening_to = 0;
+      var user = App.users[handles[i]];
+      getFollow(user.hash,"following",function(data) {
+        console.log("listening_to:", data)
+        listening_to = data.length
+        getFollow(user.hash,"followers",function(data) {
+          console.log("audience:", data)
+          audience = data.length
+          $("#users").append(makeUserHTML(user, listening_to, audience));
+        });
+      });
     }
 }
 
