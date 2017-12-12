@@ -19,4 +19,4 @@ script:
 
 cache:
   directories:
-    - node_modules
+    - ui-automation/node_modules

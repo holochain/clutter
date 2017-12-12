@@ -1,6 +1,6 @@
 FROM metacurrency/holochain
 
-run hcdev init "uitest@holochain.org"
-
+ADD . /clutter
+WORKDIR /clutter
 
 EXPOSE 3141
