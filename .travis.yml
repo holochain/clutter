@@ -13,3 +13,4 @@ before_install:
     - cd ui-automation
     - npm install
     - npm test
+    - docker kill website
