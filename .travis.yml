@@ -9,7 +9,4 @@ services:
 
 before_install:
     - docker build -t holochain/clutter -f Dockerfile.travis .;
-    - docker run --rm -ti -p 3141:3141 holochain/clutter;
-    - hcdev init -cloneExample=clutter -fromBranch=$TRAVIS_BRANCH;
-    - cd clutter;
-    - hcdev web 3141;
+    - docker run --rm -ti -p 3141:3141 holochain/clutter -c "hcdev init -cloneExample=clutter -fromBranch=$TRAVIS_BRANCH; cd clutter; hcdev web 3141;"
