@@ -1,8 +1,6 @@
 sudo: required
 
-language: go
-go:
-  - 1.8
+language: node
 
 services:
   - docker
@@ -14,3 +12,7 @@ before_install:
     - npm install
     - npm test
     - docker kill website
+
+cache:
+  directories:
+    - node_modules
