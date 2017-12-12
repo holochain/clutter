@@ -1,6 +1,6 @@
 FROM metacurrency/holochain
 
 run hcdev init "uitest@holochain.org"
-
+run hcdev init -cloneExample=clutter -fromBranch=17-UI-Automation
 
 EXPOSE 3141

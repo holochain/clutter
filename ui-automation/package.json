@@ -1,0 +1,26 @@
+{
+  "name": "ui-automation",
+  "version": "1.0.0",
+  "description": "Cypress automation for Clutter",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Holochain/clutter.git"
+  },
+  "keywords": [
+    "Holochain",
+    "Clutter"
+  ],
+  "author": "Philip Beadle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Holochain/clutter/issues"
+  },
+  "homepage": "https://github.com/Holochain/clutter#readme",
+  "devDependencies": {
+    "cypress": "^1.1.4"
+  }
+}

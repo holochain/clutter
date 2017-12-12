@@ -1,1 +1,4 @@
 scaling.serverid
+node_modules/
+videos/
+.DS_Store
