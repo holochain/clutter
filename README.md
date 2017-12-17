@@ -41,7 +41,7 @@ Serving holochain with DNA hash:QmQEaXCa8QHHpwcK79AmQPU2cXHCpyvfohPcMEb3qteQD5 o
 Then simply point your browser to http://localhost:4141 access the clutter UI.
 
 ### Tests
-To run all the stand alone tests:
+To run all the stand alone DNA tests:
 
 ``` shell
 hcdev test
