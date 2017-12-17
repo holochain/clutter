@@ -124,15 +124,21 @@ function doEditPost() {
     });
 }
 
-function follow(hash) {
+function follow(hash,fn) {
     send("follow",hash,function(data) {
         cacheFollow(hash);
+        if (fn!=undefined) {
+            fn();
+        }
     });
 }
 
-function unfollow(hash) {
+function unfollow(hash,fn) {
     send("unfollow",hash,function(data) {
         uncacheFollow(hash);
+        if (fn!=undefined) {
+            fn();
+        }
     });
 }
 
@@ -244,12 +250,23 @@ function displayFollowing() {
     }
 }
 
-function updateFollowing(user) {
-    var hash = user.getAttribute("hash");
-    if (user.checked) {
-        follow(hash);
+function updateFollowing(checkboxElem) {
+
+    var hash = checkboxElem.getAttribute("hash");
+    var following = App.follows[hash] === true;
+    var userElem = $(checkboxElem).parent().parent().parent();
+    var user = App.handles[hash];
+
+    var fn = function() {
+        getUserFollowingData(hash,function(audience,listening_to){
+            userElem.html(makeUserHTML(user, audience, listening_to));
+        });
+    };
+
+    if (following) {
+        unfollow(hash,fn);
     } else {
-        unfollow(hash);
+        follow(hash,fn);
     }
 }
 
@@ -258,6 +275,23 @@ function makeUserHTML(user, audience, listening_to) {
     return '<div class="user"> <span class="handle" title="'+user.hash+'">@'+user.handle+'</span> <span class="audience">'+audience+'</span> <span class="listening-to">'+listening_to+'</span> <span class="follow-button"><input hash="'+user.hash+'" onclick="updateFollowing(this);" type="checkbox" '+following+'></span> </div>';
 }
 
+function getUserFollowingData(user_hash,fn) {
+    let p1 = new Promise(
+        (resolve, reject) => {
+            getFollow(user_hash,"following",function(data) {
+                console.log("listening_to:", data);
+                resolve(data.length);
+            });});
+    let p2 = new Promise(
+        (resolve, reject) => {
+            getFollow(user_hash,"followers",function(data) {
+                console.log("audience:", data);
+                resolve(data.length);
+            });});
+    Promise.all([p1, p2]).then(values => {
+        fn(values[0],values[1]);
+    });
+}
 function displayUsers() {
     var handles = [];
     var users = Object.keys(App.users);
@@ -272,18 +306,10 @@ function displayUsers() {
     $("#users").html("");
     len = handles.length;
     for (i = 0; i < len; i++) {
-      var audience = 0;
-      var listening_to = 0;
-      var user = App.users[handles[i]];
-      getFollow(user.hash,"following",function(data) {
-        console.log("listening_to:", data)
-        listening_to = data.length
-        getFollow(user.hash,"followers",function(data) {
-          console.log("audience:", data)
-          audience = data.length
-          $("#users").append(makeUserHTML(user, listening_to, audience));
+        var user = App.users[handles[i]];
+        getUserFollowingData(user.hash,function(audience,listening_to){
+            $("#users").append(makeUserHTML(user, audience, listening_to));
         });
-      });
     }
 }
 
