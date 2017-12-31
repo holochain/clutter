@@ -59,17 +59,17 @@ function postMod(params) {
 }
 
 function getPost(params) {
-  var post, entry, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
-  if (!isErr(rawPost)) {
-    entry = JSON.parse(rawPost.Entry);
+  var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
+  if (isErr(rawPost)) {
+    return rawPost;
+  } else {
     post = {
-      message: entry.message,
-      stamp: entry.stamp,
+      post: JSON.parse(rawPost.Entry),
       author: rawPost.Sources[0],
-      hash: params.postHash
+      H: params.postHash
     };
+    return post;
   }
-  return post;
 }
 
 // TODO add "last 10" or "since timestamp" when query info is supported

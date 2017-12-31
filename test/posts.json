@@ -93,6 +93,30 @@
             "Exposure":"public",
             "Output": {"message":"Validation Failed","name":"HolochainError"},
             "Regexp": ""
+        },
+        {
+            "Convey":"We can retrieve a single post",
+            "Zome":   "clutter",
+            "FnName": "getPost",
+            "Input":  {
+              "postHash": "%h2%"
+            },
+            "Output": {"H":"%h2%","author":"%key%","post":{"message":"this is the modified post","stamp":12346}},
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Retrieving single post will return error if not found",
+            "Zome":   "clutter",
+            "FnName": "getPost",
+            "Input":  {
+              "postHash": "%h1%"
+            },
+            "Output": {"message":"hash not found","name":"HolochainError"},
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
         }
     ]
 }
