@@ -58,6 +58,20 @@ function postMod(params) {
     return update("post",post,hash);
 }
 
+function getPost(params) {
+  var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
+  if (isErr(rawPost)) {
+    return rawPost;
+  } else {
+    post = {
+      post: JSON.parse(rawPost.Entry),
+      author: rawPost.Sources[0],
+      H: params.postHash
+    };
+    return post;
+  }
+}
+
 // TODO add "last 10" or "since timestamp" when query info is supported
 function getPostsBy(userAddresses) {
     // From the DHT, gets all "post" metadata entries linked from this userAddress

@@ -91,6 +91,11 @@
                     "CallingType": "json",
                     "Exposure":"public"
                 },
+                {
+                    "Name": "getPost",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
                  {
                     "Name": "postMod",
                     "CallingType": "json",
