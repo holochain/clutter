@@ -15,30 +15,46 @@ Clutter is a work in progress, sample application which exists to demonstrate ho
 
 ## Installation
 
-Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine.
-You can install clutter very simply with this:
+Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
+The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So make a directory to clone Clutter into cd into that dir and let's get started.
 
-``` shell
-hcdev init -cloneExample=clutter
+Firstly run the bootstrap server which will let each instance of Clutter know about its peers. (Soon we won't need this step)
+```
+  bs
+```
+You will get a response like
+```
+2018/01/11 11:24:03 app version: 0.0.2; Holochain bootstrap server
+2018/01/11 11:24:03 starting up on port 3142
+```
+Next clone 2 instances of Clutter and name each one.
+```
+hcdev init -cloneExample=clutter clutter1
+
+hcdev init -cloneExample=clutter clutter2
 
 ```
+You will now see two folders in your directory called clutter1 & clutter2.
 
-## Usage
-
-To do a test run of clutter simply type
-
-``` shell
-cd clutter
-hcdev web
+Now start up Clutter in each folder.
 ```
-you should see something like:
+  cd clutter1
+  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true web 3141
 
-``` shell
-Copying chain to: /home/bootstrap/.holochaindev
-...
-Serving holochain with DNA hash:QmQEaXCa8QHHpwcK79AmQPU2cXHCpyvfohPcMEb3qteQD5 on port:4141
+  cd ..
+  cd clutter2
+  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true web 4141
 ```
-Then simply point your browser to http://localhost:4141 access the clutter UI.
+You will see a response like:
+```
+Copying chain to: /Users/philipbeadle/.holochaindev
+Serving holochain with DNA hash:QmVbbeDAHVxC9cTvx6UhNEeTCK99SRKfxKDz3s4mR6TnsS on port:3141
+```
+Now open a browser at http://localhost:3142 and look at the Bootstrap server.  You will see 2 records
+```
+  [{"Req":{"Version":1,"NodeID":"QmTAjDmQHobs2oQZp4UrbSzkShUGVKcsQUdakHeQ4YYxRX","NodeAddr":"/ip4/0.0.0.0/tcp/6003"},"Remote":"[::1]:63187","LastSeen":"2018-01-11T12:32:15.659887156+11:00"},{"Req":{"Version":1,"NodeID":"QmWQVaqEayZJWnvxLtsKr1iyeTDp3s7m7TTE36HhAUTiTK","NodeAddr":"/ip4/0.0.0.0/tcp/6002"},"Remote":"[::1]:63153","LastSeen":"2018-01-11T12:28:40.85765899+11:00"}]
+```
+Now open a browser to http://localhost:3141 and you will see Clutter.  Open another tab to http://localhost:4141 and you now have 2 instances of Clutter that you can chat between.  Add a handle in each and then meow and follow each instance and you will see the meows!!
 
 ### Tests
 To run all the stand alone DNA tests:
