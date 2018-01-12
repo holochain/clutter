@@ -4,12 +4,20 @@ language: node_js
 node_js:
   - "8"
 
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+
 services:
   - docker
 
 before_install:
-    - docker build -t holochain/clutter -f Dockerfile.travis .;
-    - docker run -d --name website -p 3141:3141 holochain/clutter /bin/sh -c "cd /go/bin; hcdev init -cloneExample=clutter -fromBranch=$TRAVIS_BRANCH; cd clutter; hcdev web 3141;"
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+    - docker-compose
+    # - docker build -t holochain/clutter -f Dockerfile.travis .;
+    # - docker run -d --name website -p 3141:3141 holochain/clutter /bin/sh -c "cd /go/bin; hcdev init -cloneExample=clutter -fromBranch=$TRAVIS_BRANCH; cd clutter; hcdev web 3141;"
 
 script:
       - cd ui-automation

@@ -19,6 +19,19 @@
   "bugs": {
     "url": "https://github.com/Holochain/clutter/issues"
   },
+  "standard":  {
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect",
+      "cy"
+    ]
+  },
   "homepage": "https://github.com/Holochain/clutter#readme",
   "devDependencies": {
     "cypress": "^1.1.4"
