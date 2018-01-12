@@ -68,6 +68,7 @@ Then you can open browsers to
   http://localhost:4141 - Clutter
   http://localhost:5141 - Clutter
 ```
+and try out Clutter.
 ### Tests
 To run all the stand alone DNA tests:
 
@@ -89,6 +90,15 @@ hcdev -debug -mdns=true scenario followAndShare
 #### scaling
 
 This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to eachother.
+
+## What the Automated build does
+
+When a branch is pushed to Github Travis runs a build.  The build does the following:
+1. Installs docker-compose
+2. Runs docker-compose up -d which spins up a bootstrap server and 3 instances of clutter
+3. Install the cypress dependencies
+4. Runs the Cypress e2e tests.
+5. If on master a new release is published to github releases. (coming soon)
 
 ## Feature Roadmap and Current Progress
  - [x] Set default handle from AgentID string
