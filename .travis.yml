@@ -15,15 +15,14 @@ before_install:
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
-    - docker-compose up
-    # - docker build -t holochain/clutter -f Dockerfile.travis .;
-    # - docker run -d --name website -p 3141:3141 holochain/clutter /bin/sh -c "cd /go/bin; hcdev init -cloneExample=clutter -fromBranch=$TRAVIS_BRANCH; cd clutter; hcdev web 3141;"
+    - docker-compose -d up
 
 script:
       - cd ui-automation
       - npm install
       - npm test
-      - docker kill website
+      - docker-compose kill
+      - docker-compose down
 
 cache:
   directories:
