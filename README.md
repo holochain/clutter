@@ -13,7 +13,7 @@ Clutter is a work in progress, sample application which exists to demonstrate ho
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
-## Installation
+## Installation & Usage
 
 Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
 The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So make a directory to clone Clutter into cd into that dir and let's get started.
@@ -39,11 +39,11 @@ You will now see two folders in your directory called clutter1 & clutter2.
 Now start up Clutter in each folder.
 ```
   cd clutter1
-  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true web 3141
+  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true -bootstrapServer=bootstrap:3142 web 3141
 
   cd ..
   cd clutter2
-  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true web 4141
+  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true -bootstrapServer=bootstrap:3142 web 4141
 ```
 You will see a response like:
 ```
@@ -56,6 +56,18 @@ Now open a browser at http://localhost:3142 and look at the Bootstrap server.  Y
 ```
 Now open a browser to http://localhost:3141 and you will see Clutter.  Open another tab to http://localhost:4141 and you now have 2 instances of Clutter that you can chat between.  Add a handle in each and then meow and follow each instance and you will see the meows!!
 
+### Docker Usage
+You can do all this much easier with Docker.  Simply run
+```
+  docker-compose up
+```
+Then you can open browsers to
+```
+  http://localhost:3142 - Bootstrap
+  http://localhost:3141 - Clutter
+  http://localhost:4141 - Clutter
+  http://localhost:5141 - Clutter
+```
 ### Tests
 To run all the stand alone DNA tests:
 
