@@ -21,6 +21,7 @@ script:
   - yarn install
   - yarn build
   - TARGETDIR=$(pwd) docker-compose up -d
+  - cd ..
   - cd ui-automation
   - npm install
   - npm test
