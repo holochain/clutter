@@ -14,7 +14,9 @@ services:
       - "3141:3141"
     depends_on:
       - bootstrap
-    command: bash -c "hcdev init -cloneExample=clutter; cd clutter; hcdev -no-nat-upnp -port=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 -mdns=true web 3141"
+    volumes:
+      - "${TARGETDIR}:/clutter"
+    command: bash -c "cd /clutter; hcdev -no-nat-upnp -port=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 -mdns=true web 3141"
 
   clutter2:
     image: metacurrency/holochain
@@ -22,7 +24,9 @@ services:
       - "4141:4141"
     depends_on:
       - bootstrap
-    command: bash -c "hcdev init -cloneExample=clutter; cd clutter; hcdev -no-nat-upnp -port=6002 -agentID=phil -bootstrapServer=bootstrap:3142 -mdns=true web 4141"
+    volumes:
+      - "${TARGETDIR}:/clutter"
+    command: bash -c "cd /clutter; hcdev -no-nat-upnp -port=6002 -agentID=phil -bootstrapServer=bootstrap:3142 -mdns=true web 4141"
 
   clutter3:
     image: metacurrency/holochain
@@ -30,4 +34,6 @@ services:
       - "5141:5141"
     depends_on:
       - bootstrap
-    command: bash -c "hcdev init -cloneExample=clutter; cd clutter; hcdev -no-nat-upnp -port=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 -mdns=true web 5141"
+    volumes:
+      - "${TARGETDIR}:/clutter"
+    command: bash -c "cd /clutter; hcdev -no-nat-upnp -port=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 -mdns=true web 5141"

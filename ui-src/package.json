@@ -1,0 +1,27 @@
+{
+  "name": "clutter-2",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:4141",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "hc-redux-middleware": "^1.0.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.5.3",
+    "rimraf": "^2.6.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && node copy-to-ui.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
