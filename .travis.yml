@@ -11,18 +11,17 @@ services:
   - docker
 
 before_install:
+    - cd ui-src
+    - yarn install
+    - yarn build
+    - cd ..
     - sudo rm /usr/local/bin/docker-compose
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
+    - TARGETDIR=$(pwd) docker-compose up -d
 
 script:
-  - cd ui-src
-  - yarn install
-  - yarn build
-  - TARGETDIR=$(pwd) docker-compose up -d
-  - sleep 30
-  - cd ..
   - cd ui-automation
   - npm install
   - npm test
