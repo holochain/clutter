@@ -1,24 +1,33 @@
-version: '3'
+version: '2'
 
 services:
-  service.chain:
-    build:
-      context: .
-      dockerfile: Dockerfile.service
-    volumes:
-      - seed:/root/.holochain
-      - ./Scripts:/Scripts
-    command: /Scripts/service.chain.seed
-  hc:
-    build:
-      context: .
-    ports:
-      - "3141"
-    volumes:
-      - seed:/.holochain
-      - ./Scripts:/Scripts
-    command: /Scripts/chain.joinAndServe
-    depends_on: [service.chain]
 
-volumes:
-  seed: 
+  bootstrap:
+    image: metacurrency/holochain
+    ports:
+      - "3142:3142"
+    command: bs
+
+  clutter1:
+    image: metacurrency/holochain
+    ports:
+      - "3141:3141"
+    depends_on:
+      - bootstrap
+    command: bash -c "hcdev init -cloneExample=clutter; cd clutter; hcdev -no-nat-upnp -port=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 -mdns=true web 3141"
+
+  clutter2:
+    image: metacurrency/holochain
+    ports:
+      - "4141:4141"
+    depends_on:
+      - bootstrap
+    command: bash -c "hcdev init -cloneExample=clutter; cd clutter; hcdev -no-nat-upnp -port=6002 -agentID=phil -bootstrapServer=bootstrap:3142 -mdns=true web 4141"
+
+  clutter3:
+    image: metacurrency/holochain
+    ports:
+      - "5141:5141"
+    depends_on:
+      - bootstrap
+    command: bash -c "hcdev init -cloneExample=clutter; cd clutter; hcdev -no-nat-upnp -port=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 -mdns=true web 5141"
