@@ -20,7 +20,7 @@ script:
   - cd ui-src
   - yarn install
   - yarn build
-  - TARGETDIR=$(PWD) docker-compose up -d
+  - TARGETDIR=$(pwd) docker-compose up -d
   - cd ui-automation
   - npm install
   - npm test
