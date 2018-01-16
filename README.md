@@ -59,9 +59,11 @@ Now open a browser to http://localhost:3141 and you will see Clutter.  Open anot
 ### Docker Usage
 You can do all this much easier with Docker.  Simply run
 ```
-  docker-compose up
+  yarn install
+  yarn build
+  TARGETDIR=$(pwd) docker-compose up
 ```
-Then you can open browsers to
+This will build the source into a React app and install it in Holochain. Then you can open browsers to
 ```
   http://localhost:3142 - Bootstrap
   http://localhost:3141 - Clutter
