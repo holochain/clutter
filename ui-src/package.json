@@ -5,7 +5,7 @@
   "proxy": "http://localhost:4141",
   "dependencies": {
     "axios": "^0.17.1",
-    "hc-redux-middleware": "^1.0.1",
+    "hc-redux-middleware": "^1.0.3",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

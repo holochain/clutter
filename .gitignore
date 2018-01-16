@@ -4,3 +4,4 @@ videos/
 .DS_Store
 screenshots/
 ui/
+build/
