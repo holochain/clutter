@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Follow from './Follow'
-import { 
+import {
   follow,
   unfollow,
   getAgent

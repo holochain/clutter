@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Settings from './Settings'
-import { 
+import {
   newHandle
 } from './actions'
 

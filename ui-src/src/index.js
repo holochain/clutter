@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
 import { compact } from 'lodash'
-import { applyMiddleware, compose } from 'redux'
+import { applyMiddleware, compose, createStore } from 'redux'
 import promiseMiddleware from 'redux-promise'
 import { requestSendingMiddleware, hcMiddleware } from 'hc-redux-middleware'
 import clutterApp from './reducers'
@@ -15,7 +14,8 @@ const middleware = compact([
   requestSendingMiddleware,
   promiseMiddleware
 ])
-let store = createStore(clutterApp, undefined, compose(applyMiddleware(...middleware)))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+let store = createStore(clutterApp, undefined, composeEnhancers(applyMiddleware(...middleware)))
 
 ReactDOM.render(
   <Root store={store} />,

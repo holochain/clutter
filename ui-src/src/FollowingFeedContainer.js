@@ -36,7 +36,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
       // my feed is a list of posts that are either by me or people I follow
       const users = Array.from(stateProps.follows)
       if (!users.includes(stateProps.me)) {
-          users.push(stateProps.me)
+        users.push(stateProps.me)
       }
       dispatchProps.getPostsBy(users)
     }

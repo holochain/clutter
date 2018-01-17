@@ -12,12 +12,12 @@ const initialState = {
     // userHash: true
   },
   // active users handle
-  handle: "",
+  handle: '',
   // active users userHash
-  me: ""
+  me: ''
 }
 
-export default function clutterApp(state = initialState, action) {
+export default function clutterApp (state = initialState, action) {
   const { type, meta, payload } = action
   console.log(type)
   switch (type) {
@@ -72,7 +72,7 @@ export default function clutterApp(state = initialState, action) {
           ...state.appProperties,
           [meta.data]: payload
         },
-        me: meta.data === "App_Key_Hash" ? payload : ""
+        me: meta.data === 'App_Key_Hash' ? payload : ''
       }
     case A.POST:
       return {

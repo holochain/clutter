@@ -7,7 +7,7 @@ import AppContainer from './AppContainer'
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
-      <Route path="/" component={AppContainer} />
+      <Route path='/' component={AppContainer} />
     </Router>
   </Provider>
 )

@@ -15,13 +15,31 @@
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-promise": "^0.5.3",
-    "rimraf": "^2.6.2"
+    "redux-promise": "^0.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && node copy-to-ui.js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "standard": "standard --fix"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect"
+    ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "rimraf": "^2.6.2",
+    "standard": "^10.0.3"
   }
 }

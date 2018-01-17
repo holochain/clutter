@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import App from './App'
-import { 
+import {
   appProperty,
   getHandle,
   getFollow,

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import NewMeow from './NewMeow'
-import { 
+import {
   post
 } from './actions'
 
