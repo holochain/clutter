@@ -23,8 +23,22 @@ script:
 - cd ui-automation
 - npm install
 - npm test
+- cd ..
+- cd ui-src
+- npm release:files
 - docker-compose kill
 - docker-compose down
 cache:
   directories:
   - ui-automation/node_modules
+
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file_glob: true
+  file: release/*
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
