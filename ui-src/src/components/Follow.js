@@ -34,13 +34,19 @@ class Follow extends Component {
             <h3 id='myModalLabel'>Follow a user</h3>
             <form onSubmit={this.onHandleSubmit} className='form-group'>
               <div className='col-xs-8'>
-                <input value={this.state.newFollowText} onChange={this.updateFollowText} type='text' className='form-control' id='followHandle' placeholder='@handle' />
+                <div class="form-group input-icon">
+                  <i>@</i>
+                  <input value={this.state.newFollowText} onChange={this.updateFollowText} type='text' className='form-control' id='followHandle' placeholder='handle' />
+                </div>
               </div>
               <div className='col-xs-2'>
                 <button type='submit' id='submitFollow' className='btn btn-primary'>follow</button>
               </div>
             </form>
           </div>
+          {this.props.handleNotFound && <div className='row handleNotFound'>
+            Could not find '{this.props.handleNotFound}'
+          </div>}
           <div className='row'>
             <h3>Following</h3>
             <ul id='following'>

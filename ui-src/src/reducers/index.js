@@ -14,13 +14,20 @@ const initialState = {
   // active users handle
   handle: '',
   // active users userHash
-  me: ''
+  me: '',
+  // if the user is looking for someone to follow, give feedback when not found
+  handleNotFound: ''
 }
 
 export default function clutterApp (state = initialState, action) {
   const { type, meta, payload } = action
   console.log(type)
   switch (type) {
+    case A.HANDLE_NOT_FOUND:
+      return {
+        ...state,
+        handleNotFound: meta.handle
+      }
     case A.GET_HANDLE:
       return {
         ...state,

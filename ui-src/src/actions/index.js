@@ -1,3 +1,6 @@
+// UI only actions
+export const HANDLE_NOT_FOUND = 'HANDLE_NOT_FOUND'
+// Holochain actions
 export const GET_HANDLE = 'getHandle'
 export const GET_FOLLOW = 'getFollow'
 export const APP_PROPERTY = 'appProperty'
@@ -10,6 +13,18 @@ export const GET_AGENT = 'getAgent'
 export const NEW_HANDLE = 'newHandle'
 export const UNFOLLOW = 'unfollow'
 
+// UI only actions
+export function handleNotFound (handle) {
+  return {
+    type: HANDLE_NOT_FOUND,
+    meta: {
+      handle
+    }
+  }
+}
+
+
+// Holochain actions
 export function getHandle (userHash, isMe = false, then) {
   return {
     type: GET_HANDLE,

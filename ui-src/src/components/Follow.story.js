@@ -74,9 +74,24 @@ storiesOf('Follow', module)
 
     return getFollow(following)
   })
+  .add('Handle not found', () => {
+    const following = []
+    const handleNotFound = 'Timothy'
+    specs(() => describe('The Follow Form with an unfound user handle', function () {
+      it('Displays a message to the user that includes the handle they searched for', () => {
+        const handleNotFound = 'Timothy'
+        const wrapper = mount(<Follow following={[]} handleNotFound={handleNotFound} />)
+        expect(wrapper.find('.handleNotFound').text()).toEqual("Could not find 'Timothy'")
+      })
+    }))
+    return getFollow(following, handleNotFound)
+  })
 
-function getFollow (following) {
+function getFollow (following, handleNotFound) {
   return (
-    <Follow following={following} follow={action('clicked Follow Button')} unfollow={action('clicked Unfollow Button')} />
+    <Follow following={following}
+      handleNotFound={handleNotFound || ''}
+      follow={action('clicked Follow Button')}
+      unfollow={action('clicked Unfollow Button')} />
   )
 }

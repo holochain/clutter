@@ -3,7 +3,8 @@ import Follow from './components/Follow'
 import {
   follow,
   unfollow,
-  getAgent
+  getAgent,
+  handleNotFound
 } from './actions'
 
 const mapStateToProps = state => {
@@ -13,7 +14,8 @@ const mapStateToProps = state => {
         userHash,
         handle: state.handles[userHash]
       }
-    })
+    }),
+    handleNotFound: state.handleNotFound
   }
 }
 
@@ -24,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
         if (userHash) {
           dispatch(follow(userHash))
         } else {
-          console.log('no user found with handle ' + handle)
+          dispatch(handleNotFound(handle))
         }
       }))
     },
