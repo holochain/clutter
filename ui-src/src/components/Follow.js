@@ -20,6 +20,12 @@ class Follow extends Component {
       newFollowText: ''
     })
   }
+  removeFollowFromList = (e) => {
+    this.props.unfollow(e.target.value)
+    this.setState({
+      following: this.props.following
+    })
+  }
   render () {
     return (
       <div className='panel panel-default'>
@@ -42,7 +48,7 @@ class Follow extends Component {
                 return (
                   <li className='following-handle' key={user.userHash}>
                     <span className='handle'>{user.handle || user.userHash}</span>
-                    <button type='button' className='close' aria-label='Close' onClick={() => this.props.unfollow(user.userHash)}>
+                    <button type='button' className='close' aria-label='Close' onClick={(e) => this.removeFollowFromList(e)}>
                       <span aria-hidden='true'>&times;</span>
                     </button>
                   </li>

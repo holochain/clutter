@@ -5,7 +5,8 @@ node_js:
 env:
   matrix:
   - DOCKER_COMPOSE_VERSION=1.18.0
-
+  global:
+    secure: LGlbJsIc7n5hY6cHbVqpnq73jzJgB6QJ3gEsx3cVtQirkt1Qpj/IOcHGmsMavEkGg7+oOViFsZ7euhgyHPtg9lhkILudWcs3sFbVYHVS/jL3IUZGcM5+ip/Ss5uV7tc9cVLmRvf3C7UbvX8eyt+yQ0PSx8EGo44b1i/r3qpf/S1UX20xox0FMgA0924pR8DV+jtfzwvI1V/XJm9dXrl0Dm9O/7dzdfNQUwMcrSvj8d0DNhkKx4NTjqOSyz66phko7ql0rTCXOhNZ2La50KVg3CEsnf7sMLgvyFYVUAUWVxrAfWjOSDFnhna76zOQXt6X4ht6t0KtF3AqO92z4EaP3M1w62ZOfNgW/yDj2USO4tl+GKGzOaF9cT1yEbPODLrFfP4r8JTM5Fu/BBEFiOkDYUpngj+BBnizKAf/jXerEJdDEZNLMuIbFBgy4DfLvzi0A/mZPHna71YKxL55YjEHi+1f0Qg592EUmxc9uj13i7yvbgFarELW7PbaD1UWAmF1os+9/ftjI5x3IO/PufrsGl4KHlU2s4zpuaJOM5vKO0wjRjklh+/s6ZNwxbsJN4ffK3TCldddvYioVP1Un9smSswx3PPJTW0NmQTaOoESkbVd6Rb/QIQ6KzGcAW3IjgW35Sil4rdIf0BO6EWCe5bZTAlDQK98iFZW0dN15XB55Ro=
 services:
 - docker
 before_install:
@@ -31,11 +32,9 @@ script:
 cache:
   directories:
   - ui-automation/node_modules
-
-
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
+  api_key: $GITHUB_OAUTH_TOKEN
   file_glob: true
   file: release/*
   skip_cleanup: true

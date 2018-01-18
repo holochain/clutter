@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Follow from './Follow'
+import Follow from './components/Follow'
 import {
   follow,
   unfollow,

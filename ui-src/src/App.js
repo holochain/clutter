@@ -36,7 +36,7 @@ class App extends Component {
         <div className='row'>
           <div className='col-sm-2'>
             <div className='logo'>
-              <img src='cat-eating-bird-circle.png' />
+              <img src='cat-eating-bird-circle.png' alt='cat eating bird' />
             </div>
           </div>
           <div className='col-sm-7'>

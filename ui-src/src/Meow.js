@@ -14,7 +14,7 @@ class Meow extends Component {
     const { stamp, message, author, hash, userHandle } = this.props.post
     return (
       <div className='meow' id={stamp}>
-        <a className='meow-edit' href='#' onClick={() => "openEditPost('+id+')"}>edit</a>
+        <a className='meow-edit' onClick={() => "openEditPost('+id+')"}>edit</a>
         <Link to={`/meow/${hash}`} className='stamp'>{new Date(stamp).toString()}</Link> |&nbsp;
         <Link to={`/u/${author}`} className='user'>{userHandle}</Link>
         <div className='message'>{message}</div>
