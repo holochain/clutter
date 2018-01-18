@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Meow from './Meow'
+import Meow from './components/Meow'
 
 class FollowingFeed extends Component {
   componentDidMount () {

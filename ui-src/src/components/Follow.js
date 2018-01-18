@@ -34,7 +34,7 @@ class Follow extends Component {
             <h3 id='myModalLabel'>Follow a user</h3>
             <form onSubmit={this.onHandleSubmit} className='form-group'>
               <div className='col-xs-8'>
-                <div className="form-group input-icon">
+                <div className='form-group input-icon'>
                   <i>@</i>
                   <input value={this.state.newFollowText} onChange={this.updateFollowText} type='text' className='form-control' id='followHandle' placeholder='handle' />
                 </div>

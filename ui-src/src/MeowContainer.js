@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Meow from './Meow'
+import Meow from './components/Meow'
 import { getPost } from './actions'
 
 const mapStateToProps = (state, ownProps) => {

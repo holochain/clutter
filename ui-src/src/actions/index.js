@@ -23,7 +23,6 @@ export function handleNotFound (handle) {
   }
 }
 
-
 // Holochain actions
 export function getHandle (userHash, isMe = false, then) {
   return {
