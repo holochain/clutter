@@ -27,10 +27,11 @@ script:
 # - cd ..
 - cd ui-src
 - npm run release:files
+- PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
 - cd ..
 - cd release
 - ls
-- zip -r clutter-0.0.5.zip .
+- zip -r clutter-$PACKAGE_VERSION.zip .
 - pwd
 # - docker-compose kill
 # - docker-compose down
@@ -40,7 +41,7 @@ cache:
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file: clutter-0.0.5.zip
+  file: clutter-$PACKAGE_VERSION.zip
   skip_cleanup: true
   on:
     tags: true
