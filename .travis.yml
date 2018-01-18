@@ -29,6 +29,7 @@ script:
 - npm run release:files
 - cd ..
 - cd release
+- ls
 - zip clutter-0.0.5.zip
 - docker-compose kill
 - docker-compose down
