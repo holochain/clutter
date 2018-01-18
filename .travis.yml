@@ -31,6 +31,7 @@ script:
 - cd release
 - ls
 - zip -r clutter-0.0.5.zip .
+- pwd
 # - docker-compose kill
 # - docker-compose down
 cache:
@@ -39,7 +40,7 @@ cache:
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file: target/release/clutter-0.0.5.zip
+  file: clutter-0.0.5.zip
   skip_cleanup: true
   on:
     tags: true
