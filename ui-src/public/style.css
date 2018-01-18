@@ -259,6 +259,40 @@ blockquote {
   color:white;
 }
 
+#usersDialog .user {
+  margin: 5px 10px 5px 10px;
+}
+
+.modal-title {
+	font-weight: bold;
+}
+
+/* organization of user information */
+.user .follow-button {
+	float:right;
+	padding-right: 15px;
+}
+
+.user .follow-text {
+	float:right;
+}
+
+.user .handle {
+	display:inline-block;
+	width: 200px;
+}
+
+.user .audience {
+	display:inline-block;
+	width: 100px;
+}
+
+.user .listening-to {
+	display:inline-block;
+	width: 100px;
+}
+
+
 .meow-edit {
   float:right;
 }

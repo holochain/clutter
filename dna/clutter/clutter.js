@@ -24,7 +24,7 @@ function follow(userAddress) {
        // On the DHT, puts a link on my hash to their hash as a "following"
     return commit("follow",
                   {Links:[
-                      {Base:userAddress,Link:me,Tag:"follower"},
+                      {Base:userAddress,Link:me,Tag:"followers"},
                       {Base:me,Link:userAddress,Tag:"following"}
                   ]});
 }
@@ -33,7 +33,7 @@ function unfollow(userAddress){
     var me = getMe();
     return commit("unfollow",  // On my source chain, commits the unfollow entry
                   {Links:[
-                      {Base:userAddress,Link:me,Tag:"follower",LinkAction:HC.LinkAction.Del},
+                      {Base:userAddress,Link:me,Tag:"followers",LinkAction:HC.LinkAction.Del},
                       {Base:me,Link:userAddress,Tag:"following",LinkAction:HC.LinkAction.Del}
                   ]});
 }
@@ -94,7 +94,7 @@ function getFollow(params) {
     var type = params.type;
     var  base = params.from;
     var result = {};
-    if ((type == "follows") || (type == "following")) {
+    if ((type == "followers") || (type == "following")) {
         result["result"] = doGetLink(base,type);
     }
     else {
@@ -127,6 +127,25 @@ function newHandle(handle){
         return key;
     }
     return addHandle(handle);
+}
+
+// returns a map of user keys to handles
+function getHandles() {
+    if (property("enableDirectoryAccess") != "true") {
+        return undefined;
+    }
+    var directory = getDirectory();
+    var links = getLinks(directory, "handle",{Load:true});
+    if (isErr(links)) {
+        links = [];
+    } else {
+        links = links;
+    }
+    var handles = {};
+    for (var i=0;i <links.length;i++) {
+        handles[links[i].Source] = links[i].Entry;
+    }
+    return handles;
 }
 
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
@@ -202,7 +221,6 @@ function doGetLinkLoad(base, tag) {
         link[tag] = links[i].Entry;
         links_filled.push(link);
     }
-    debug("Links Filled:"+JSON.stringify(links_filled));
     return links_filled;
 }
 

@@ -39,6 +39,16 @@
             "Exposure":"public",
             "Err": "",
             "Regexp": ""
+        },
+        {
+            "Convey":"We can retrieve a list of all handles",
+            "Zome": "clutter",
+            "FnName": "getHandles",
+            "Input": "",
+            "Output": {"%key%":"buffaloBill"},
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
         }
     ]
 }

@@ -36,6 +36,13 @@
             "Exposure":"public",
             "Err": "",
             "Regexp": "[a-z]{2,3}"
+        },
+        {
+            "Zome": "clutter",
+            "FnName": "getProperty",
+            "Input": "enableDirectoryAccess",
+            "Output": "true",
+            "Exposure":"public"
         }
     ]
 }
