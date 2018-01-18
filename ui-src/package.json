@@ -1,6 +1,6 @@
 {
-  "name": "clutter-2",
-  "version": "0.1.0",
+  "name": "clutter",
+  "version": "0.1.1",
   "private": true,
   "proxy": "http://localhost:4141",
   "dependencies": {

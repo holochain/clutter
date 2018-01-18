@@ -14,34 +14,36 @@ before_install:
 - yarn install
 - yarn build
 - cd ..
-# - sudo rm /usr/local/bin/docker-compose
-# - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
-#   -s`-`uname -m` > docker-compose
-# - chmod +x docker-compose
-# - sudo mv docker-compose /usr/local/bin
-# - TARGETDIR=$(pwd) docker-compose up -d
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+- TARGETDIR=$(pwd) docker-compose up -d
 script:
-# - cd ui-automation
-# - npm install
-# - npm test
-# - cd ..
+- cd ui-automation
+- npm install
+- npm test
+- cd ..
 - cd ui-src
 - npm run release:files
+- PACKAGE_NAME=$(node -p -e "require('./package.json').name")
 - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
 - cd ..
 - cd release
 - ls
-- zip -r clutter-$PACKAGE_VERSION.zip .
+- zip -r $PACKAGE_NAME-$PACKAGE_VERSION.zip .
 - pwd
-# - docker-compose kill
-# - docker-compose down
+- docker-compose kill
+- docker-compose down
 cache:
   directories:
   - ui-automation/node_modules
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file: clutter-$PACKAGE_VERSION.zip
+  file: $PACKAGE_NAME-$PACKAGE_VERSION.zip
   skip_cleanup: true
   on:
     tags: true
+    # branch: master
