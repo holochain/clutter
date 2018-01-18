@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
-import { isEqual } from 'lodash'
 import SettingsContainer from './SettingsContainer'
 import FollowContainer from './FollowContainer'
 import NewMeowContainer from './NewMeowContainer'
