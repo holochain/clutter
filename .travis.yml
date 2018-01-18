@@ -27,6 +27,8 @@ script:
 - cd ..
 - cd ui-src
 - npm run release:files
+- cd release
+- zip clutter-0.0.5.zip
 - docker-compose kill
 - docker-compose down
 cache:
@@ -35,8 +37,7 @@ cache:
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file_glob: true
-  file: target/release/*
+  file: target/release/clutter-0.0.5.zip
   skip_cleanup: true
   on:
     tags: true
