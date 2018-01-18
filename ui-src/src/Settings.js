@@ -27,7 +27,7 @@ class Settings extends Component {
           <h3 id='setHandleModalLabel'>Update Handle</h3>
           <form onSubmit={this.onHandleSubmit} className='form-group'>
             <div className='col-xs-8'>
-              <div class="form-group input-icon">
+              <div className="form-group input-icon">
                 <i>@</i>
                 <input value={this.state.newHandleText} onChange={this.updateHandleText} type='text' className='form-control' id='myHandle' placeholder='handle' />
               </div>
