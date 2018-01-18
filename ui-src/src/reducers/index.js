@@ -14,20 +14,13 @@ const initialState = {
   // active users handle
   handle: '',
   // active users userHash
-  me: '',
-  // if the user is looking for someone to follow, give feedback when not found
-  handleNotFound: ''
+  me: ''
 }
 
 export default function clutterApp (state = initialState, action) {
   const { type, meta, payload } = action
   console.log(type)
   switch (type) {
-    case A.HANDLE_NOT_FOUND:
-      return {
-        ...state,
-        handleNotFound: meta.handle
-      }
     case A.GET_HANDLE:
       return {
         ...state,
@@ -36,6 +29,11 @@ export default function clutterApp (state = initialState, action) {
           [meta.data]: payload
         },
         handle: meta.isMe ? payload : state.handle
+      }
+    case A.GET_HANDLES:
+      return {
+        ...state,
+        handles: payload
       }
     case A.GET_POST:
       if (!payload) {
@@ -55,18 +53,8 @@ export default function clutterApp (state = initialState, action) {
           [userHash]: true
         }
       }, {})
-      const newHandles = payload.result.reduce((memo, userHash) => {
-        return {
-          ...memo,
-          [userHash]: ''
-        }
-      }, {})
       return {
         ...state,
-        handles: {
-          ...state.handles,
-          ...newHandles
-        },
         follows: {
           ...state.follows,
           ...newFollows
@@ -99,13 +87,9 @@ export default function clutterApp (state = initialState, action) {
     case A.FOLLOW:
       return {
         ...state,
-        handles: {
-          ...state.handles,
-          [payload]: ''
-        },
         follows: {
           ...state.follows,
-          [payload]: true
+          [meta.data]: true
         }
       }
     case A.GET_POSTS_BY:
@@ -119,18 +103,8 @@ export default function clutterApp (state = initialState, action) {
           }
         }
       }, {})
-      const newForHandles = payload.reduce((memo, item) => {
-        return {
-          ...memo,
-          [item.author]: state.handles[item.author] || ''
-        }
-      }, {})
       return {
         ...state,
-        handles: {
-          ...state.handles,
-          ...newForHandles
-        },
         posts: {
           ...state.posts,
           ...newPosts
@@ -148,8 +122,8 @@ export default function clutterApp (state = initialState, action) {
         handle: meta.data
       }
     case A.UNFOLLOW:
-      const copy = Object.assign({}, state)
-      const copyOfFollows = Object.assign({}, state.follows)
+      const copy = {...state}
+      const copyOfFollows = {...state.follows}
       delete copyOfFollows[meta.data]
       copy.follows = copyOfFollows
       return copy

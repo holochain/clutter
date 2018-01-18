@@ -3,6 +3,7 @@ import App from './App'
 import {
   appProperty,
   getHandle,
+  getHandles,
   getFollow,
   getPostsBy
 } from './actions'
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getHandle: (userHash, isMe, then) => {
       dispatch(getHandle(userHash, isMe, then))
+    },
+    getHandles: (then) => {
+      dispatch(getHandles(then))
     },
     getFollow: (userHash, type, then) => {
       dispatch(getFollow(userHash, type, then))

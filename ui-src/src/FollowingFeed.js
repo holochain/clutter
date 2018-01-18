@@ -6,15 +6,14 @@ class FollowingFeed extends Component {
     if (this.props.me) {
       this.props.getMyFeed()
       if (this.interval) clearInterval(this.interval)
-      this.interval = setInterval(this.props.getMyFeed, 1000)
+      this.interval = setInterval(this.props.getMyFeed, 2000)
     }
   }
   componentDidUpdate (prevProps) {
     if (!prevProps.me && this.props.me) {
-      this.props.getFollow(this.props.me, 'following')
       this.props.getMyFeed()
       if (this.interval) clearInterval(this.interval)
-      this.interval = setInterval(this.props.getMyFeed, 1000)
+      this.interval = setInterval(this.props.getMyFeed, 2000)
     }
   }
   componentWillUnmount () {

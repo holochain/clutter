@@ -2,9 +2,7 @@ import { connect } from 'react-redux'
 import Follow from './components/Follow'
 import {
   follow,
-  unfollow,
-  getAgent,
-  handleNotFound
+  unfollow
 } from './actions'
 
 const mapStateToProps = state => {
@@ -15,20 +13,21 @@ const mapStateToProps = state => {
         handle: state.handles[userHash]
       }
     }),
-    handleNotFound: state.handleNotFound
+    notFollowing: Object.keys(state.handles)
+      .filter(userHash => !state.follows[userHash] && userHash !== state.me)
+      .map(userHash => {
+        return {
+          userHash,
+          handle: state.handles[userHash]
+       }
+      })
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    follow: (handle) => {
-      dispatch(getAgent(handle, userHash => {
-        if (userHash) {
-          dispatch(follow(userHash))
-        } else {
-          dispatch(handleNotFound(handle))
-        }
-      }))
+    follow: (userHash, then) => {
+      dispatch(follow(userHash, then))
     },
     unfollow: (userHash, then) => {
       dispatch(unfollow(userHash, then))

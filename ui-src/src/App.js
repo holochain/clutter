@@ -12,22 +12,21 @@ class App extends Component {
   componentWillMount () {
     // this fetches the hash which represents the active users userHash
     this.props.getMyAppKeyHash()
+    this.props.getHandles()
+    this.interval = setInterval(this.props.getHandles, 2000)
   }
+
   componentDidUpdate (prevProps) {
     if (!prevProps.me && this.props.me) {
       this.props.getHandle(this.props.me, true)
-    }
-    if (!isEqual(Object.keys(prevProps.handles), Object.keys(this.props.handles))) {
-      // get handles for users we don't have handles for
-      Object.keys(this.props.handles).forEach(userHash => {
-        const handle = this.props.handles[userHash]
-        if (!handle) {
-          console.log('getting handle for ' + userHash)
-          this.props.getHandle(userHash)
-        }
-      })
+      this.props.getFollow(this.props.me, 'following')
     }
   }
+
+  componentWillUnmount () {
+    if (this.interval) clearInterval(this.interval)
+  }
+
   render () {
     return (
       <div className='container'>
