@@ -39,5 +39,4 @@ deploy:
   file: release/*
   skip_cleanup: true
   on:
-    branch: master
     tags: true
