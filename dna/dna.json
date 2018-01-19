@@ -46,6 +46,10 @@
                     "DataFormat": "links"
                 },
                 {
+                    "Name": "userMention_links",
+                    "DataFormat": "links"
+                },
+                {
                     "Name": "follow",
                     "DataFormat": "links"
                 },
@@ -128,6 +132,11 @@
                 },
                 {
                     "Name": "getHandles",
+                    "CallingType": "json",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getMentions",
                     "CallingType": "json",
                     "Exposure":"public"
                 }
