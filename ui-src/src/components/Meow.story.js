@@ -17,7 +17,7 @@ storiesOf('Meow', module)
   ))
   .add('With 2 meows', () => {
     const post = {'message': 'Eric', 'author': 'author', 'stamp': 1516273525437}
-    return getMeow(post)
+    return getMeow(post)  
   })
 
 function getMeow (post) {
