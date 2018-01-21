@@ -13,32 +13,57 @@ Clutter is a work in progress, sample application which exists to demonstrate ho
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
-## Installation
+## Installation & Usage
 
-Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine.
-You can install clutter very simply with this:
+Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
 
-``` shell
-hcdev init -cloneExample=clutter
+The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So download the latest release from [Clutter Release])https://github.com/Holochain/clutter/releases), unzip it and make 2 copies of the contents into folders called clutter1 and clutter2.  Both folders will have a dna folder and a ui folder in each.
 
+Firstly run the bootstrap server which will let each instance of Clutter know about its peers.  The ```bs```  command is part of the Holochain install.  If it doesn't work you probably need to set the $GO_PATH variable. (Soon we won't need this step)
+```
+  bs
+```
+You will get a response like
+```
+2018/01/11 11:24:03 app version: 0.0.2; Holochain bootstrap server
+2018/01/11 11:24:03 starting up on port 3142
 ```
 
-## Usage
-
-To do a test run of clutter simply type
-
-``` shell
-cd clutter
-hcdev web
+Now start up Clutter in each folder.
 ```
-you should see something like:
+  cd clutter1
+  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true -bootstrapServer=bootstrap:3142 web 3141
 
-``` shell
-Copying chain to: /home/bootstrap/.holochaindev
-...
-Serving holochain with DNA hash:QmQEaXCa8QHHpwcK79AmQPU2cXHCpyvfohPcMEb3qteQD5 on port:4141
+  cd ..
+  cd clutter2
+  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true -bootstrapServer=bootstrap:3142 web 4141
 ```
-Then simply point your browser to http://localhost:4141 access the clutter UI.
+You will see a response like:
+```
+Copying chain to: /Users/philipbeadle/.holochaindev
+Serving holochain with DNA hash:QmVbbeDAHVxC9cTvx6UhNEeTCK99SRKfxKDz3s4mR6TnsS on port:3141
+```
+Now open a browser at http://localhost:3142 and look at the Bootstrap server.  You will see 2 records
+```
+  [{"Req":{"Version":1,"NodeID":"QmTAjDmQHobs2oQZp4UrbSzkShUGVKcsQUdakHeQ4YYxRX","NodeAddr":"/ip4/0.0.0.0/tcp/6003"},"Remote":"[::1]:63187","LastSeen":"2018-01-11T12:32:15.659887156+11:00"},{"Req":{"Version":1,"NodeID":"QmWQVaqEayZJWnvxLtsKr1iyeTDp3s7m7TTE36HhAUTiTK","NodeAddr":"/ip4/0.0.0.0/tcp/6002"},"Remote":"[::1]:63153","LastSeen":"2018-01-11T12:28:40.85765899+11:00"}]
+```
+Now open a browser to http://localhost:3141 and you will see Clutter.  Open another tab to http://localhost:4141 and you now have 2 instances of Clutter that you can chat between.  Add a handle in each and then meow and follow each instance and you will see the meows!!
+
+### Docker Usage
+You can do all this much easier with Docker. Download the latest release from [Clutter Release])https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
+```
+  yarn install
+  yarn build
+  TARGETDIR=$(pwd) docker-compose up
+```
+This will build the source into a React app and install it in Holochain. Then you can open browsers to
+```
+  http://localhost:3142 - Bootstrap
+  http://localhost:3141 - Clutter
+  http://localhost:4141 - Clutter
+  http://localhost:5141 - Clutter
+```
+and try out Clutter.
 
 ### Tests
 To run all the stand alone DNA tests:
@@ -60,7 +85,16 @@ hcdev -debug -mdns=true scenario followAndShare
 ```
 #### scaling
 
-This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to eachother.
+This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to each other.
+
+## What the Automated build does
+
+When a branch is pushed to Github Travis runs a build.  The build does the following:
+1. Installs docker-compose
+2. Runs docker-compose up -d which spins up a bootstrap server and 3 instances of clutter
+3. Install the cypress dependencies
+4. Runs the Cypress e2e tests.
+5. If on master a new release is published to github releases. (coming soon)
 
 ## Feature Roadmap and Current Progress
  - [x] Set default handle from AgentID string
