@@ -1,0 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+var rimraf = require('rimraf')
+rimraf.sync('../release')
+fs.mkdirSync(path.join(__dirname, '../release'))
+fs.renameSync('../ui', '../release/ui')
+fs.renameSync('../dna', '../release/dna')

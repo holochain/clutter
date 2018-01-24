@@ -5,7 +5,8 @@
     "RequiresVersion": 18,
     "Properties": {
         "description": "distributed micro-blogging (Twitter clone)",
-        "language": "en"
+        "language": "en",
+        "enableDirectoryAccess" : "true"
     },
     "PropertiesSchemaFile": "properties_schema.json",
     "DHTConfig": {
@@ -42,6 +43,10 @@
                 },
                 {
                     "Name": "directory_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "userMention_links",
                     "DataFormat": "links"
                 },
                 {
@@ -122,6 +127,16 @@
                 },
                 {
                     "Name": "getFollow",
+                    "CallingType": "json",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getHandles",
+                    "CallingType": "json",
+                    "Exposure":"public"
+                },
+                {
+                    "Name": "getMentions",
                     "CallingType": "json",
                     "Exposure":"public"
                 }

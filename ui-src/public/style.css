@@ -1,22 +1,16 @@
-html {
-}
-
-@font-face {
-	font-family: Palatino;
-	src: local("Palatino");
-	src: url("pala.ttf");
-}
-
 body {
-/*	font-family: 'Share Tech Mono', fixed;
-	font-size: 0.9em;*/
 	line-height: 1.3em;
-	height: 100%;/
-	background-color: black;
+	height: 100%;
+	background-color: #BBB;
 	background-image: url("cats.jpg");
 	background-size: 100% auto;
 	width: calc(100vw - 34px); /* Prevent jump from scrollbar appearing on only some pages */
 	padding-left: 9px; /* Recenter page from scrollbar width adjustment */
+}
+
+ul {
+	list-style: none;
+	padding-left: 10px;
 }
 
 .row {
@@ -117,13 +111,17 @@ ul li {
 
 .alphabox {
   padding: 1em;
-  border-radius: 8px;
+	border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
 .logo {
   margin-bottom: 1em;
   text-align: center;
+}
+
+.logo img {
+	width: 100%;
 }
 
 #about {
@@ -153,7 +151,7 @@ a#handle {
 .current {
 	color: #4E99FF;
 	text-decoration: none;
-	background-color: rgba(80, 50, 255, 0.30);
+	background-color: rgba(80, 50, 255, 0.3);
 	padding-top: 2em;
 	text-shadow: 2px 2px 4px #000;
 }
@@ -184,10 +182,11 @@ a#handle {
 }
 
 .contentcontainer {
-	border-radius: 18px;
+	border-radius: 4px;
 	background-color: rgba(0, 0, 0, 0.6);
-          margin-bottom: 1em;
-
+	margin-bottom: 1em;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #content {
@@ -260,6 +259,40 @@ blockquote {
   color:white;
 }
 
+#usersDialog .user {
+  margin: 5px 10px 5px 10px;
+}
+
+.modal-title {
+	font-weight: bold;
+}
+
+/* organization of user information */
+.user .follow-button {
+	float:right;
+	padding-right: 15px;
+}
+
+.user .follow-text {
+	float:right;
+}
+
+.user .handle {
+	display:inline-block;
+	width: 200px;
+}
+
+.user .audience {
+	display:inline-block;
+	width: 100px;
+}
+
+.user .listening-to {
+	display:inline-block;
+	width: 100px;
+}
+
+
 .meow-edit {
   float:right;
 }
@@ -306,11 +339,11 @@ blockquote {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-@keyframes spin { 
-    from { 
-        transform: rotate(0deg); 
-    } to { 
-        transform: rotate(360deg); 
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
     }
 }
 
@@ -323,4 +356,25 @@ blockquote {
 	50% { background-color: yellow; }
 	75% { background-color: black; }
 	100% { background-color: red; }
+}
+
+/* make @ symbol always in handle input field. */
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 20px;
+	padding-right: 0;
 }

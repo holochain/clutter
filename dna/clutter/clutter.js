@@ -24,7 +24,7 @@ function follow(userAddress) {
        // On the DHT, puts a link on my hash to their hash as a "following"
     return commit("follow",
                   {Links:[
-                      {Base:userAddress,Link:me,Tag:"follower"},
+                      {Base:userAddress,Link:me,Tag:"followers"},
                       {Base:me,Link:userAddress,Tag:"following"}
                   ]});
 }
@@ -33,7 +33,7 @@ function unfollow(userAddress){
     var me = getMe();
     return commit("unfollow",  // On my source chain, commits the unfollow entry
                   {Links:[
-                      {Base:userAddress,Link:me,Tag:"follower",LinkAction:HC.LinkAction.Del},
+                      {Base:userAddress,Link:me,Tag:"followers",LinkAction:HC.LinkAction.Del},
                       {Base:me,Link:userAddress,Tag:"following",LinkAction:HC.LinkAction.Del}
                   ]});
 }
@@ -45,6 +45,18 @@ function post(post) {
 
       // On the DHT, puts a link on my hash to the new post
     commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
+
+    // MENTIONS
+    // detect mentions
+    // for each mention, write that mention as a link
+    var mentions = detectMentions(post.message)
+    for (var i = 0; i <= mentions.length; i++) {
+        // get the userhash for this handle
+        var userHash = getAgent(handle)
+        if (userHash) {
+            createMention(userHash, key)
+        }
+    }
 
     debug("meta: "+JSON.stringify(getLinks(me,"post",{Load:true})));
     debug(key);
@@ -94,7 +106,7 @@ function getFollow(params) {
     var type = params.type;
     var  base = params.from;
     var result = {};
-    if ((type == "follows") || (type == "following")) {
+    if ((type == "followers") || (type == "following")) {
         result["result"] = doGetLink(base,type);
     }
     else {
@@ -129,6 +141,25 @@ function newHandle(handle){
     return addHandle(handle);
 }
 
+// returns a map of user keys to handles
+function getHandles() {
+    if (property("enableDirectoryAccess") != "true") {
+        return undefined;
+    }
+    var directory = getDirectory();
+    var links = getLinks(directory, "handle",{Load:true});
+    if (isErr(links)) {
+        links = [];
+    } else {
+        links = links;
+    }
+    var handles = {};
+    for (var i=0;i <links.length;i++) {
+        handles[links[i].Source] = links[i].Entry;
+    }
+    return handles;
+}
+
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
 function getHandle(userHash) {
     var handles = doGetLinkLoad(userHash,"handle");
@@ -150,11 +181,36 @@ function getAgent(handle) {
     }
     return "";
 }
+  
+function getMentions() {
+    var links = getLinks(getMe(), "mentioned");
+    // map the array of "links" into simple postHashes
+    // return an array of postHashes
+    return [];
+}
 
 // ==============================================================================
 // HELPERS: unexposed functions
 // ==============================================================================
 
+function detectMentions(postString) {
+    var regexp = /\B\@\w\w+\b/g;
+    var matches = postString.match(regexp);
+    return matches;
+    // returns something like ["bob"]
+}
+
+function createMention(userHash,postHash) {
+    var commit_hash = commit("userMention_links",{
+        Links:[
+            {Base: userHash, Link: postHash, Tag: "mentioned"},
+            {Base: postHash, Link: userHash, Tag: "mentions"}
+        ]
+    });
+    debug('create a mention');
+    debug(commit_hash);
+    return commit_hash;
+}
 
 // helper function to resolve which has will be used as "me"
 function getMe() {return App.Key.Hash;}
@@ -202,7 +258,6 @@ function doGetLinkLoad(base, tag) {
         link[tag] = links[i].Entry;
         links_filled.push(link);
     }
-    debug("Links Filled:"+JSON.stringify(links_filled));
     return links_filled;
 }
 

@@ -16,9 +16,10 @@ Clutter is a work in progress, sample application which exists to demonstrate ho
 ## Installation & Usage
 
 Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
-The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So make a directory to clone Clutter into cd into that dir and let's get started.
 
-Firstly run the bootstrap server which will let each instance of Clutter know about its peers. (Soon we won't need this step)
+The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and make 2 copies of the contents into folders called clutter1 and clutter2.  Both folders will have a dna folder and a ui folder in each.
+
+Firstly run the bootstrap server which will let each instance of Clutter know about its peers.  The ```bs```  command is part of the Holochain install.  If it doesn't work you probably need to set the $GO_PATH variable. (Soon we won't need this step)
 ```
   bs
 ```
@@ -27,14 +28,6 @@ You will get a response like
 2018/01/11 11:24:03 app version: 0.0.2; Holochain bootstrap server
 2018/01/11 11:24:03 starting up on port 3142
 ```
-Next clone 2 instances of Clutter and name each one.
-```
-hcdev init -cloneExample=clutter clutter1
-
-hcdev init -cloneExample=clutter clutter2
-
-```
-You will now see two folders in your directory called clutter1 & clutter2.
 
 Now start up Clutter in each folder.
 ```
@@ -57,11 +50,13 @@ Now open a browser at http://localhost:3142 and look at the Bootstrap server.  Y
 Now open a browser to http://localhost:3141 and you will see Clutter.  Open another tab to http://localhost:4141 and you now have 2 instances of Clutter that you can chat between.  Add a handle in each and then meow and follow each instance and you will see the meows!!
 
 ### Docker Usage
-You can do all this much easier with Docker.  Simply run
+You can do all this much easier with Docker. Download the latest release from [Clutter Release])https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
 ```
-  docker-compose up
+  yarn install
+  yarn build
+  TARGETDIR=$(pwd) docker-compose up
 ```
-Then you can open browsers to
+This will build the source into a React app and install it in Holochain. Then you can open browsers to
 ```
   http://localhost:3142 - Bootstrap
   http://localhost:3141 - Clutter
@@ -69,6 +64,7 @@ Then you can open browsers to
   http://localhost:5141 - Clutter
 ```
 and try out Clutter.
+
 ### Tests
 To run all the stand alone DNA tests:
 
@@ -89,7 +85,7 @@ hcdev -debug -mdns=true scenario followAndShare
 ```
 #### scaling
 
-This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to eachother.
+This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to each other.
 
 ## What the Automated build does
 

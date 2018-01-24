@@ -20,6 +20,7 @@
     "url": "https://github.com/Holochain/clutter/issues"
   },
   "standard":  {
+    "parser": "babel-eslint",
     "globals": [
       "describe",
       "context",
