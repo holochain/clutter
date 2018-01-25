@@ -52,8 +52,10 @@ Now open a browser to http://localhost:3141 and you will see Clutter.  Open anot
 ### Docker Usage
 You can do all this much easier with Docker. Download the latest release from [Clutter Release])https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
 ```
+  cd ui-src
   yarn install
   yarn build
+  cd ..
   TARGETDIR=$(pwd) docker-compose up
 ```
 This will build the source into a React app and install it in Holochain. Then you can open browsers to
