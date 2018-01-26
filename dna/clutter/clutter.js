@@ -46,18 +46,6 @@ function post(post) {
       // On the DHT, puts a link on my hash to the new post
     commit("post_links",{Links:[{Base:me,Link:key,Tag:"post"}]});
 
-    // MENTIONS
-    // detect mentions
-    // for each mention, write that mention as a link
-    var mentions = detectMentions(post.message)
-    for (var i = 0; i <= mentions.length; i++) {
-        // get the userhash for this handle
-        var userHash = getAgent(handle)
-        if (userHash) {
-            createMention(userHash, key)
-        }
-    }
-
     debug("meta: "+JSON.stringify(getLinks(me,"post",{Load:true})));
     debug(key);
     return key;                                  // Returns the hash key of the new post to the calling function
@@ -181,36 +169,10 @@ function getAgent(handle) {
     }
     return "";
 }
-  
-function getMentions() {
-    var links = getLinks(getMe(), "mentioned");
-    // map the array of "links" into simple postHashes
-    // return an array of postHashes
-    return [];
-}
 
 // ==============================================================================
 // HELPERS: unexposed functions
 // ==============================================================================
-
-function detectMentions(postString) {
-    var regexp = /\B\@\w\w+\b/g;
-    var matches = postString.match(regexp);
-    return matches;
-    // returns something like ["bob"]
-}
-
-function createMention(userHash,postHash) {
-    var commit_hash = commit("userMention_links",{
-        Links:[
-            {Base: userHash, Link: postHash, Tag: "mentioned"},
-            {Base: postHash, Link: userHash, Tag: "mentions"}
-        ]
-    });
-    debug('create a mention');
-    debug(commit_hash);
-    return commit_hash;
-}
 
 // helper function to resolve which has will be used as "me"
 function getMe() {return App.Key.Hash;}
