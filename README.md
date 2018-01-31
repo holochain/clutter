@@ -32,25 +32,25 @@ You will get a response like
 Now start up Clutter in each folder.
 ```
   cd clutter1
-  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true -bootstrapServer=bootstrap:3142 web 3141
+  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true -bootstrapServer=localhost:3142 web 3141
 
   cd ..
   cd clutter2
-  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true -bootstrapServer=bootstrap:3142 web 4141
+  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true -bootstrapServer=localhost:3142 web 4141
 ```
 You will see a response like:
 ```
 Copying chain to: /Users/philipbeadle/.holochaindev
 Serving holochain with DNA hash:QmVbbeDAHVxC9cTvx6UhNEeTCK99SRKfxKDz3s4mR6TnsS on port:3141
 ```
-Now open a browser at http://localhost:3142 and look at the Bootstrap server.  You will see 2 records
-```
+Now open a browser at http://localhost:3142/QmVbbeDAHVxC9cTvx6UhNEeTCK99SRKfxKDz3s4mR6TnsS (substituting in the DNA hash from the response above if different) and look at the Bootstrap server.  You will see 2 records like this
+```doQmVbbeDAHVxC9cTvx6UhNEeTCK99SRKfxKDz3s4mR6TnsS
   [{"Req":{"Version":1,"NodeID":"QmTAjDmQHobs2oQZp4UrbSzkShUGVKcsQUdakHeQ4YYxRX","NodeAddr":"/ip4/0.0.0.0/tcp/6003"},"Remote":"[::1]:63187","LastSeen":"2018-01-11T12:32:15.659887156+11:00"},{"Req":{"Version":1,"NodeID":"QmWQVaqEayZJWnvxLtsKr1iyeTDp3s7m7TTE36HhAUTiTK","NodeAddr":"/ip4/0.0.0.0/tcp/6002"},"Remote":"[::1]:63153","LastSeen":"2018-01-11T12:28:40.85765899+11:00"}]
 ```
 Now open a browser to http://localhost:3141 and you will see Clutter.  Open another tab to http://localhost:4141 and you now have 2 instances of Clutter that you can chat between.  Add a handle in each and then meow and follow each instance and you will see the meows!!
 
 ### Docker Usage
-You can do all this much easier with Docker. Download the latest release from [Clutter Release])https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
+You can do all this much easier with Docker. Download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
 ```
   cd ui-src
   yarn install
