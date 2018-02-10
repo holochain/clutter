@@ -64,7 +64,7 @@ function getPost(params) {
     return rawPost;
   } else {
     post = {
-      post: JSON.parse(rawPost.Entry),
+      post: rawPost.Entry,
       author: rawPost.Sources[0],
       H: params.postHash
     };
@@ -337,7 +337,7 @@ function validateMod(entry_type,entry,header,replaces,pkg,sources) {
         // check that source is same as creator
         if (orig.Sources.length !=1 || orig.Sources[0] != sources[0]) {return false;}
 
-        var orig_message = JSON.parse(orig.Entry).message;
+        var orig_message = orig.Entry.message;
         // message must actually be different
         return orig_message != entry.message;
     }
