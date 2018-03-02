@@ -21,6 +21,9 @@
             "Description": "zome that implements micro-blogging",
             "RibosomeType": "js",
             "CodeFile": "clutter.js",
+            "Config": {
+              "returnErrors": true
+            },
             "Entries": [
                 {
                     "Name": "handle",
@@ -52,12 +55,6 @@
                 {
                     "Name": "unfollow",
                     "DataFormat": "links"
-                },
-                {
-                    "Name": "anchor",
-                    "DataFormat": "json",
-                    "Sharing": "public",
-                    "SchemaFile": "anchor.json"
                 }
             ],
             "Functions": [
@@ -130,6 +127,44 @@
                     "Name": "getHandles",
                     "CallingType": "json",
                     "Exposure":"public"
+                }
+            ]
+        },
+        {
+            "Name": "anchors",
+            "Description": "anchors mixin",
+            "RibosomeType": "js",
+            "CodeFile": "anchors.js",
+            "Config": {
+              "returnErrors": true
+            },
+            "Entries": [
+                {
+                    "Name": "anchor",
+                    "DataFormat": "json",
+                    "SchemaFile": "anchor.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "anchor_link",
+                    "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "anchor",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "exists",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "anchors",
+                    "CallingType": "string",
+                    "Exposure": "public"
                 }
             ]
         }

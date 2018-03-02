@@ -1,0 +1,26 @@
+{
+    "Tests":[
+      {
+        "Time": 100,
+          "Convey":"Phil gets handles",
+          "Zome": "clutter",
+          "FnName": "getHandles",
+          "Input": "",
+          "Output": {},
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
+            "Time": 2000,
+            "Convey":"Phil sets up a new handle 'Archer' the first time he uses Clutter",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "Archer",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        }
+    ]
+}
