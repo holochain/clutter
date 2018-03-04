@@ -67,12 +67,12 @@ function genesis() {                            // 'hc gen chain' calls the gene
 // ===============================================================================
 
 function validateCommit(entry_type,entry,header,pkg,sources) {
-    debug("validate commit: "+entry_type);
+    debug("Clutter validate commit: "+entry_type);
     return validate(entry_type,entry,header,sources);
 }
 
 function validatePut(entry_type,entry,header,pkg,sources) {
-    debug("validate put: "+entry_type);
+    debug("Clutter validate put: "+entry_type);
     return validate(entry_type,entry,header,sources);
 }
 
@@ -96,7 +96,7 @@ function validate(entry_type,entry,header,sources) {
 //   - Only Bob should be able to make Bob a "follower" of Alice
 //   - Only Bob should be able to list Alice in his people he is "following"
 function validateLink(linkEntryType,baseHash,links,pkg,sources){
-   debug("validate link: " + linkEntryType);
+   debug("Clutter validate link: " + sources);
     // if (linkEntryType=="handle_links") {
     //     var length = links.length;
     //     // a valid handle is when:
@@ -127,7 +127,7 @@ function validateLink(linkEntryType,baseHash,links,pkg,sources){
     return true;
 }
 function validateMod(entry_type,entry,header,replaces,pkg,sources) {
-    debug("validate mod: "+entry_type+" header:"+JSON.stringify(header)+" replaces:"+JSON.stringify(replaces));
+    debug("Clutter validate mod: "+entry_type+" header:"+JSON.stringify(header)+" replaces:"+JSON.stringify(replaces));
     if (entry_type == "handle") {
         // check that the source is the same as the creator
         // TODO we could also check that the previous link in the type-chain is the replaces hash.
@@ -149,17 +149,22 @@ function validateMod(entry_type,entry,header,replaces,pkg,sources) {
     return true;
 }
 function validateDel(entry_type,hash,pkg,sources) {
-    debug("validate del: "+entry_type);
-    return true;
+  debug('Clutter validateDel:' + sources)
+  return true
 }
-
-// ===============================================================================
-//   PACKAGING functions for *EVERY* validation call for DHT entry
-//     What data needs to be sent for each above validation function?
-//     Default: send and sign the chain entry that matches requested HASH
-// ===============================================================================
-
-function validatePutPkg(entry_type) {return null;}
-function validateModPkg(entry_type) { return null;}
-function validateDelPkg(entry_type) { return null;}
-function validateLinkPkg(entry_type) { return null;}
+function validatePutPkg(entry_type) {
+  debug('Clutter validatePutPkg')
+  return null
+}
+function validateModPkg(entry_type) {
+  debug('Clutter validateModPkg')
+  return null
+}
+function validateDelPkg(entry_type) {
+  debug('Clutter validateDelPkg')
+  return null
+}
+function validateLinkPkg(entry_type) {
+  debug('Clutter validateLinkPkg')
+  return null
+}

@@ -12,7 +12,7 @@
           "Regexp": ""
       },
       {
-            "Time": 5000,
+            "Time": 10000,
             "Convey":"Art tries to use handle 'Archer' which is already taken by Phil",
             "Zome": "clutter",
             "FnName": "newHandle",

@@ -12,7 +12,7 @@
           "Regexp": ""
       },
       {
-            "Time": 2000,
+            "Time": 1000,
             "Convey":"Phil sets up a new handle 'Archer' the first time he uses Clutter",
             "Zome": "clutter",
             "FnName": "newHandle",

@@ -48,32 +48,47 @@ function genesis() {
 }
 
 function validatePut(entry_type,entry,header,pkg,sources) {
-  debug('validatePut')
-    return validateCommit(entry_type,entry,header,pkg,sources)
+  debug('validatePut:' + sources)
+  return validateCommit(entry_type,entry,header,pkg,sources)
 }
 function validateCommit(entry_type,entry,header,pkg,sources) {
-    // // registrations all must happen on the DNA
-    // if (entry_type == 'anchor') {
-    //     return true
-    // }
-    // // registrations all must happen on the DNA
-    // if (entry_type == 'anchor_link') {
-    //     return true
-    // }
+  debug('validatePut:' + sources)
+    if (entry_type == 'anchor') {
+        return true
+    }
+    if (entry_type == 'anchor_link') {
+        return true
+    }
     return true
 }
 
 
 
 function validateLink(linkingEntryType,baseHash,linkHash,pkg,sources){
+  debug('validateLink:' + sources)
   return true
 }
-function validateMod(entry_type,hash,newHash,pkg,sources) {return true;}
-function validateDel(entry_type,hash,pkg,sources) {return true;}
+function validateMod(entry_type,hash,newHash,pkg,sources){
+  debug('validateMod:' + sources)
+  return true
+}
+function validateDel(entry_type,hash,pkg,sources) {
+  debug('validateDel:' + sources)
+  return true
+}
 function validatePutPkg(entry_type) {
   debug('validatePutPkg')
   return null
 }
-function validateModPkg(entry_type) { return null}
-function validateDelPkg(entry_type) { return null}
-function validateLinkPkg(entry_type) { return null}
+function validateModPkg(entry_type) {
+  debug('validateModPkg')
+  return null
+}
+function validateDelPkg(entry_type) {
+  debug('validateDelPkg')
+  return null
+}
+function validateLinkPkg(entry_type) {
+  debug('validateLinkPkg')
+  return null
+}
