@@ -29,7 +29,9 @@ function anchor(anchor){
 }
 
 function exists(anchor){
-  if(get(makeHash('anchor', anchor)).message === 'hash not found'){
+  var key = get(makeHash('anchor', anchor))
+  debug('exists: ' + key)
+  if(key.message === 'hash not found'){
     return false
   }
   return true
