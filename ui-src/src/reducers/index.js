@@ -8,6 +8,7 @@ const initialState = {
   handles: {
     // userHash: handle
   },
+  handleTaken: false,
   follows: {
     // userHash: true
   },
@@ -113,13 +114,21 @@ export default function clutterApp (state = initialState, action) {
     case A.GET_AGENT:
       return state
     case A.NEW_HANDLE:
-      return {
-        ...state,
-        handles: {
-          ...state.handles,
-          [state.me]: meta.data
-        },
-        handle: meta.data
+      if(payload === 'HandleInUse'){
+        return {
+          ...state,
+          handleTaken: true
+        }
+      } else {
+        return {
+          ...state,
+          handles: {
+            ...state.handles,
+            [state.me]: meta.data
+          },
+          handle: meta.data,
+          handleTaken: false
+        }
       }
     case A.UNFOLLOW:
       const copy = {...state}
