@@ -186,7 +186,7 @@ function doGetLink(base,tag) {
 }
 
 function anchor(anchorType, anchorText){
-  return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '');
+  return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '')
 }
 
 function anchorHash(){

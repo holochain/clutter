@@ -3,6 +3,7 @@ function anchor(anchor){
   var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''}
   var anchorHash = makeHash('anchor', anchor)
   var anchorGet = get(anchorHash)
+  debug(anchorGet)
   if(anchorGet.message === 'hash not found'){
     var anchorType = {anchorType: anchor.anchorType, anchorText: ''}
     var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''}
