@@ -1,6 +1,16 @@
 {
     "Tests":[
-        {
+      {
+          "Convey":"setup handle for following",
+          "Zome": "clutter",
+          "FnName": "newHandle",
+          "Input": "buffaloBill",
+          "Output": "%h2%",
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
             "Convey":"We get an error for getFollow with bad following type",
             "Zome": "clutter",
             "FnName": "getFollow",
@@ -11,7 +21,7 @@
             "Regexp": ""
         },
         {
-            "Convey":"We can follow a user by agent hash",
+            "Convey":"We can follow a user by agent handle",
             "Zome": "clutter",
             "FnName": "follow",
             "Input": "%key%",
@@ -24,7 +34,7 @@
             "Convey":"We can get following list",
             "Zome": "clutter",
             "FnName": "getFollow",
-            "Input": {"from":"%key%","type":"following"},
+            "Input": {"from":"%h5%","type":"following"},
             "Output": {"result":["%key%"]},
             "Exposure":"public",
             "Err": "",

@@ -1,4 +1,7 @@
 
+function getProperty(name) {            // The definition of the function you intend to expose
+    return property(name);              // Retrieves a property of the holochain from the DNA (e.g., Name, Language
+}
 function appProperty(name) {            // The definition of the function you intend to expose
     if (name == "App_Agent_Hash") {return App.Agent.Hash;}
     if (name == "App_Agent_String")  {return App.Agent.String;}
@@ -39,10 +42,16 @@ function newHandle(handle){
 
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
 function getHandle(userHash) {
-    var handles = doGetLinkLoad(userHash,"handle");
-    var n = handles.length -1;
-    var h = handles[n];
-    return (n >= 0) ? h.handle : "";
+    var anchorHash = getLinks(userHash, 'handle', {Load: true})[0].Entry.replace(/"/g, '')
+    return get(anchorHash).anchorText
+}
+
+function getAgent(handle) {
+  if(anchorExists('handle', handle) === 'false'){
+    return ""
+  } else {
+    return get(anchor('handle', handle), {GetMask: HC.GetMask.Sources})[0]
+  }
 }
 
 function getHandles() {
@@ -60,6 +69,20 @@ function getHandles() {
         handles[links[i].Source] = links[i].Entry;
     }
     return handles;
+}
+
+function follow(userAddress) {
+  // Expects a userAddress hash of the person you want to follow
+
+
+   // Commits a new follow entry to my source chain
+   // On the DHT, puts a link on their hash to my hash as a "follower"
+   // On the DHT, puts a link on my hash to their hash as a "following"
+    return commit("follow",
+                  {Links:[
+                      {Base:userAddress,Link:anchorHash(),Tag:"followers"},
+                      {Base:anchorHash(),Link:userAddress,Tag:"following"}
+                  ]});
 }
 
 // get a list of all the people from the DHT a user is following or follows

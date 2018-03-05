@@ -45,7 +45,7 @@
             "Zome": "clutter",
             "FnName": "getHandles",
             "Input": "",
-            "Output": {"%key%":"buffaloBill"},
+            "Output": {"%key%":"%h4%"},
             "Exposure":"public",
             "Err": "",
             "Regexp": ""
