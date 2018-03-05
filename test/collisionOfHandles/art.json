@@ -1,48 +1,15 @@
 {
     "Tests":[
       {
-          "Time": 700,
-          "Convey":"Art gets handles",
+          "Time": 8000,
+          "Convey":"Art tries to use handle 'Archer' which is already taken by Phil",
           "Zome": "clutter",
-          "FnName": "getHandles",
-          "Input": "",
-          "Output": {},
+          "FnName": "newHandle",
+          "Input": "Archer",
+          "Output": "HandleInUse",
           "Exposure":"public",
           "Err": "",
           "Regexp": ""
-      },
-      {
-          "Time": 800,
-          "Convey":"Art gets handles",
-          "Zome": "clutter",
-          "FnName": "getHandles",
-          "Input": "",
-          "Output": {},
-          "Exposure":"public",
-          "Err": "",
-          "Regexp": ""
-      },
-      {
-          "Time": 900,
-          "Convey":"Art gets handles",
-          "Zome": "clutter",
-          "FnName": "getHandles",
-          "Input": "",
-          "Output": {},
-          "Exposure":"public",
-          "Err": "",
-          "Regexp": ""
-      },
-      {
-            "Time": 4000,
-            "Convey":"Art tries to use handle 'Archer' which is already taken by Phil",
-            "Zome": "clutter",
-            "FnName": "newHandle",
-            "Input": "Archer",
-            "Output": "HandleInUse",
-            "Exposure":"public",
-            "Err": "",
-            "Regexp": ""
         }
     ]
 }

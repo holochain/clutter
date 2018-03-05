@@ -24,7 +24,8 @@ class Settings extends Component {
     return (
       <div className='panel panel-default'>
         <div className='panel-body'>
-          <h3 id='setHandleModalLabel'>Update Handle</h3>
+          <h3 id='setHandleModalLabel'>Set your handle</h3>
+          <p style={{display: (this.props.handleTaken === true) ? 'inline' : 'none'}}>Handle already taken</p>
           <form onSubmit={this.onHandleSubmit} className='form-group'>
             <div className='col-xs-8'>
               <div className="form-group input-icon">

@@ -53,10 +53,11 @@
         },
         {
             "Convey":"We can retrieve posts",
+            "Comments": "Uses the link hash for the Anchor - %h6%",
             "Zome":   "clutter",
             "FnName": "getPostsBy",
-            "Input":  ["%r1%"],
-            "Output": [{"H":"%h1%","author":"%key%","post":{"message":"here is a test post","stamp":12345}}],
+            "Input":  ["%h6%"],
+            "Output": [{"H":"%h1%","author":"%h6%","post":{"message":"here is a test post","stamp":12345}}],
             "Exposure":"public",
             "Err": "",
             "Regexp": ""
@@ -77,8 +78,8 @@
             "Convey":"We can retrieve modified posts",
             "Zome":   "clutter",
             "FnName": "getPostsBy",
-            "Input":  ["%r3%"],
-            "Output": [{"H":"%h2%","author":"%key%","post":{"message":"this is the modified post","stamp":12346}}],
+            "Input":  ["%h7%"],
+            "Output": [{"H":"%h2%","author":"%h7%","post":{"message":"this is the modified post","stamp":12346}}],
             "Exposure":"public",
             "Err": "",
             "Regexp": ""

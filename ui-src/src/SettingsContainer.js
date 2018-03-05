@@ -5,7 +5,9 @@ import {
 } from './actions'
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    handleTaken: state.handleTaken
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

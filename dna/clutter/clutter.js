@@ -1,4 +1,12 @@
 
+function appProperty(name) {            // The definition of the function you intend to expose
+    if (name == "App_Agent_Hash") {return App.Agent.Hash;}
+    if (name == "App_Agent_String")  {return App.Agent.String;}
+    if (name == "App_Key_Hash")   {return   App.Key.Hash;}
+    if (name == "App_DNA_Hash")   {return   App.DNA.Hash;}
+    return "Error: No App Property with name: " + name;
+}
+
 function newHandle(handle){
   var handles = getLinks(App.Key.Hash, 'handle')
   debug(handles)
@@ -29,6 +37,14 @@ function newHandle(handle){
   }
 }
 
+// returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
+function getHandle(userHash) {
+    var handles = doGetLinkLoad(userHash,"handle");
+    var n = handles.length -1;
+    var h = handles[n];
+    return (n >= 0) ? h.handle : "";
+}
+
 function getHandles() {
     if (property("enableDirectoryAccess") != "true") {
         return undefined;
@@ -46,8 +62,112 @@ function getHandles() {
     return handles;
 }
 
+// get a list of all the people from the DHT a user is following or follows
+function getFollow(params) {
+    var type = params.type;
+    var  base = params.from;
+    var result = {};
+    if ((type == "followers") || (type == "following")) {
+        result["result"] = doGetLink(base,type);
+    }
+    else {
+        result["error"] = "bad type: "+type;
+    }
+    return result;
+}
+
+function post(post) {
+    var key = commit('post', post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
+    debug(anchorHash())
+    // On the DHT, puts a link on my anchor to the new post
+    commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]})
+    debug(key);
+    return key;                                  // Returns the hash key of the new post to the calling function
+}
+
+function postMod(params) {
+    var key = update('post', params.post, params.hash)
+    // commit('post_links',
+    //   {Links:[
+    //      {Base: App.Key.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
+    //      {Base: App.Key.Hash, Link: key, Tag: 'handle'}
+    //   ]})
+    return key
+}
+
+// TODO add "last 10" or "since timestamp" when query info is supported
+function getPostsBy(userAddresses) {
+    // From the DHT, gets all "post" metadata entries linked from this userAddress
+    var posts = [];
+    for (var i=0;i<userAddresses.length;i++) {
+        var author = userAddresses[i];
+        var authorPosts = doGetLinkLoad(author,"post");
+        // add in the author
+        for(var j=0;j<authorPosts.length;j++) {
+            var post = authorPosts[j];
+            post.author = author;
+            posts.push(post);
+        }
+    }
+    return posts;
+}
+
+function getPost(params) {
+  var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
+  if (isErr(rawPost)) {
+    return rawPost;
+  } else {
+    post = {
+      post: rawPost.Entry,
+      author: rawPost.Sources[0],
+      H: params.postHash
+    };
+    return post;
+  }
+}
+
+// helper function to do getLinks call, handle the no-link error case, and copy the returned entry values into a nicer array
+function doGetLinkLoad(base, tag) {
+    // get the tag from the base in the DHT
+    var links = getLinks(base, tag,{Load:true});
+    if (isErr(links)) {
+        links = [];
+    } else {
+        links = links;
+    }
+    var links_filled = [];
+    for (var i=0;i <links.length;i++) {
+        var link = {H:links[i].Hash};
+        link[tag] = links[i].Entry;
+        links_filled.push(link);
+    }
+    return links_filled;
+}
+
+// helper function to call getLinks, handle the no links entry error, and build a simpler links array.
+function doGetLink(base,tag) {
+    // get the tag from the base in the DHT
+    var links = getLinks(base, tag,{Load:false});
+    if (isErr(links)) {
+        links = [];
+    }
+     else {
+        links = links;
+    }
+    debug("Links:"+JSON.stringify(links));
+    var links_filled = [];
+    for (var i=0;i <links.length;i++) {
+        links_filled.push(links[i].Hash);
+    }
+    return links_filled;
+}
+
 function anchor(anchorType, anchorText){
-  return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText})
+  return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '');
+}
+
+function anchorHash(){
+  return getLinks(App.Key.Hash, 'handle', {Load: true})[0].Entry.replace(/"/g, '')
 }
 
 function anchorExists(anchorType, anchorText){
