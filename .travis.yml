@@ -24,7 +24,7 @@ before_install:
   - export PATH="$GOPATH/bin:$PATH"
   - go get -d -v github.com/Holochain/holochain-proto
   - cd $GOPATH/src/github.com/Holochain/holochain-proto
-  - make
+  - sudo make
   - cd -
 script:
   - hcdev test
