@@ -109,7 +109,6 @@ function getFollow(params) {
 
 function post(post) {
     var key = commit('post', post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
-    debug(anchorHash())
     // On the DHT, puts a link on my anchor to the new post
     commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]})
     debug(key);
@@ -127,20 +126,20 @@ function postMod(params) {
 }
 
 // TODO add "last 10" or "since timestamp" when query info is supported
-function getPostsBy(userAddresses) {
+function getPostsBy(handles) {
     // From the DHT, gets all "post" metadata entries linked from this userAddress
-    var posts = [];
-    for (var i=0;i<userAddresses.length;i++) {
-        var author = userAddresses[i];
-        var authorPosts = doGetLinkLoad(author,"post");
+    var posts = []
+    for (var i=0;i<handles.length;i++) {
+        var author = anchor('handle', handles[i])
+        var authorPosts = doGetLinkLoad(author, 'post')
         // add in the author
         for(var j=0;j<authorPosts.length;j++) {
-            var post = authorPosts[j];
-            post.author = author;
-            posts.push(post);
+            var post = authorPosts[j]
+            post.author = author
+            posts.push(post)
         }
     }
-    return posts;
+    return posts
 }
 
 function getPost(params) {
@@ -197,8 +196,12 @@ function anchor(anchorType, anchorText){
   return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '')
 }
 
-function anchorHash(){
-  return getLinks(App.Key.Hash, 'handle', {Load: true})[0].Entry.replace(/"/g, '')
+function anchorHash(appKeyHash){
+  debug('appKeyHash ' + appKeyHash)
+  if(appKeyHash === undefined){
+    appKeyHash = App.Key.Hash
+  }
+  return getLinks(appKeyHash, 'handle', {Load: true})[0].Entry.replace(/"/g, '')
 }
 
 function anchorExists(anchorType, anchorText){

@@ -1,16 +1,6 @@
 {
     "Tests":[
       {
-          "Convey":"Ask for an anchor that is not there",
-          "Zome": "anchors",
-          "FnName": "anchor",
-          "Input": {"anchorType": "test", "anchorText": "Phil2"},
-          "Output": "%h1%",
-          "Exposure":"public",
-          "Err": "",
-          "Regexp": ""
-      },
-      {
             "Convey":"setup handle for posting",
             "Zome": "clutter",
             "FnName": "newHandle",
@@ -46,7 +36,7 @@
             "Convey":"retrieve jane's posts",
             "Zome":   "clutter",
             "FnName": "getPostsBy",
-            "Input":  ["%r2%"],
+            "Input":  ["jane"],
             "Exposure":"public",
             "Err": "",
             "Regexp": ".*hello world.*"
