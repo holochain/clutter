@@ -18,21 +18,25 @@ function dummyCommit() {
 function newHandle(handle){
   var handles = getLinks(App.Key.Hash, 'handle')
   if (handles.length > 0) {
-    var oldKey = handles[0].Hash
-    var key = update('handle', anchor('handle', handle), oldKey)
-    commit('handle_links',
-      {Links:[
-         {Base: App.Key.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
-         {Base: App.Key.Hash, Link: key, Tag: 'handle'}
-      ]})
-    commit('directory_links',
-      {Links:[
-         {Base: App.DNA.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
-         {Base: App.DNA.Hash, Link: key, Tag: 'handle'}
-      ]})
-    return key
+    if(anchorExists('handle', handle) === 'false'){
+      var oldKey = handles[0].Hash
+      var key = update('handle', anchor('handle', handle), oldKey)
+      commit('handle_links',
+        {Links:[
+           {Base: App.Key.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
+           {Base: App.Key.Hash, Link: key, Tag: 'handle'}
+        ]})
+      commit('directory_links',
+        {Links:[
+           {Base: App.DNA.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
+           {Base: App.DNA.Hash, Link: key, Tag: 'handle'}
+        ]})
+      return key
+    } else {
+      debug('HandleInUse')
+      return 'HandleInUse'
+    }
   }
-  // debug('anchor exists ' + anchorExists('handle', handle))
   if(anchorExists('handle', handle) === 'false'){
     var newHandleKey = commit('handle', anchor('handle', handle))
     commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]})
