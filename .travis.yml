@@ -21,7 +21,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - TARGETDIR=$(pwd) docker-compose up -d
 script:
-  - docker run --rm holochain/holochain-proto:develop -v "$(PWD):/clutter" bash -c "cd /clutter; hcdev -no-nat-upnp -mdns=true test"
+  - docker run --rm holochain/holochain-proto:develop -v "$(pwd):/clutter" bash -c "cd /clutter; hcdev -no-nat-upnp -mdns=true test"
   - cd ui-automation
   - npm install
   - npm test
