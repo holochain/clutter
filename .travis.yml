@@ -22,8 +22,8 @@ before_install:
   - TARGETDIR=$(pwd) docker-compose up -d
 
   - sudo apt-get install golang-go
-  # - export GOPATH="/usr/lib/go-1.9"
-  # - export PATH="$GOPATH/bin:$PATH"
+  - export GOPATH="/usr/bin/go"
+  - export PATH="$GOPATH/bin:$PATH"
   - sudo go get -d -v github.com/Holochain/holochain-proto
   - cd $GOPATH/src/github.com/Holochain/holochain-proto
   - sudo make
