@@ -17,10 +17,12 @@ before_install:
   - export GOROOT=/usr/lib/go-1.9
   - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   - export PATH=$GOPATH:$PATH
-  - echo $PATH
-  - sudo -E go get -d -v github.com/Holochain/holochain-proto
+  - echo "PATH=$PATH" >> /etc/environment
+  - echo "GOROOT=$GOROOT" >> /etc/environment
+  - echo "GOPATH=$GOPATH" >> /etc/environment
+  - sudo go get -d -v github.com/Holochain/holochain-proto
   - cd $GOPATH/src/github.com/Holochain/holochain-proto
-  - sudo -E make
+  - sudo make
   - cd -
   - hcadmin -v
 
