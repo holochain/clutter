@@ -21,6 +21,26 @@
             "Regexp": ""
         },
         {
+            "Convey":"We can update our handle to a unique handle",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "phil",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Trying to use a handle that another person is using returns 'HandleInUse'",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "phil",
+            "Output": "HandleInUse",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
             "Convey":"getAgent request on non existent handle returns empty string",
             "Zome": "clutter",
             "FnName": "getAgent",

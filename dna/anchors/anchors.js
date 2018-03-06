@@ -3,14 +3,14 @@ function anchor(anchor){
   var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''}
   var anchorHash = makeHash('anchor', anchor)
   var anchorGet = get(anchorHash)
-  debug(anchorGet)
-  if(anchorGet.message === 'hash not found'){
+  debug('anchorGet ' + anchorGet)
+  if(anchorGet.anchorType === undefined){
     var anchorType = {anchorType: anchor.anchorType, anchorText: ''}
     var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''}
     var anchorTypeGet = get(makeHash('anchor', anchorType))
-    if(anchorTypeGet.message === 'hash not found'){
+    if(anchorTypeGet.anchorType === undefined){
       var rootAnchorTypeHash = get(makeHash('anchor', rootAnchortype))
-      if (rootAnchorTypeHash.message === 'hash not found'){
+      if (rootAnchorTypeHash.anchorType === undefined){
         rootAnchorTypeHash = commit('anchor', rootAnchortype)
         debug('Root Anchor Type Created: ' + rootAnchorTypeHash)
       }
@@ -31,11 +31,11 @@ function anchor(anchor){
 
 function exists(anchor){
   var key = get(makeHash('anchor', anchor))
-  debug('exists: ' + key)
-  if(key.message === 'hash not found'){
-    return false
+  debug(key)
+  if(key.anchorType !== undefined){
+    return true
   }
-  return true
+  return false
 }
 
 function anchors(type){
@@ -49,11 +49,11 @@ function genesis() {
 }
 
 function validatePut(entry_type,entry,header,pkg,sources) {
-  debug('validatePut:' + sources)
+  debug('Anchors validatePut:' + sources)
   return validateCommit(entry_type,entry,header,pkg,sources)
 }
 function validateCommit(entry_type,entry,header,pkg,sources) {
-  debug('validatePut:' + sources)
+  debug('Anchors validatePut:' + sources)
     if (entry_type == 'anchor') {
         return true
     }
@@ -66,30 +66,30 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 
 
 function validateLink(linkingEntryType,baseHash,linkHash,pkg,sources){
-  debug('validateLink:' + sources)
+  debug('Anchors validateLink:' + sources)
   return true
 }
 function validateMod(entry_type,hash,newHash,pkg,sources){
-  debug('validateMod:' + sources)
+  debug('Anchors validateMod:' + sources)
   return true
 }
 function validateDel(entry_type,hash,pkg,sources) {
-  debug('validateDel:' + sources)
+  debug('Anchors validateDel:' + sources)
   return true
 }
 function validatePutPkg(entry_type) {
-  debug('validatePutPkg')
+  debug('Anchors validatePutPkg')
   return null
 }
 function validateModPkg(entry_type) {
-  debug('validateModPkg')
+  debug('Anchors validateModPkg')
   return null
 }
 function validateDelPkg(entry_type) {
-  debug('validateDelPkg')
+  debug('Anchors validateDelPkg')
   return null
 }
 function validateLinkPkg(entry_type) {
-  debug('validateLinkPkg')
+  debug('Anchors validateLinkPkg')
   return null
 }

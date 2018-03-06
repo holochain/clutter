@@ -10,11 +10,15 @@ function appProperty(name) {            // The definition of the function you in
     return "Error: No App Property with name: " + name;
 }
 
+function dummyCommit() {
+    debug('dummy ' + get('QmaF6hkedn95FYU2D79jnwwejDRXTsRMFYKJpQsgwMmUqq'))
+    return commit('dummy', 'dummy')              // Retrieves a property of the holochain from the DNA (e.g., Name, Language
+}
+
 function newHandle(handle){
   var handles = getLinks(App.Key.Hash, 'handle')
-  debug(handles)
   if (handles.length > 0) {
-    var oldKey = handles[0]
+    var oldKey = handles[0].Hash
     var key = update('handle', anchor('handle', handle), oldKey)
     commit('handle_links',
       {Links:[
@@ -28,7 +32,7 @@ function newHandle(handle){
       ]})
     return key
   }
-  debug('anchor exists ' + anchorExists('handle', handle))
+  // debug('anchor exists ' + anchorExists('handle', handle))
   if(anchorExists('handle', handle) === 'false'){
     var newHandleKey = commit('handle', anchor('handle', handle))
     commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]})

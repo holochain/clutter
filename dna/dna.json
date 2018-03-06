@@ -22,10 +22,15 @@
             "RibosomeType": "js",
             "CodeFile": "clutter.js",
             "Config": {
-              "returnErrors": true
+              "ErrorHandling": "returnErrorValue"
             },
             "Entries": [
-                {
+              {
+                  "Name": "dummy",
+                  "DataFormat": "string",
+                  "Sharing": "public"
+              },
+              {
                     "Name": "handle",
                     "DataFormat": "string",
                     "Sharing": "public"
@@ -58,7 +63,11 @@
                 }
             ],
             "Functions": [
-                {
+              {
+                  "Name": "dummyCommit",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
                     "Name": "getProperty",
                     "CallingType": "string",
                     "Exposure":"public"
@@ -136,7 +145,7 @@
             "RibosomeType": "js",
             "CodeFile": "anchors.js",
             "Config": {
-              "returnErrors": true
+              "ErrorHandling": "returnErrorValue"
             },
             "Entries": [
                 {

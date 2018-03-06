@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run",
-    "cypress:open": "cypress open"
+    "cypress:open": "CYPRESS_baseUrl=http://localhost:3000 cypress open",
+    "cypress:docker": "CYPRESS_baseUrl=http://localhost:4141 cypress open"
   },
   "repository": {
     "type": "git",
