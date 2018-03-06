@@ -15,7 +15,7 @@ before_install:
   - sudo apt-get install golang-1.9-go
   - export GOPATH="$HOME/go"
   - export PATH="$GOPATH/bin:$PATH"
-  - ls $GOPATH
+  # - ls $GOPATH
   - echo $PATH
   - echo $GOPATH
   - sudo /usr/lib/go-1.9/bin/go get -d -v github.com/Holochain/holochain-proto
