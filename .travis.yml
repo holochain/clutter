@@ -24,12 +24,14 @@ before_install:
   - sudo add-apt-repository -y ppa:gophers/archive
   - sudo apt-get update
   - sudo apt-get install golang-1.9-go
-  # - export GOPATH="/usr/lib/go-1.9"
-  # - export PATH="$GOPATH/bin:$PATH"
+  - export GOPATH="/usr/lib/go-1.9"
+  - export PATH="$GOPATH/bin:$PATH"
+  - ls $GOPATH
   - sudo go get -d -v github.com/Holochain/holochain-proto
   - cd $GOPATH/src/github.com/Holochain/holochain-proto
   - sudo make
   - cd -
+  - hcadmin -v
 script:
   - hcdev test
   - cd ui-automation
