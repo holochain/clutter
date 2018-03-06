@@ -21,6 +21,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - TARGETDIR=$(pwd) docker-compose up -d
 script:
+  - hcdev test
   - cd ui-automation
   - npm install
   - npm test
