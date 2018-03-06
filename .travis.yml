@@ -10,6 +10,22 @@ env:
 services:
   - docker
 before_install:
+  - sudo add-apt-repository -y ppa:gophers/archive
+  - sudo apt-get update
+  - sudo apt-get install golang-1.9-go
+  - export GOPATH="$HOME/go"
+  - export GOROOT=/usr/lib/go-1.9
+  - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+  - export PATH=$GOPATH:$PATH
+  - sudo bash -c "echo \"PATH=$PATH\" >> /etc/environment"
+  - sudo bash -c "echo \"GOROOT=$GOROOT\" >> /etc/environment"
+  - sudo bash -c "echo \"GOPATH=$GOPATH\" >> /etc/environment"
+  - sudo go get -d -v github.com/Holochain/holochain-proto
+  - cd $GOPATH/src/github.com/Holochain/holochain-proto
+  - sudo make
+  - cd -
+  - hcadmin -v
+
   - cd ui-src
   - yarn install
   - yarn build
@@ -21,6 +37,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - TARGETDIR=$(pwd) docker-compose up -d
 script:
+  - hcdev test
   - cd ui-automation
   - npm install
   - npm test
