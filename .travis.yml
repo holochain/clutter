@@ -15,7 +15,8 @@ before_install:
   - sudo apt-get install golang-1.9-go
   - sudo /usr/lib/go-1.9/bin/go install
   - export GOPATH="$HOME/go"
-  - export PATH=$PATH:$GOPATH/bin
+  - export PATH=$PATH:$GOPATH/bin:/usr/lib/go-1.8/bin
+  - echo $PATH
   # - sudo apt-get install golang
   # - tar -C /usr/local -xzf go1.9.0.linux-amd64.tar.gz
   # - export PATH="$GOPATH/bin:$PATH"
