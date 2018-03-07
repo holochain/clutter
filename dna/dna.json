@@ -63,11 +63,7 @@
                 }
             ],
             "Functions": [
-              {
-                  "Name": "dummyCommit",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
+                {
                     "Name": "getProperty",
                     "CallingType": "string",
                     "Exposure":"public"
@@ -79,11 +75,6 @@
                 },
                 {
                     "Name": "follow",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "addPost",
                     "CallingType": "string",
                     "Exposure":"public"
                 },
