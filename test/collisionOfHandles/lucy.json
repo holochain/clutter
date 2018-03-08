@@ -1,7 +1,7 @@
 {
     "Tests":[
       {
-        "Time": 4000,
+        "Time": 2000,
         "Convey":"Lucy creates a new handle the first time she uses Clutter",
         "Detail": "deddd",
         "Zome": "clutter",

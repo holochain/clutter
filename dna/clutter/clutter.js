@@ -10,47 +10,53 @@ function appProperty(name) {            // The definition of the function you in
     return "Error: No App Property with name: " + name;
 }
 
-function dummyCommit() {
-    debug('dummy ' + get('QmaF6hkedn95FYU2D79jnwwejDRXTsRMFYKJpQsgwMmUqq'))
-    return commit('dummy', 'dummy')              // Retrieves a property of the holochain from the DNA (e.g., Name, Language
-}
-
 function newHandle(handle){
+  debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + App.Agent.String + ' has any exisitng handles</mermaid>')
   var handles = getLinks(App.Key.Hash, 'handle')
+  debug('<mermaid>DHT->>' + App.Agent.String + ':returns any handles</mermaid>')
   if (handles.length > 0) {
     if(anchorExists('handle', handle) === 'false'){
       var oldKey = handles[0].Hash
       var key = update('handle', anchor('handle', handle), oldKey)
+      debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':' + App.Agent.String + ' has a handle so update it</mermaid>')
       commit('handle_links',
         {Links:[
            {Base: App.Key.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
            {Base: App.Key.Hash, Link: key, Tag: 'handle'}
         ]})
+      debug('<mermaid>' + App.Agent.String + '->>DHT:Update link to ' + handle + ' in "handle_links"</mermaid>')
       commit('directory_links',
         {Links:[
            {Base: App.DNA.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
            {Base: App.DNA.Hash, Link: key, Tag: 'handle'}
         ]})
+      debug('<mermaid>' + App.Agent.String + '->>DHT:Update link to ' + handle + ' in "directory_links"</mermaid>')
       return key
     } else {
-      debug('HandleInUse')
+      // debug('HandleInUse')
       return 'HandleInUse'
     }
   }
   if(anchorExists('handle', handle) === 'false'){
     var newHandleKey = commit('handle', anchor('handle', handle))
+    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new handle</mermaid>')
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Publish ' + handle + '</mermaid>')
     commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]})
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "handle_links"</mermaid>')
     commit('directory_links', {Links: [{Base: App.DNA.Hash, Link: newHandleKey, Tag: 'directory'}]})
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "directory_links"</mermaid>')
     return newHandleKey
   } else {
-    debug('HandleInUse')
+    // debug('HandleInUse')
     return 'HandleInUse'
   }
 }
 
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
-function getHandle(userHash) {
-    var anchorHash = getLinks(userHash, 'handle', {Load: true})[0].Entry.replace(/"/g, '')
+function getHandle(handleKey) {
+  var links = getLinks(handleKey, 'handle', {Load: true})
+  // debug(links)
+    var anchorHash = links[0].Entry.replace(/"/g, '')
     return get(anchorHash).anchorText
 }
 
@@ -69,27 +75,27 @@ function getHandles() {
     var links = getLinks(App.DNA.Hash, "directory",{Load:true});
     if (isErr(links)) {
         links = [];
-    } else {
-        links = links;
     }
-    var handles = {};
+    // debug(links)
+    var handles = [];
     for (var i=0;i <links.length;i++) {
-        handles[links[i].Source] = links[i].Entry;
+      var handleHash = links[i].Entry
+      var handle = get(links[i].Entry).anchorText
+      handles.push({'handleHash': handleHash,'handle': handle})
     }
     return handles;
 }
 
-function follow(userAddress) {
-  // Expects a userAddress hash of the person you want to follow
-
-
+function follow(handle) {
+  // Expects a handle of the person you want to follow
    // Commits a new follow entry to my source chain
    // On the DHT, puts a link on their hash to my hash as a "follower"
    // On the DHT, puts a link on my hash to their hash as a "following"
+    var handleHash = makeHash('handle', handle)
     return commit("follow",
                   {Links:[
-                      {Base:userAddress,Link:anchorHash(),Tag:"followers"},
-                      {Base:anchorHash(),Link:userAddress,Tag:"following"}
+                      {Base:handleHash,Link:anchorHash(),Tag:"followers"},
+                      {Base:anchorHash(),Link:handleHash,Tag:"following"}
                   ]});
 }
 
@@ -111,7 +117,7 @@ function post(post) {
     var key = commit('post', post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
     // On the DHT, puts a link on my anchor to the new post
     commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]})
-    debug(key);
+    // debug(key);
     return key;                                  // Returns the hash key of the new post to the calling function
 }
 
@@ -184,7 +190,7 @@ function doGetLink(base,tag) {
      else {
         links = links;
     }
-    debug("Links:"+JSON.stringify(links));
+    // debug("Links:"+JSON.stringify(links));
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
         links_filled.push(links[i].Hash);
@@ -197,7 +203,7 @@ function anchor(anchorType, anchorText){
 }
 
 function anchorHash(appKeyHash){
-  debug('appKeyHash ' + appKeyHash)
+  // debug('appKeyHash ' + appKeyHash)
   if(appKeyHash === undefined){
     appKeyHash = App.Key.Hash
   }
@@ -221,12 +227,12 @@ function genesis() {                            // 'hc gen chain' calls the gene
 // ===============================================================================
 
 function validateCommit(entry_type,entry,header,pkg,sources) {
-    debug("Clutter validate commit: "+entry_type);
+    // debug("Clutter validate commit: "+entry_type);
     return validate(entry_type,entry,header,sources);
 }
 
 function validatePut(entry_type,entry,header,pkg,sources) {
-    debug("Clutter validate put: "+entry_type);
+    // debug("Clutter validate put: "+entry_type);
     return validate(entry_type,entry,header,sources);
 }
 
@@ -250,7 +256,7 @@ function validate(entry_type,entry,header,sources) {
 //   - Only Bob should be able to make Bob a "follower" of Alice
 //   - Only Bob should be able to list Alice in his people he is "following"
 function validateLink(linkEntryType,baseHash,links,pkg,sources){
-   debug("Clutter validate link: " + sources);
+   // debug("Clutter validate link: " + sources);
     // if (linkEntryType=="handle_links") {
     //     var length = links.length;
     //     // a valid handle is when:
@@ -281,7 +287,7 @@ function validateLink(linkEntryType,baseHash,links,pkg,sources){
     return true;
 }
 function validateMod(entry_type,entry,header,replaces,pkg,sources) {
-    debug("Clutter validate mod: "+entry_type+" header:"+JSON.stringify(header)+" replaces:"+JSON.stringify(replaces));
+    // debug("Clutter validate mod: "+entry_type+" header:"+JSON.stringify(header)+" replaces:"+JSON.stringify(replaces));
     if (entry_type == "handle") {
         // check that the source is the same as the creator
         // TODO we could also check that the previous link in the type-chain is the replaces hash.
@@ -303,22 +309,24 @@ function validateMod(entry_type,entry,header,replaces,pkg,sources) {
     return true;
 }
 function validateDel(entry_type,hash,pkg,sources) {
-  debug('Clutter validateDel:' + sources)
+  // debug('Clutter validateDel:' + sources)
   return true
 }
 function validatePutPkg(entry_type) {
-  debug('Clutter validatePutPkg')
+  // debug('<mermaid>' + App.Agent.String + '->DHT:Link ' + handle + ' to "directory_links"</mermaid>')
+
+  // debug('Clutter validatePutPkg')
   return null
 }
 function validateModPkg(entry_type) {
-  debug('Clutter validateModPkg')
+  // debug('Clutter validateModPkg')
   return null
 }
 function validateDelPkg(entry_type) {
-  debug('Clutter validateDelPkg')
+  // debug('Clutter validateDelPkg')
   return null
 }
 function validateLinkPkg(entry_type) {
-  debug('Clutter validateLinkPkg')
+  // debug('Clutter validateLinkPkg')
   return null
 }

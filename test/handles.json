@@ -61,11 +61,11 @@
             "Regexp": ""
         },
         {
-            "Convey":"We can retrieve a list of all handles",
+            "Convey":"We can retrieve a list of all handles, in single node mode there will only be the one handle",
             "Zome": "clutter",
             "FnName": "getHandles",
             "Input": "",
-            "Output": {"%key%":"%h4%"},
+            "Output": [{"handle":"phil", "handleHash":"%key%"}],
             "Exposure":"public",
             "Err": "",
             "Regexp": ""

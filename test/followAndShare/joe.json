@@ -1,6 +1,7 @@
 {
     "Tests":[
       {
+            "Time":1000,
             "Convey":"setup handle for posting",
             "Zome": "clutter",
             "FnName": "newHandle",
@@ -11,21 +12,11 @@
             "Regexp": ""
         },
         {
-            "Time":2000,
-            "Convey":"get jane's agent key",
-            "Zome": "clutter",
-            "FnName": "getAgent",
-            "Input": "jane",
-            "Exposure":"public",
-            "Err": "",
-            "Regexp": "Qm[a-zA-Z0-9]*"
-        },
-        {
             "Time":2500,
             "Convey":"follow jane",
             "Zome": "clutter",
             "FnName": "follow",
-            "Input": "%r1%",
+            "Input": "jane",
             "Output": "%h%",
             "Exposure":"public",
             "Err": "",
@@ -40,6 +31,17 @@
             "Exposure":"public",
             "Err": "",
             "Regexp": ".*hello world.*"
+        },
+        {
+            "Time":4000,
+            "Convey":"Joe can retrieve a list of all handles",
+            "Zome": "clutter",
+            "FnName": "getHandles",
+            "Input": "",
+            "Output": [{"handle":"phil", "handleHash":"%key%"}],
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
         }
     ]
 }

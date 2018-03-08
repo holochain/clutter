@@ -74,7 +74,15 @@ To run all the stand alone DNA tests:
 hcdev test
 ```
 
-Currently there are two scenario tests:
+## Scenarios
+
+### Scenario - Collision Of Handles - Sequence Diagram
+
+``` shell
+  hcdev -no-nat-upnp -mdns=true scenario collisionOfHandles
+```
+
+<img src="collisionOfHandles-sequence.svg" width="80%" />
 
 #### followAndShare
 ``` shell
