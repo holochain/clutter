@@ -51,7 +51,7 @@ class Follow extends Component {
               </div>
               <ul id='not-following'>
               {filteredNotFollowing.length === 0 && <li>
-                There are no users that you aren't already following.  
+                There are no users that you aren't already following.
               </li>}
               {filteredNotFollowing.map(user => {
                 return (

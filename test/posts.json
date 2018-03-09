@@ -26,7 +26,7 @@
             "FnName": "post",
             "Input": {"message": "",
                       "stamp":12345},
-            "Output": {"message":"Validation Failed","name":"HolochainError"},
+            "Output": "IsErr()",
             "Exposure":"public",
             "Err": "",
             "Regexp": ""
@@ -108,13 +108,13 @@
             "Regexp": ""
         },
         {
-            "Convey":"Retrieving single post will return error if not found",
+            "Convey":"Retrieving single post will return null if not found",
             "Zome":   "clutter",
             "FnName": "getPost",
             "Input":  {
               "postHash": "%h1%"
             },
-            "Output": {"message":"hash not found","name":"HolochainError"},
+            "Output": null,
             "Exposure":"public",
             "Err": "",
             "Regexp": ""

@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getMyAppKeyHash: () => {
-      dispatch(appProperty('App_Key_Hash'))
+      dispatch(appProperty('Agent_Handle_Hash'))
     },
     getHandle: (userHash, isMe, then) => {
       dispatch(getHandle(userHash, isMe, then))

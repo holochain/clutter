@@ -19,26 +19,6 @@
             "Exposure":"public",
             "Err": "",
             "Regexp": ""
-        },
-        {
-            "Convey":"We can follow a user by agent handle",
-            "Zome": "clutter",
-            "FnName": "follow",
-            "Input": "%key%",
-            "Output": "%h%",
-            "Exposure":"public",
-            "Err": "",
-            "Regexp": ""
-        },
-        {
-            "Convey":"We can get following list",
-            "Zome": "clutter",
-            "FnName": "getFollow",
-            "Input": {"from":"%h5%","type":"following"},
-            "Output": {"result":["%key%"]},
-            "Exposure":"public",
-            "Err": "",
-            "Regexp": ""
         }
     ]
 }

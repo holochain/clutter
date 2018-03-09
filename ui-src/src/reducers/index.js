@@ -29,9 +29,10 @@ export default function clutterApp (state = initialState, action) {
           ...state.handles,
           [meta.data]: payload
         },
-        handle: meta.isMe ? payload : state.handle
+        handle: payload
       }
     case A.GET_HANDLES:
+    console.log(state.handles)
       return {
         ...state,
         handles: payload
@@ -62,13 +63,14 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.APP_PROPERTY:
+      console.log('APP_PROPERTY' + meta.data + 'payload ' + payload)
       return {
         ...state,
         appProperties: {
           ...state.appProperties,
           [meta.data]: payload
         },
-        me: meta.data === 'App_Key_Hash' ? payload : ''
+        me: meta.data === 'Agent_Handle_Hash' ? payload : ''
       }
     case A.POST:
       return {
@@ -128,7 +130,8 @@ export default function clutterApp (state = initialState, action) {
             [state.me]: meta.data
           },
           handle: meta.data,
-          handleTaken: false
+          handleTaken: false,
+          me: payload
         }
       }
     case A.UNFOLLOW:

@@ -1,7 +1,7 @@
 {
     "Tests":[
       {
-            "Time":1000,
+            "Time":2000,
             "Convey":"setup handle for posting",
             "Zome": "clutter",
             "FnName": "newHandle",
@@ -33,15 +33,15 @@
             "Regexp": ".*hello world.*"
         },
         {
-            "Time":4000,
-            "Convey":"Joe can retrieve a list of all handles",
+            "Time":5000,
+            "Convey":"We can retrieve a list of all handles, in single node mode there will only be the one handle",
             "Zome": "clutter",
             "FnName": "getHandles",
-            "Input": "",
-            "Output": [{"handle":"phil", "handleHash":"%key%"}],
+            "Input": "Array.length==1",
+            "Output": true,
             "Exposure":"public",
             "Err": "",
-            "Regexp": ""
+            "Raw": true
         }
     ]
 }

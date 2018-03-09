@@ -22,7 +22,7 @@
             "RibosomeType": "js",
             "CodeFile": "clutter.js",
             "Config": {
-              "ErrorHandling": "returnErrorValue"
+              "ErrorHandling": "throwErrors"
             },
             "Entries": [
               {
@@ -136,7 +136,7 @@
             "RibosomeType": "js",
             "CodeFile": "anchors.js",
             "Config": {
-              "ErrorHandling": "returnErrorValue"
+              "ErrorHandling": "throwErrors"
             },
             "Entries": [
                 {

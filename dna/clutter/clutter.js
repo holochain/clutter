@@ -3,7 +3,11 @@ function getProperty(name) {            // The definition of the function you in
     return property(name);              // Retrieves a property of the holochain from the DNA (e.g., Name, Language
 }
 function appProperty(name) {            // The definition of the function you intend to expose
-    if (name == "App_Agent_Hash") {return App.Agent.Hash;}
+    if (name == "Agent_Handle_Hash") {
+      debug("Agent_Handle_Hash");
+      debug(getHandle(App.Key.Hash));
+      return getHandle(App.Key.Hash);
+    }
     if (name == "App_Agent_String")  {return App.Agent.String;}
     if (name == "App_Key_Hash")   {return   App.Key.Hash;}
     if (name == "App_DNA_Hash")   {return   App.DNA.Hash;}
@@ -11,77 +15,76 @@ function appProperty(name) {            // The definition of the function you in
 }
 
 function newHandle(handle){
-  debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + App.Agent.String + ' has any exisitng handles</mermaid>')
-  var handles = getLinks(App.Key.Hash, 'handle')
-  debug('<mermaid>DHT->>' + App.Agent.String + ':returns any handles</mermaid>')
+  debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + App.Agent.String + ' has any exisitng handles</mermaid>');
+  var handles = getLinks(App.Key.Hash, 'handle');
+  debug('<mermaid>DHT->>' + App.Agent.String + ':returns any handles</mermaid>');
   if (handles.length > 0) {
     if(anchorExists('handle', handle) === 'false'){
-      var oldKey = handles[0].Hash
-      var key = update('handle', anchor('handle', handle), oldKey)
-      debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':' + App.Agent.String + ' has a handle so update it</mermaid>')
+      var oldKey = handles[0].Hash;
+      var key = update('handle', anchor('handle', handle), oldKey);
+      debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':' + App.Agent.String + ' has a handle so update it</mermaid>');
       commit('handle_links',
         {Links:[
            {Base: App.Key.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
            {Base: App.Key.Hash, Link: key, Tag: 'handle'}
-        ]})
-      debug('<mermaid>' + App.Agent.String + '->>DHT:Update link to ' + handle + ' in "handle_links"</mermaid>')
+        ]});
+      debug('<mermaid>' + App.Agent.String + '->>DHT:Update link to ' + handle + ' in "handle_links"</mermaid>');
       commit('directory_links',
         {Links:[
            {Base: App.DNA.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
            {Base: App.DNA.Hash, Link: key, Tag: 'handle'}
-        ]})
-      debug('<mermaid>' + App.Agent.String + '->>DHT:Update link to ' + handle + ' in "directory_links"</mermaid>')
-      return key
+        ]});
+      debug('<mermaid>' + App.Agent.String + '->>DHT:Update link to ' + handle + ' in "directory_links"</mermaid>');
+      return key;
     } else {
       // debug('HandleInUse')
-      return 'HandleInUse'
+      return 'HandleInUse';
     }
   }
   if(anchorExists('handle', handle) === 'false'){
-    var newHandleKey = commit('handle', anchor('handle', handle))
-    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new handle</mermaid>')
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Publish ' + handle + '</mermaid>')
-    commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]})
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "handle_links"</mermaid>')
-    commit('directory_links', {Links: [{Base: App.DNA.Hash, Link: newHandleKey, Tag: 'directory'}]})
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "directory_links"</mermaid>')
-    return newHandleKey
+    var newHandleKey = commit('handle', anchor('handle', handle));
+    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new handle</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Publish ' + handle + '</mermaid>');
+    commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]});
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "handle_links"</mermaid>');
+    commit('directory_links', {Links: [{Base: App.DNA.Hash, Link: newHandleKey, Tag: 'directory'}]});
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "directory_links"</mermaid>');
+    return newHandleKey;
   } else {
     // debug('HandleInUse')
-    return 'HandleInUse'
+    return 'HandleInUse';
   }
 }
 
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
-function getHandle(handleKey) {
-  var links = getLinks(handleKey, 'handle', {Load: true})
-  // debug(links)
-    var anchorHash = links[0].Entry.replace(/"/g, '')
-    return get(anchorHash).anchorText
+function getHandle(agentKey) {
+  var links = getLinks(agentKey, 'handle', {Load: true});
+  debug(links);
+    var anchorHash = links[0].Entry.replace(/"/g, '');
+    return get(anchorHash).anchorText;
 }
 
 function getAgent(handle) {
   if(anchorExists('handle', handle) === 'false'){
-    return ""
+    return "";
   } else {
-    return get(anchor('handle', handle), {GetMask: HC.GetMask.Sources})[0]
+    return get(anchor('handle', handle), {GetMask: HC.GetMask.Sources})[0];
   }
 }
 
 function getHandles() {
+    debug('get the handles');
     if (property("enableDirectoryAccess") != "true") {
         return undefined;
     }
+
     var links = getLinks(App.DNA.Hash, "directory",{Load:true});
-    if (isErr(links)) {
-        links = [];
-    }
-    // debug(links)
+    debug(links);
     var handles = [];
     for (var i=0;i <links.length;i++) {
-      var handleHash = links[i].Entry
-      var handle = get(links[i].Entry).anchorText
-      handles.push({'handleHash': handleHash,'handle': handle})
+      var handleHash = links[i].Source;
+      var handle = get(links[i].Entry).anchorText;
+      handles.push({'handleHash': handleHash,'handle': handle});
     }
     return handles;
 }
@@ -91,12 +94,14 @@ function follow(handle) {
    // Commits a new follow entry to my source chain
    // On the DHT, puts a link on their hash to my hash as a "follower"
    // On the DHT, puts a link on my hash to their hash as a "following"
-    var handleHash = makeHash('handle', handle)
+    var handleHash = makeHash('handle', handle);
     return commit("follow",
                   {Links:[
                       {Base:handleHash,Link:anchorHash(),Tag:"followers"},
                       {Base:anchorHash(),Link:handleHash,Tag:"following"}
                   ]});
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + App.Agent.String + ' to follow ' + handle + '</mermaid>');
+
 }
 
 // get a list of all the people from the DHT a user is following or follows
@@ -115,43 +120,48 @@ function getFollow(params) {
 
 function post(post) {
     var key = commit('post', post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
+    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new post</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Publish new post</mermaid>');
+
     // On the DHT, puts a link on my anchor to the new post
-    commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]})
+    commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]});
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link post to "post_links"</mermaid>');
+
     // debug(key);
     return key;                                  // Returns the hash key of the new post to the calling function
 }
 
 function postMod(params) {
-    var key = update('post', params.post, params.hash)
+    var key = update('post', params.post, params.hash);
     // commit('post_links',
     //   {Links:[
     //      {Base: App.Key.Hash, Link: oldKey, Tag: 'handle', LinkAction: HC.LinkAction.Del},
     //      {Base: App.Key.Hash, Link: key, Tag: 'handle'}
     //   ]})
-    return key
+    return key;
 }
 
 // TODO add "last 10" or "since timestamp" when query info is supported
 function getPostsBy(handles) {
     // From the DHT, gets all "post" metadata entries linked from this userAddress
-    var posts = []
+    var posts = [];
     for (var i=0;i<handles.length;i++) {
-        var author = anchor('handle', handles[i])
-        var authorPosts = doGetLinkLoad(author, 'post')
+        var author = anchor('handle', handles[i]);
+        var authorPosts = doGetLinkLoad(author, 'post');
         // add in the author
         for(var j=0;j<authorPosts.length;j++) {
-            var post = authorPosts[j]
-            post.author = author
-            posts.push(post)
+            var post = authorPosts[j];
+            post.author = author;
+            posts.push(post);
         }
     }
-    return posts
+    return posts;
 }
 
 function getPost(params) {
   var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
-  if (isErr(rawPost)) {
-    return rawPost;
+  if (rawPost === null) {
+    return null;
   } else {
     post = {
       post: rawPost.Entry,
@@ -166,11 +176,6 @@ function getPost(params) {
 function doGetLinkLoad(base, tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:true});
-    if (isErr(links)) {
-        links = [];
-    } else {
-        links = links;
-    }
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
         var link = {H:links[i].Hash};
@@ -184,12 +189,6 @@ function doGetLinkLoad(base, tag) {
 function doGetLink(base,tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:false});
-    if (isErr(links)) {
-        links = [];
-    }
-     else {
-        links = links;
-    }
     // debug("Links:"+JSON.stringify(links));
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
@@ -199,19 +198,19 @@ function doGetLink(base,tag) {
 }
 
 function anchor(anchorType, anchorText){
-  return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '')
+  return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '');
 }
 
 function anchorHash(appKeyHash){
   // debug('appKeyHash ' + appKeyHash)
   if(appKeyHash === undefined){
-    appKeyHash = App.Key.Hash
+    appKeyHash = App.Key.Hash;
   }
-  return getLinks(appKeyHash, 'handle', {Load: true})[0].Entry.replace(/"/g, '')
+  return getLinks(appKeyHash, 'handle', {Load: true})[0].Entry.replace(/"/g, '');
 }
 
 function anchorExists(anchorType, anchorText){
-  return call('anchors', 'exists', {anchorType: anchorType, anchorText: anchorText})
+  return call('anchors', 'exists', {anchorType: anchorType, anchorText: anchorText});
 }
 
 // GENESIS - Called only when your source chain is generated:'hc gen chain <name>'
@@ -227,12 +226,12 @@ function genesis() {                            // 'hc gen chain' calls the gene
 // ===============================================================================
 
 function validateCommit(entry_type,entry,header,pkg,sources) {
-    // debug("Clutter validate commit: "+entry_type);
+    // debug("Clutter validate commit: "+ JSON.stringify(pkg));
     return validate(entry_type,entry,header,sources);
 }
 
 function validatePut(entry_type,entry,header,pkg,sources) {
-    // debug("Clutter validate put: "+entry_type);
+    // debug("Clutter validate put: "+ JSON.stringify(pkg));
     return validate(entry_type,entry,header,sources);
 }
 
@@ -310,23 +309,23 @@ function validateMod(entry_type,entry,header,replaces,pkg,sources) {
 }
 function validateDel(entry_type,hash,pkg,sources) {
   // debug('Clutter validateDel:' + sources)
-  return true
+  return true;
 }
 function validatePutPkg(entry_type) {
-  // debug('<mermaid>' + App.Agent.String + '->DHT:Link ' + handle + ' to "directory_links"</mermaid>')
-
-  // debug('Clutter validatePutPkg')
-  return null
+  debug('Clutter validatePutPkg: ' + App.Agent.String);
+  var req = {};
+  req[HC.PkgReq.Chain]=HC.PkgReq.ChainOpt.Full;
+  return req;
 }
 function validateModPkg(entry_type) {
   // debug('Clutter validateModPkg')
-  return null
+  return null;
 }
 function validateDelPkg(entry_type) {
   // debug('Clutter validateDelPkg')
-  return null
+  return null;
 }
 function validateLinkPkg(entry_type) {
   // debug('Clutter validateLinkPkg')
-  return null
+  return null;
 }
