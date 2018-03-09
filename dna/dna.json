@@ -21,6 +21,9 @@
             "Description": "zome that implements micro-blogging",
             "RibosomeType": "js",
             "CodeFile": "clutter.js",
+            "Config":{
+              "ErrorHandling":"returnErrorValue"
+            },
             "Entries": [
                 {
                     "Name": "handle",
