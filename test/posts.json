@@ -26,10 +26,9 @@
             "FnName": "post",
             "Input": {"message": "",
                       "stamp":12345},
-            "Output": "IsErr()",
             "Exposure":"public",
             "Err": "",
-            "Regexp": ""
+            "Regexp": "*Validation Failed*"
         },
         {
             "Convey":"We can create a new post",
@@ -85,15 +84,14 @@
             "Regexp": ""
         },
         {
-            "Convey":"Modify a post, must actually modify it's content",
+            "Convey":"Trying to modify a post with the wrong key will fail validation",
             "Zome": "clutter",
             "FnName": "postMod",
             "Input": {"hash": "%h2%",
                       "post": {"stamp": 12346,
                                "message":"this is the modified post"}},
             "Exposure":"public",
-            "Output": {"message":"Validation Failed","name":"HolochainError"},
-            "Regexp": ""
+            "Err": "Validation Failed"
         },
         {
             "Convey":"We can retrieve a single post",

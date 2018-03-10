@@ -4,12 +4,12 @@ function anchor(anchor){
   var anchorHash = makeHash('anchor', anchor);
   var anchorGet = get(anchorHash);
   debug('<mermaid>' + App.Agent.String + '->>DHT:Check to see if ' + anchor.anchorText + ' is already taken</mermaid>');
-  // debug('anchorGet ' + anchorGet)
+  debug('anchorGet ' + JSON.stringify(anchorGet));
   if(anchorGet === null){
     var anchorType = {anchorType: anchor.anchorType, anchorText: ''};
     var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''};
     var anchorTypeGet = get(makeHash('anchor', anchorType));
-    // debug('anchorTypeGet ' + anchorTypeGet)
+    debug('anchorTypeGet ' + JSON.stringify(anchorTypeGet));
     debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + anchor.anchorType + ' has been setup</mermaid>');
     if(anchorTypeGet === null){
       var rootAnchorTypeHash = get(makeHash('anchor', rootAnchortype));

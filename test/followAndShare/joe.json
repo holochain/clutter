@@ -34,10 +34,9 @@
         },
         {
             "Time":5000,
-            "Convey":"We can retrieve a list of all handles, in single node mode there will only be the one handle",
+            "Convey":"We can retrieve a list of all handles",
             "Zome": "clutter",
-            "FnName": "getHandles",
-            "Input": "Array.length==1",
+            "Input": "var handles = getHandles(); handles.length==2",
             "Output": true,
             "Exposure":"public",
             "Err": "",

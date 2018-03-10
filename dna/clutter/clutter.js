@@ -132,6 +132,7 @@ function post(post) {
 }
 
 function postMod(params) {
+  debug(params.post);
     var key = update('post', params.post, params.hash);
     // commit('post_links',
     //   {Links:[
