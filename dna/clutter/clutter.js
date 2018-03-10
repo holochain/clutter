@@ -60,7 +60,7 @@ function postMod(params) {
 
 function getPost(params) {
   var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
-  if (isErr(rawPost)) {
+  if (isErr(rawPost)||rawPost==HC.HashNotFound) {
     return rawPost;
   } else {
     post = {
@@ -137,9 +137,7 @@ function getHandles() {
     var directory = getDirectory();
     var links = getLinks(directory, "handle",{Load:true});
     if (isErr(links)) {
-        links = [];
-    } else {
-        links = links;
+        return links;
     }
     var handles = {};
     for (var i=0;i <links.length;i++) {
@@ -200,19 +198,12 @@ function addHandle(handle) {
     return key;
 }
 
-// helper function to determine if value returned from holochain function is an error
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
-}
-
 // helper function to do getLinks call, handle the no-link error case, and copy the returned entry values into a nicer array
 function doGetLinkLoad(base, tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:true});
     if (isErr(links)) {
-        links = [];
-    } else {
-        links = links;
+        return links;
     }
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
@@ -228,10 +219,7 @@ function doGetLink(base,tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:false});
     if (isErr(links)) {
-        links = [];
-    }
-     else {
-        links = links;
+        return links;
     }
     debug("Links:"+JSON.stringify(links));
     var links_filled = [];
