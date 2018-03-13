@@ -14,6 +14,9 @@ class Settings extends Component {
   }
   onHandleSubmit = (e) => {
     e.preventDefault()
+    this.setState({
+      newHandleText: ''
+    })
     if (!this.state.newHandleText) return
     this.props.newHandle(this.state.newHandleText)
     this.setState({
@@ -26,7 +29,7 @@ class Settings extends Component {
         <div className='panel-body'>
           <h3 id='setHandleModalLabel'>Set your handle</h3>
           <p style={{display: (this.props.handleTaken === true) ? 'inline' : 'none'}}>Handle already taken try another one</p>
-          <form onSubmit={this.onHandleSubmit} className='form-group'>
+          <form id='handleForm' onSubmit={this.onHandleSubmit} className='form-group'>
             <div className='col-xs-8'>
               <div className="form-group input-icon">
                 <i>@</i>

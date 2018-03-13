@@ -20,7 +20,7 @@ const initialState = {
 
 export default function clutterApp (state = initialState, action) {
   const { type, meta, payload } = action
-  console.log(type)
+  console.log('reducer type ' + type)
   switch (type) {
     case A.GET_HANDLE:
       return {
@@ -70,7 +70,8 @@ export default function clutterApp (state = initialState, action) {
           ...state.appProperties,
           [meta.data]: payload
         },
-        me: meta.data === 'Agent_Handle_Hash' ? payload : ''
+        me: meta.data === 'Agent_Handle_Hash' ? payload : '',
+        handle: payload
       }
     case A.POST:
       return {

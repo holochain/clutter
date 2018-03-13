@@ -1,6 +1,16 @@
 {
     "Tests":[
-        {
+      {
+          "Convey":"If there is no habdle set returns ''",
+          "Zome": "clutter",
+          "FnName": "getHandle",
+          "Input": "%key%",
+          "Output": "",
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
             "Convey":"We can create a new handle",
             "Zome": "clutter",
             "FnName": "newHandle",

@@ -17,7 +17,6 @@ class App extends Component {
 
   componentDidUpdate (prevProps) {
     if (!prevProps.me && this.props.me) {
-      this.props.getHandle(this.props.me, true)
       this.props.getFollow(this.props.me, 'following')
     }
   }

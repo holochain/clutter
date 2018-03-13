@@ -60,8 +60,12 @@ function newHandle(handle){
 function getHandle(agentKey) {
   var links = getLinks(agentKey, 'handle', {Load: true});
   debug(links);
+  if(links.length > 0){
     var anchorHash = links[0].Entry.replace(/"/g, '');
     return get(anchorHash).anchorText;
+  } else {
+    return '';
+  }
 }
 
 function getAgent(handle) {
@@ -107,7 +111,7 @@ function follow(handle) {
 // get a list of all the people from the DHT a user is following or follows
 function getFollow(params) {
     var type = params.type;
-    var  base = params.from;
+    var  base = anchor('handle', params.from);
     var result = {};
     if ((type == "followers") || (type == "following")) {
         result["result"] = doGetLink(base,type);
@@ -152,7 +156,7 @@ function getPostsBy(handles) {
         // add in the author
         for(var j=0;j<authorPosts.length;j++) {
             var post = authorPosts[j];
-            post.author = author;
+            post.author = handles[i];
             posts.push(post);
         }
     }
@@ -166,7 +170,7 @@ function getPost(params) {
   } else {
     post = {
       post: rawPost.Entry,
-      author: rawPost.Sources[0],
+      author: getHandle(rawPost.Sources[0]),
       H: params.postHash
     };
     return post;
