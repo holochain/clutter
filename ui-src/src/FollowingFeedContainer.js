@@ -3,7 +3,7 @@ import FollowingFeed from './FollowingFeed'
 import { getPostsBy, getFollow } from './actions'
 
 const mapStateToProps = state => {
-  const listOfFollowingPlusSelf = Object.keys(state.follows).concat([state.me])
+  const listOfFollowingPlusSelf = Object.keys(state.follows).concat([state.handle])
   // is the post by someone active user is following (or themselves)?
   const byFollowing = (pId) => listOfFollowingPlusSelf.indexOf(state.posts[pId].author) > -1
   return {
@@ -12,18 +12,18 @@ const mapStateToProps = state => {
         userHandle: state.handles[state.posts[pId].author] || state.posts[pId].author
       })
     }),
-    me: state.me,
+    handle: state.handle,
     follows: Object.keys(state.follows)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostsBy: (userHashes, then) => {
-      dispatch(getPostsBy(userHashes, then))
+    getPostsBy: (handles, then) => {
+      dispatch(getPostsBy(handles, then))
     },
-    getFollow: (userHash, type, then) => {
-      dispatch(getFollow(userHash, type, then))
+    getFollow: (handle, type, then) => {
+      dispatch(getFollow(handle, type, then))
     }
   }
 }
@@ -35,8 +35,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     getMyFeed: () => {
       // my feed is a list of posts that are either by me or people I follow
       const users = Array.from(stateProps.follows)
-      if (!users.includes(stateProps.me)) {
-        users.push(stateProps.me)
+      if (!users.includes(stateProps.handle)) {
+        users.push(stateProps.handle)
       }
       dispatchProps.getPostsBy(users)
     }

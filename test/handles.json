@@ -1,7 +1,7 @@
 {
     "Tests":[
       {
-          "Convey":"If there is no habdle set returns ''",
+          "Convey":"If there is no handle set returns ''",
           "Zome": "clutter",
           "FnName": "getHandle",
           "Input": "%key%",

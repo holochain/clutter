@@ -13,6 +13,7 @@ class Follow extends Component {
     })
   }
   render () {
+    console.log(this.props.following)
     const filteredNotFollowing = this.props.notFollowing.filter(u => {
       return u.handle.toLowerCase().startsWith(this.state.newFollowText.toLowerCase())
     })
@@ -27,7 +28,7 @@ class Follow extends Component {
               </li>}
               {this.props.following.map(user => {
                 return (
-                  <li className='following-handle' key={user.userHash}>
+                  <li className='following-handle' key={user.handle}>
                     <div className='col-xs-9'>
                       <span className='handle'>{user.handle}</span>
                     </div>
@@ -55,12 +56,12 @@ class Follow extends Component {
               </li>}
               {filteredNotFollowing.map(user => {
                 return (
-                  <li className='following-handle' key={user.userHash}>
+                  <li className='following-handle' key={user.handle}>
                     <div className='col-xs-9'>
                       <span className='handle'>{user.handle}</span>
                     </div>
                     <div className='col-xs-3'>
-                      <button type='button' className='btn btn-default' onClick={() => this.props.follow(user.userHash)}>
+                      <button type='button' className='btn btn-default' onClick={() => this.props.follow(user.handle)}>
                        Follow
                       </button>
                     </div>

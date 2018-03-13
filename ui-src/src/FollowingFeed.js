@@ -3,14 +3,15 @@ import Meow from './components/Meow'
 
 class FollowingFeed extends Component {
   componentDidMount () {
-    if (this.props.me) {
+    if (this.props.handle) {
       this.props.getMyFeed()
       if (this.interval) clearInterval(this.interval)
       this.interval = setInterval(this.props.getMyFeed, 2000)
     }
   }
   componentDidUpdate (prevProps) {
-    if (!prevProps.me && this.props.me) {
+    console.log(this.props.handle)
+    if (!prevProps.handle && this.props.handle) {
       this.props.getMyFeed()
       if (this.interval) clearInterval(this.interval)
       this.interval = setInterval(this.props.getMyFeed, 2000)

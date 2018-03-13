@@ -4,7 +4,7 @@ function anchor(anchor){
   var anchorHash = makeHash('anchor', anchor);
   var anchorGet = get(anchorHash);
   debug('<mermaid>' + App.Agent.String + '->>DHT:Check to see if ' + anchor.anchorText + ' is already taken</mermaid>');
-  debug('anchorGet ' + JSON.stringify(anchorGet));
+  // debug('anchorGet ' + JSON.stringify(anchorGet));
   if(anchorGet === null){
     var anchorType = {anchorType: anchor.anchorType, anchorText: ''};
     var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''};
@@ -44,10 +44,11 @@ function anchor(anchor){
 }
 
 function exists(anchor){
-  var key = get(makeHash('anchor', anchor));
   debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + anchor.anchorText + ' exists</mermaid>');
-
-  debug(key);
+  // debug('does it exist?');
+  // debug(get(makeHash('anchor', anchor)));
+  var key = get(makeHash('anchor', anchor));
+  // debug(key);
   if(key !== null){
     debug('<mermaid>DHT-->>' + App.Agent.String + ':' + anchor.anchorText + ' exists</mermaid>');
     return true;

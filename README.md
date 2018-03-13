@@ -97,6 +97,25 @@ hcdev -debug -mdns=true scenario followAndShare
 
 This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to each other.
 
+## UI automation
+in Apps folder
+
+mkdir -p clutter3141/dna
+mkdir -p clutter4141/dna
+mkdir -p clutter5141/dna
+
+rm -r clutter3141/dna
+cp -r clutter/dna/ !$
+rm -r clutter4141/dna
+cp -r clutter/dna/ !$
+rm -r clutter5141/dna
+cp -r clutter/dna/ !$
+
+hcdev -no-nat-upnp -port=6001 -agentID=agent3141 -mdns=true web 3141
+hcdev -no-nat-upnp -port=6002 -agentID=agent4141 -mdns=true web 4141
+hcdev -no-nat-upnp -port=6003 -agentID=agent5141 -mdns=true web 5141
+
+
 ## What the Automated build does
 
 When a branch is pushed to Github Travis runs a build.  The build does the following:

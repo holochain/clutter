@@ -11,6 +11,16 @@
             "Regexp": ""
         },
         {
+            "Time":200,
+            "Convey":"We can retrieve a list of all handles",
+            "Zome": "clutter",
+            "Input": "var handles = getHandles(); handles.length==1",
+            "Output": true,
+            "Exposure":"public",
+            "Err": "",
+            "Raw": true
+        },
+        {
             "Convey":"create a new post",
             "Zome": "clutter",
             "FnName": "post",
@@ -21,16 +31,6 @@
             "Err": "",
             "Regexp": "",
             "Time":500
-        },
-        {
-            "Time":200,
-            "Convey":"We can retrieve a list of all handles",
-            "Zome": "clutter",
-            "Input": "var handles = getHandles(); handles.length==1",
-            "Output": true,
-            "Exposure":"public",
-            "Err": "",
-            "Raw": true
         }
     ]
 }

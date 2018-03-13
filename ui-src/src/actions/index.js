@@ -49,14 +49,14 @@ export function newHandle (handle, then) {
   }
 }
 
-export function getFollow (userHash, type, then) {
+export function getFollow (handle, type, then) {
   return {
     type: GET_FOLLOW,
     meta: {
       isHc: true,
       namespace: 'clutter',
       data: {
-        from: userHash,
+        from: handle,
         type: type
       },
       then
@@ -123,13 +123,13 @@ export function postMod (hash, message, then) {
   }
 }
 
-export function getPostsBy (userHashes, then) {
+export function getPostsBy (handles, then) {
   return {
     type: GET_POSTS_BY,
     meta: {
       isHc: true,
       namespace: 'clutter',
-      data: userHashes,
+      data: handles,
       then
     }
   }
@@ -147,13 +147,13 @@ export function getAgent (handle, then) {
   }
 }
 
-export function follow (userHash, then) {
+export function follow (handle, then) {
   return {
     type: FOLLOW,
     meta: {
       isHc: true,
       namespace: 'clutter',
-      data: userHash,
+      data: handle,
       then
     }
   }

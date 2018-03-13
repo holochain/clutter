@@ -3,7 +3,7 @@ function getProperty(name) {            // The definition of the function you in
     return property(name);              // Retrieves a property of the holochain from the DNA (e.g., Name, Language
 }
 function appProperty(name) {            // The definition of the function you intend to expose
-    if (name == "Agent_Handle_Hash") {
+    if (name == "Agent_Handle") {
       debug("Agent_Handle_Hash");
       debug(getHandle(App.Key.Hash));
       return getHandle(App.Key.Hash);
@@ -17,7 +17,7 @@ function appProperty(name) {            // The definition of the function you in
 function newHandle(handle){
   debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + App.Agent.String + ' has any exisitng handles</mermaid>');
   var handles = getLinks(App.Key.Hash, 'handle');
-  debug('<mermaid>DHT->>' + App.Agent.String + ':returns any handles</mermaid>');
+  debug('<mermaid>DHT->>' + App.Agent.String + ':returned ' + handles.length + ' existing handles for ' + App.Agent.String + '</mermaid>');
   if (handles.length > 0) {
     if(anchorExists('handle', handle) === 'false'){
       var oldKey = handles[0].Hash;
@@ -43,7 +43,7 @@ function newHandle(handle){
   }
   if(anchorExists('handle', handle) === 'false'){
     var newHandleKey = commit('handle', anchor('handle', handle));
-    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new handle</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new handle' + handle + '</mermaid>');
     debug('<mermaid>' + App.Agent.String + '->>DHT:Publish ' + handle + '</mermaid>');
     commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]});
     debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "handle_links"</mermaid>');
@@ -59,7 +59,7 @@ function newHandle(handle){
 // returns the handle of an agent by looking it up on the user's DHT entry, the last handle will be the current one?
 function getHandle(agentKey) {
   var links = getLinks(agentKey, 'handle', {Load: true});
-  debug(links);
+  // debug(links);
   if(links.length > 0){
     var anchorHash = links[0].Entry.replace(/"/g, '');
     return get(anchorHash).anchorText;
@@ -77,13 +77,13 @@ function getAgent(handle) {
 }
 
 function getHandles() {
-    debug('get the handles');
+    // debug('get the handles');
     if (property("enableDirectoryAccess") != "true") {
         return undefined;
     }
 
     var links = getLinks(App.DNA.Hash, "directory",{Load:true});
-    debug(links);
+    // debug(links);
     var handles = [];
     for (var i=0;i <links.length;i++) {
       var handleHash = links[i].Source;
@@ -124,19 +124,19 @@ function getFollow(params) {
 
 function post(post) {
     var key = commit('post', post);        // Commits the post block to my source chain, assigns resulting hash to 'key'
-    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new post</mermaid>');
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Publish new post</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new meow</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Publish new meow</mermaid>');
 
     // On the DHT, puts a link on my anchor to the new post
     commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]});
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Link post to "post_links"</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link meow to "post_links"</mermaid>');
 
     // debug(key);
     return key;                                  // Returns the hash key of the new post to the calling function
 }
 
 function postMod(params) {
-  debug(params.post);
+  // debug(params.post);
     var key = update('post', params.post, params.hash);
     // commit('post_links',
     //   {Links:[

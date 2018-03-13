@@ -3,7 +3,7 @@ import UserFeed from './UserFeed'
 import { getHandle, getPostsBy } from './actions'
 
 const mapStateToProps = (state, ownProps) => {
-  const byUser = (pId) => state.posts[pId].author === ownProps.match.params.userHash
+  const byUser = (pId) => state.posts[pId].author === ownProps.match.params.handle
   return {
     postList: Object.keys(state.posts).filter(byUser).sort().reverse().map(pId => {
       return Object.assign({}, state.posts[pId], {
@@ -18,10 +18,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPosts: () => {
-      dispatch(getPostsBy([ownProps.match.params.userHash]))
+      dispatch(getPostsBy([ownProps.match.params.handle]))
     },
     getHandle: () => {
-      dispatch(getHandle(ownProps.match.params.userHash))
+      dispatch(getHandle(ownProps.match.params.handleHash))
     }
   }
 }

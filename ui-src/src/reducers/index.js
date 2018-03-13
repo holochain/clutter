@@ -32,7 +32,6 @@ export default function clutterApp (state = initialState, action) {
         handle: payload
       }
     case A.GET_HANDLES:
-    console.log(state.handles)
       return {
         ...state,
         handles: payload
@@ -49,10 +48,11 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.GET_FOLLOW:
-      const newFollows = payload.result.reduce((memo, userHash) => {
+    console.log('follows reducer ' + JSON.stringify(payload))
+      const newFollows = payload.result.reduce((memo, handleHash) => {
         return {
           ...memo,
-          [userHash]: true
+          [handleHash]: true
         }
       }, {})
       return {
@@ -80,7 +80,7 @@ export default function clutterApp (state = initialState, action) {
           ...state.posts,
           [meta.data.stamp]: {
             ...meta.data,
-            author: state.me,
+            author: state.handle,
             hash: payload
           }
         }
@@ -97,6 +97,7 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.GET_POSTS_BY:
+    // console.log('GET_POSTS_BY ' + JSON.stringify(payload))
       const newPosts = payload.reduce((memo, item) => {
         return {
           ...memo,
