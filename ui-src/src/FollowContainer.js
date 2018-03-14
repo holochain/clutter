@@ -6,12 +6,11 @@ import {
 } from './actions'
 
 const mapStateToProps = state => {
-  console.log('state.handles ' + JSON.stringify(state.handles))
+  // console.log('state.handles ' + JSON.stringify(state.handles))
   return {
-    following: Object.keys(state.follows).map(handleHash => {
+    following: Object.keys(state.follows).map(handle => {
       return {
-        handleHash,
-        handle: state.handles[handleHash]
+        handle
       }
     }),
     notFollowing: Object.keys(state.handles)

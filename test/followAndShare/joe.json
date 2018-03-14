@@ -13,6 +13,18 @@
         },
         {
             "Time":2500,
+            "Convey":"There are no followers for Joe yet",
+            "Zome": "clutter",
+            "FnName": "getFollow",
+            "Input": {
+              "from": "joe",
+              "type": "following"
+            },
+            "Output": [],
+            "Exposure":"public"
+        },
+        {
+            "Time":2700,
             "Convey":"follow jane",
             "Zome": "clutter",
             "FnName": "follow",

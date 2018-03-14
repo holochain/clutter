@@ -119,7 +119,6 @@ function getFollow(params) {
     var handles = [];
     if ((type == "followers") || (type == "following")) {
       handleLinks = getLinks(base, type);
-      debug(handleLinks[0].Hash);
       for (var i=0; i<handleLinks.length; i++) {
         handles.push(get(handleLinks[i].Hash).anchorText);
       }

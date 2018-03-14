@@ -38,6 +38,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
       if (!users.includes(stateProps.handle)) {
         users.push(stateProps.handle)
       }
+      // console.log('feed ' + JSON.stringify(users))
       dispatchProps.getPostsBy(users)
     }
   }

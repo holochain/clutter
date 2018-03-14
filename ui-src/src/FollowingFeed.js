@@ -10,7 +10,6 @@ class FollowingFeed extends Component {
     }
   }
   componentDidUpdate (prevProps) {
-    console.log(this.props.handle)
     if (!prevProps.handle && this.props.handle) {
       this.props.getMyFeed()
       if (this.interval) clearInterval(this.interval)
