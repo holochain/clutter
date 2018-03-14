@@ -17,7 +17,24 @@ Clutter is a work in progress, sample application which exists to demonstrate ho
 
 Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
 
-The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and make 2 copies of the contents into folders called clutter1 and clutter2.  Both folders will have a dna folder and a ui folder in each.
+If you want to run Clutter locally, you will need `nodejs` installed, with `npm` or `yarn`:
+```
+git clone https://github.com/Holochain/clutter.git
+cd ui-src
+npm install # (or yarn install)
+npm run build # (or yarn build)
+cd ..
+```
+Now if you want to run the app, you can run:
+```
+hcdev web # if you want to just run it temporarily and test it out, with scratch data
+```
+or
+```
+hcd web # if you want to really start to use the app
+```
+
+If you want to just see Clutter in action, the best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and make 2 copies of the contents into folders called clutter1 and clutter2.  Both folders will have a dna folder and a ui folder in each.
 
 Firstly run the bootstrap server which will let each instance of Clutter know about its peers.  The ```bs```  command is part of the Holochain install.  If it doesn't work you probably need to set the $GO_PATH variable. (Soon we won't need this step)
 ```
