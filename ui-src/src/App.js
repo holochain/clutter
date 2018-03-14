@@ -10,14 +10,15 @@ import MeowContainer from './MeowContainer'
 class App extends Component {
   componentWillMount () {
     // this fetches the hash which represents the active users userHash
-    this.props.getMyAppKeyHash()
+    this.props.getMyHandle()
     this.props.getHandles()
     this.interval = setInterval(this.props.getHandles, 2000)
   }
 
   componentDidUpdate (prevProps) {
-    if (!prevProps.me && this.props.me) {
-      this.props.getFollow(this.props.me, 'following')
+    console.log(prevProps.handle, this.props.handle)
+    if (!prevProps.handle && this.props.handle) {
+      this.props.getFollow(this.props.handle, 'following')
     }
   }
 

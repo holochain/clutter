@@ -49,7 +49,7 @@ export default function clutterApp (state = initialState, action) {
       }
     case A.GET_FOLLOW:
     console.log('follows reducer ' + JSON.stringify(payload))
-      const newFollows = payload.result.reduce((memo, handleHash) => {
+      const newFollows = payload.reduce((memo, handleHash) => {
         return {
           ...memo,
           [handleHash]: true
@@ -70,7 +70,6 @@ export default function clutterApp (state = initialState, action) {
           ...state.appProperties,
           [meta.data]: payload
         },
-        me: meta.data === 'Agent_Handle_Hash' ? payload : '',
         handle: payload
       }
     case A.POST:
@@ -132,8 +131,7 @@ export default function clutterApp (state = initialState, action) {
             [state.me]: meta.data
           },
           handle: meta.data,
-          handleTaken: false,
-          me: payload
+          handleTaken: false
         }
       }
     case A.UNFOLLOW:

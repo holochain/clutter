@@ -3,7 +3,7 @@ function anchor(anchor){
   var rootAnchortype =  {anchorType: 'anchorTypes', anchorText: ''};
   var anchorHash = makeHash('anchor', anchor);
   var anchorGet = get(anchorHash);
-  debug('<mermaid>' + App.Agent.String + '->>DHT:Check to see if ' + anchor.anchorText + ' is already taken</mermaid>');
+  debug('<mermaid>' + App.Agent.String + '->>DHT:Check to see if ' + anchor.anchorText + ' exists</mermaid>');
   // debug('anchorGet ' + JSON.stringify(anchorGet));
   if(anchorGet === null){
     var anchorType = {anchorType: anchor.anchorType, anchorText: ''};
@@ -39,7 +39,7 @@ function anchor(anchor){
     commit('anchor_link',  { Links:[{Base: anchorTypeHash, Link: anchorHash, Tag: anchor.anchorText}]});
     debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + anchor.anchorText + ' to ' + anchorType.anchorType + '</mermaid>');
   }
-  debug('<mermaid>DHT-->>' + App.Agent.String + ':Return the anchor for ' + anchor.anchorText + '</mermaid>');
+  debug('<mermaid>DHT-->>' + App.Agent.String + ':Return the anchor ' + anchor.anchorType + ' = ' + anchor.anchorText + '</mermaid>');
   return anchorHash;
 }
 

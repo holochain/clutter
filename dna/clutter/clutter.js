@@ -4,7 +4,7 @@ function getProperty(name) {            // The definition of the function you in
 }
 function appProperty(name) {            // The definition of the function you intend to expose
     if (name == "Agent_Handle") {
-      debug("Agent_Handle_Hash");
+      debug("Agent_Handle");
       debug(getHandle(App.Key.Hash));
       return getHandle(App.Key.Hash);
     }
@@ -46,7 +46,7 @@ function newHandle(handle){
     debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit new handle' + handle + '</mermaid>');
     debug('<mermaid>' + App.Agent.String + '->>DHT:Publish ' + handle + '</mermaid>');
     commit('handle_links', {Links: [{Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle'}]});
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "handle_links"</mermaid>');
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + newHandleKey + ' to "handle_links"</mermaid>');
     commit('directory_links', {Links: [{Base: App.DNA.Hash, Link: newHandleKey, Tag: 'directory'}]});
     debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handle + ' to "directory_links"</mermaid>');
     return newHandleKey;
@@ -82,13 +82,14 @@ function getHandles() {
         return undefined;
     }
 
-    var links = getLinks(App.DNA.Hash, "directory",{Load:true});
+    var links = getLinks(App.DNA.Hash, "directory", {Load: true});
     // debug(links);
     var handles = [];
-    for (var i=0;i <links.length;i++) {
+    for (var i=0; i <links.length; i++) {
       var handleHash = links[i].Source;
       var handle = get(links[i].Entry).anchorText;
-      handles.push({'handleHash': handleHash,'handle': handle});
+      debug(handle + 'handle');
+      handles.push({'handleHash': handleHash, 'handle': handle});
     }
     return handles;
 }
@@ -98,28 +99,32 @@ function follow(handle) {
    // Commits a new follow entry to my source chain
    // On the DHT, puts a link on their hash to my hash as a "follower"
    // On the DHT, puts a link on my hash to their hash as a "following"
-    var handleHash = makeHash('handle', handle);
+   debug('Follow ' + handle);
+    var anchorHash = anchor('handle', handle);
+    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + handleHash() + ' to follow ' + anchorHash + '</mermaid>');
     return commit("follow",
                   {Links:[
-                      {Base:handleHash,Link:anchorHash(),Tag:"followers"},
-                      {Base:anchorHash(),Link:handleHash,Tag:"following"}
+                      {Base: anchorHash, Link: handleHash(), Tag: "followers"},
+                      {Base: handleHash(), Link: anchorHash, Tag: "following"}
                   ]});
-    debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + App.Agent.String + ' to follow ' + handle + '</mermaid>');
 
 }
 
 // get a list of all the people from the DHT a user is following or follows
 function getFollow(params) {
     var type = params.type;
-    var  base = anchor('handle', params.from);
-    var result = {};
+    var  base =  anchor('handle', params.from);
+    // var  base = makeHash('handle', params.from);
+    debug('params.from ' + params.from + ' hash=' + JSON.stringify(base));
+    var handles = [];
     if ((type == "followers") || (type == "following")) {
-        result["result"] = doGetLink(base,type);
+      handleLinks = getLinks(base, type);
+      debug(handleLinks[0].Hash);
+      for (var i=0; i<handleLinks.length; i++) {
+        handles.push(get(handleLinks[i].Hash).anchorText);
+      }
     }
-    else {
-        result["error"] = "bad type: "+type;
-    }
-    return result;
+    return handles;
 }
 
 function post(post) {
@@ -128,7 +133,7 @@ function post(post) {
     debug('<mermaid>' + App.Agent.String + '->>DHT:Publish new meow</mermaid>');
 
     // On the DHT, puts a link on my anchor to the new post
-    commit("post_links",{Links:[{Base: anchorHash(), Link: key, Tag: "post"}]});
+    commit("post_links",{Links:[{Base: handleHash(), Link: key, Tag: "post"}]});
     debug('<mermaid>' + App.Agent.String + '->>DHT:Link meow to "post_links"</mermaid>');
 
     // debug(key);
@@ -206,7 +211,7 @@ function anchor(anchorType, anchorText){
   return call('anchors', 'anchor', {anchorType: anchorType, anchorText: anchorText}).replace(/"/g, '');
 }
 
-function anchorHash(appKeyHash){
+function handleHash(appKeyHash){
   // debug('appKeyHash ' + appKeyHash)
   if(appKeyHash === undefined){
     appKeyHash = App.Key.Hash;

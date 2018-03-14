@@ -38,9 +38,21 @@
             "Zome": "clutter",
             "Input": "var handles = getHandles(); handles.length==2",
             "Output": true,
-            "Exposure":"public",
+            "Exposure": "public",
             "Err": "",
             "Raw": true
+        },
+        {
+            "Time":5000,
+            "Convey":"We can retrieve a list of people Joe is following",
+            "Zome": "clutter",
+            "FnName": "getFollow",
+            "Input": {
+              "from": "joe",
+              "type": "following"
+            },
+            "Output": ["jane"],
+            "Exposure":"public"
         }
     ]
 }
