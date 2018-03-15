@@ -32,14 +32,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   return {
     ...stateProps,
     ...dispatchProps,
-    getMyFeed: () => {
+    getMyFeed: (postsBy) => {
       // my feed is a list of posts that are either by me or people I follow
-      const users = Array.from(stateProps.follows)
-      if (!users.includes(stateProps.handle)) {
-        users.push(stateProps.handle)
-      }
       // console.log('feed ' + JSON.stringify(users))
-      dispatchProps.getPostsBy(users)
+      dispatchProps.getPostsBy(postsBy)
     }
   }
 }
