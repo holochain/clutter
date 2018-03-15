@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import UserFeed from './UserFeed'
-import { getHandle, getPostsBy } from './actions'
+import { getPostsBy } from './actions'
 
 const mapStateToProps = (state, ownProps) => {
   const byUser = (pId) => state.posts[pId].author === ownProps.match.params.handle
@@ -10,18 +10,14 @@ const mapStateToProps = (state, ownProps) => {
         userHandle: state.handles[state.posts[pId].author] || state.posts[pId].author
       })
     }),
-    userHandle: state.handles[ownProps.match.params.userHash],
-    userHash: ownProps.match.params.userHash
+    handle: ownProps.match.params.handle
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getPosts: () => {
-      dispatch(getPostsBy([ownProps.match.params.handle]))
-    },
-    getHandle: () => {
-      dispatch(getHandle(ownProps.match.params.handleHash))
+    getPosts: (handle) => {
+      dispatch(getPostsBy([handle]))
     }
   }
 }
