@@ -1,0 +1,13 @@
+{
+  "Tests":[
+    {
+        "Convey":"Retrieve public key from chain",
+        "Zome": "clutter",
+        "Input": "var hashKey = get(App.Key.Hash); var publicKey=get(App.Agent.Hash, {Local:true}).PublicKey; hashKey==publicKey;",
+        "Output": true,
+        "Exposure": "public",
+        "Err": "",
+        "Raw": true
+    }
+  ]
+}

@@ -225,6 +225,8 @@ function anchorExists(anchorType, anchorText){
 // GENESIS - Called only when your source chain is generated:'hc gen chain <name>'
 // ===============================================================================
 function genesis() {                            // 'hc gen chain' calls the genesis function in every zome file for the app
+
+
     return true;
 }
 
