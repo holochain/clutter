@@ -34,7 +34,7 @@ class App extends Component {
         <div className='row'>
           <div className='col-sm-2'>
             <div className='logo'>
-              <img src='cat-eating-bird-circle.png' alt='cat eating bird' />
+              <img src='/cat-eating-bird-circle.png' alt='cat eating bird' />
             </div>
           </div>
           <div className='col-sm-7'>
@@ -51,7 +51,7 @@ class App extends Component {
               <div id='content'>
                 <Route path='/' exact component={NewMeowContainer} />
                 <Route path='/' exact component={FollowingFeedContainer} />
-                <Route path='/u/:userHash' component={UserFeedContainer} />
+                <Route path='/u/:handle' component={UserFeedContainer} />
                 <Route path='/settings' component={SettingsContainer} />
                 <Route path='/follow' component={FollowContainer} />
                 <Route path='/meow/:meowHash' component={MeowContainer} />
