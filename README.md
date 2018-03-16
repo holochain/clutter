@@ -70,8 +70,8 @@ Now open a browser to http://localhost:3141 and you will see Clutter.  Open anot
 You can do all this much easier with Docker. Download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
 ```
   cd ui-src
-  yarn install
-  yarn build
+  npm install # (or yarn install)
+  npm run build # (or yarn build)
   cd ..
   TARGETDIR=$(pwd) docker-compose up
 ```
