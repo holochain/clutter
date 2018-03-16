@@ -79,7 +79,7 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
     if (entry_type == 'anchor_link') {
         return true;
     }
-    return true;
+    return false;
 }
 
 
