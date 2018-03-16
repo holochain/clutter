@@ -2,8 +2,8 @@
     "title": "Follow Schema",
     "type": "object",
     "properties": {
-	"whom": {
+	    "whom": {
 	    "type": "string"
-	}
+	     }
     }
 }

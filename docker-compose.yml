@@ -3,37 +3,37 @@ version: '2'
 services:
 
   bootstrap:
-    image: metacurrency/holochain:develop
+    image: holochain/holochain-proto:develop
     ports:
       - "3142:3142"
     command: bs
 
   clutter1:
-    image: metacurrency/holochain:develop
+    image: holochain/holochain-proto:develop
     ports:
       - "3141:3141"
     depends_on:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/clutter"
-    command: bash -c "cd /clutter; hcdev -no-nat-upnp -port=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 -mdns=true web 3141"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -no-nat-upnp -port=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 -mdns=true web 3141"
 
   clutter2:
-    image: metacurrency/holochain:develop
+    image: holochain/holochain-proto:develop
     ports:
       - "4141:4141"
     depends_on:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/clutter"
-    command: bash -c "cd /clutter; hcdev -no-nat-upnp -port=6002 -agentID=phil -bootstrapServer=bootstrap:3142 -mdns=true web 4141"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -no-nat-upnp -port=6002 -agentID=phil -bootstrapServer=bootstrap:3142 -mdns=true web 4141"
 
   clutter3:
-    image: metacurrency/holochain:develop
+    image: holochain/holochain-proto:develop
     ports:
       - "5141:5141"
     depends_on:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/clutter"
-    command: bash -c "cd /clutter; hcdev -no-nat-upnp -port=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 -mdns=true web 5141"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -no-nat-upnp -port=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 -mdns=true web 5141"

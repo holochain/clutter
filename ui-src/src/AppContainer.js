@@ -16,8 +16,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMyAppKeyHash: () => {
-      dispatch(appProperty('App_Key_Hash'))
+    getMyHandle: () => {
+      dispatch(appProperty('Agent_Handle'))
     },
     getHandle: (userHash, isMe, then) => {
       dispatch(getHandle(userHash, isMe, then))
@@ -25,11 +25,11 @@ const mapDispatchToProps = (dispatch) => {
     getHandles: (then) => {
       dispatch(getHandles(then))
     },
-    getFollow: (userHash, type, then) => {
-      dispatch(getFollow(userHash, type, then))
+    getFollow: (handle, type, then) => {
+      dispatch(getFollow(handle, type, then))
     },
-    getPostsBy: (userHashes, then) => {
-      dispatch(getPostsBy(userHashes, then))
+    getPostsBy: (handles, then) => {
+      dispatch(getPostsBy(handles, then))
     }
   }
 }

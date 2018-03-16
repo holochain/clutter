@@ -1,0 +1,26 @@
+{
+    "Tests":[
+      {
+        "Time": 8000,
+        "Convey":"Joe sets up a new handle 'Archer' the first time he uses Clutter",
+        "Zome": "clutter",
+        "FnName": "newHandle",
+        "Input": "Archer",
+        "Output": "%h2%",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+      },
+      {
+          "Time":4000,
+          "Convey":"Joe can retrieve a list of all handles",
+          "Zome": "clutter",
+          "FnName": "getHandles",
+          "Input": "Array.length==1",
+          "Output": true,
+          "Exposure":"public",
+          "Err": "",
+          "Raw": true
+      }
+    ]
+}
