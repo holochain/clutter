@@ -1,6 +1,7 @@
 # Clutter
 
 [![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/Holochain/clutter#feature-roadmap-and-current-progress)
+[![Build Status](https://travis-ci.org/holochain/clutter.svg?branch=develop)](https://travis-ci.org/Holochain/clutter)
 [![In Progress](https://img.shields.io/waffle/label/Holochain/clutter/in%20progress.svg)](http://waffle.io/Holochain/clutter)
 [![Gitter](https://badges.gitter.im/metacurrency/holochain.svg)](https://gitter.im/metacurrency/holochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
