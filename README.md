@@ -1,8 +1,8 @@
 # Clutter
 
-[![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/Holochain/clutter#feature-roadmap-and-current-progress)
+[![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/holochain/clutter#feature-roadmap-and-current-progress)
 [![Build Status](https://travis-ci.org/holochain/clutter.svg?branch=develop)](https://travis-ci.org/Holochain/clutter)
-[![In Progress](https://img.shields.io/waffle/label/Holochain/clutter/in%20progress.svg)](http://waffle.io/Holochain/clutter)
+[![In Progress](https://img.shields.io/waffle/label/holochain/clutter/in%20progress.svg)](http://waffle.io/Holochain/clutter)
 [![Gitter](https://badges.gitter.im/metacurrency/holochain.svg)](https://gitter.im/metacurrency/holochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
@@ -10,6 +10,9 @@
 A group of cats is called a Clutter, Cludder, Clowder, Kendle, or Kindle. Maybe it's time for a fully distributed shoutcast network of cool cats to eat a certain bluebird.
 
 Clutter is a work in progress, sample application which exists to demonstrate how easy it is to build applications on holochain.
+
+If you would like to simply download a build version of the latest Clutter, download this zip
+https://drive.google.com/file/d/11xRHfLPJkHATFo0NJYg_rhX1i3JgUvCv/view?usp=sharing
 
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
