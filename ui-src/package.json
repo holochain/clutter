@@ -42,10 +42,6 @@
     ]
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "storybook": "^1.0.0",
-    "storybook-addon-specifications": "^2.1.1",
     "@storybook/addon-actions": "^3.3.9",
     "@storybook/addon-links": "^3.3.9",
     "@storybook/addons": "^3.3.9",
@@ -53,7 +49,12 @@
     "@storybook/storybook-deployer": "^2.2.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "ncp": "^2.0.0",
     "rimraf": "^2.6.2",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "storybook": "^1.0.0",
+    "storybook-addon-specifications": "^2.1.1"
   }
 }
