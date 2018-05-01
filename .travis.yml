@@ -12,7 +12,7 @@ services:
 before_install:
   - cd ui-src
   - npm install
-  - npm build
+  - npm run build
   - npm run start &
   - cd ..
   - sudo rm /usr/local/bin/docker-compose
