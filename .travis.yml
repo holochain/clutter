@@ -11,8 +11,9 @@ services:
   - docker
 before_install:
   - cd ui-src
-  - yarn install
-  - yarn build
+  - npm install
+  - npm build
+  - npm run start
   - cd ..
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
@@ -20,10 +21,11 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - TARGETDIR=$(pwd) docker-compose up -d
+  - docker-compose ps
 script:
-  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev -no-nat-upnp -mdns=true test"
-  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev -no-nat-upnp -mdns=true scenario collisionOfHandles"
-  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev -no-nat-upnp -mdns=true scenario followAndShare"
+  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev test"
+  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev scenario collisionOfHandles"
+  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev scenario followAndShare"
   - cd ui-automation
   - npm install
   - npm test

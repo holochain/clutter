@@ -9,15 +9,14 @@ describe('This section describes how to post meows', function () {
     cy.get('#meow').type('Your second meow!!')
     cy.get('#postMeow').click()
     cy.wait(100)
-    
-    // cy.get('.message:first').contains('Your second meow!!')
+    cy.get('.message:first').contains('Your second meow!!')
   })
   it('When you click the title of the meow you will be taken directly to that meow.', function () {
     cy.visit('/')
     cy.get('#meow').type('The meow to click on!!')
     cy.get('#postMeow').click()
     cy.wait(100)
-    // cy.get('.stamp:first').click()
-    // cy.get('.message:first').contains('The meow to click on!!')
+    cy.get('.stamp:first').click()
+    cy.get('.message:first').contains('The meow to click on!!')
   })
 })

@@ -2,7 +2,6 @@
     "Tests":[
       {
         "Convey":"Jane creates a new handle the first time she uses Clutter",
-        "Detail": "deddd",
         "Zome": "clutter",
         "FnName": "newHandle",
         "Input": "Jane",
@@ -15,8 +14,7 @@
           "Time":4000,
           "Convey":"Jane can retrieve a list of all handles",
           "Zome": "clutter",
-          "FnName": "getHandles",
-          "Input": "Array.length==1",
+          "Input": "getHandles().length===1",
           "Output": true,
           "Exposure":"public",
           "Err": "",
