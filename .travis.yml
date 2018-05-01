@@ -13,7 +13,7 @@ before_install:
   - cd ui-src
   - npm install
   - npm build
-  - npm run start
+  - npm run start &
   - cd ..
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
