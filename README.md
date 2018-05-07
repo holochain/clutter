@@ -7,24 +7,23 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 **P2P twitter-clone built on holochain**
-A group of cats is called a Clutter, Cludder, Clowder, Kendle, or Kindle. Maybe it's time for a fully distributed shoutcast network of cool cats to eat a certain bluebird.
+A group of cats is called a Clutter, Cludder, Clowder, Kendle, or Kindle. Maybe it's time for a peer-to-peer shoutcast system to eat a certain blue bird.
 
-Clutter is a work in progress, sample application which exists to demonstrate how easy it is to build applications on holochain.
+Clutter is a work in progress. It's a sample application designed to demonstrate how easy it is to build applications on [Holochain](https://github.com/holochain/holochain-proto).
 
-If you would like to simply download a build version of the latest Clutter, download this zip
-https://drive.google.com/file/d/11xRHfLPJkHATFo0NJYg_rhX1i3JgUvCv/view?usp=sharing
+If you would like to simply download a build version of the latest Clutter, download and unzip the [latest release](https://github.com/holochain/clutter/releases) Or this [archive](https://drive.google.com/file/d/11xRHfLPJkHATFo0NJYg_rhX1i3JgUvCv/view?usp=sharing)
 
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
 ## Installation & Usage
 
-Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
+**Prerequiste:** [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
 
-If you want to run Clutter locally, you will need `nodejs` installed, with `npm` or `yarn`:
+**Dependencies:** If you want to run Clutter locally, you will need `nodejs` installed, with `npm` or `yarn`:
 ```
 git clone https://github.com/Holochain/clutter.git
-cd ui-src
+cd clutter/ui-src
 npm install # (or yarn install)
 npm run build # (or yarn build)
 cd ..
@@ -53,11 +52,11 @@ You will get a response like
 Now start up Clutter in each folder.
 ```
   cd clutter1
-  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true -bootstrapServer=localhost:3142 web 3141
+  hcdev -DHTport=6001 -agentID=lucy -bootstrapServer=localhost:3142 web 3141
 
   cd ..
   cd clutter2
-  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true -bootstrapServer=localhost:3142 web 4141
+  hcdev -DHTport=6002 -agentID=phil -bootstrapServer=localhost:3142 web 4141
 ```
 You will see a response like:
 ```
@@ -121,9 +120,9 @@ This test is designed to be run on separate machines and spins up many clones on
 ## UI automation
 in clutter folder
 ```
-  hcdev -execpath=$HOME/.holochaindev1 -no-nat-upnp -port=6001 -agentID=agent3141 -mdns=true web 3141
-  hcdev -execpath=$HOME/.holochaindev2 -no-nat-upnp -port=6002 -agentID=agent4141 -mdns=true web 4141
-  hcdev -execpath=$HOME/.holochaindev3 -no-nat-upnp -port=6003 -agentID=agent5141 -mdns=true web 5141
+  hcdev -execpath=$HOME/.holochaindev1 -DHTport=6001 -agentID=agent3141 web 3141
+  hcdev -execpath=$HOME/.holochaindev2 -DHTport=6002 -agentID=agent4141 web 4141
+  hcdev -execpath=$HOME/.holochaindev3 -DHTport=6003 -agentID=agent5141 web 5141
 ```
 
 if running all in one terminal you will need to kill the processes between restarts.
@@ -147,12 +146,14 @@ When a branch is pushed to Github Travis runs a build.  The build does the follo
  - [x] Follow someone (by specified handle)
  - [x] Unfollow someone
  - [x] View post stream of people you follow sorted by time
- - [x] Detect #hashtags in post text
- - [x] Create hashtag anchors if they don't exist
- - [x] Link from hashtag anchor to posts with that hashtag
- - [x] Show posts which have a particular hashtag
- - [x] Mark posts as a favorite :star:
- - [x] Link favorited posts from a user/handle
+ - [x] Provide React/Redux UI
+ - [x] Implement Cypress and Storybook UI testing
+ - [ ] Detect #hashtags in post text
+ - [ ] Create hashtag anchors if they don't exist
+ - [ ] Link from hashtag anchor to posts with that hashtag
+ - [ ] Show posts which have a particular hashtag
+ - [ ] Mark posts as a favorite :star:
+ - [ ] Link favorited posts from a user/handle
  - [ ] Show someone's :star: favorited posts
  - [ ] Edit a previous post **(partially implemented)**
  - [ ] Refollow someone previously unfollowed **(partially implemented - Have to fix put/del/put links sequence)**
