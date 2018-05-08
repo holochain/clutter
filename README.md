@@ -99,19 +99,19 @@ hcdev test
 ### Scenario - Collision Of Handles - Sequence Diagram
 
 ``` shell
-  hcdev -no-nat-upnp -mdns=true scenario collisionOfHandles
+  hcdev scenario collisionOfHandles
 ```
 
 <img src="collisionOfHandles-sequence.svg" width="80%" />
 
 #### followAndShare
 ``` shell
-hcdev -mdns=true scenario followAndShare
+hcdev scenario followAndShare
 ```
 This test spins up two nodes `jane` and `joe` and tests that following and reading posts works. To watch the network traffic and details try:
 
 ``` shell
-hcdev -debug -mdns=true scenario followAndShare
+hcdev -debug scenario followAndShare
 ```
 #### scaling
 
