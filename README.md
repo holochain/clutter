@@ -18,9 +18,9 @@ If you would like to simply download a build version of the latest Clutter, down
 
 ## Installation & Usage
 
-**Prerequiste:** [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
+**Prerequiste:** [Install holochain](http://developer.holochain.org/Install_Holochain) on your machine and make sure you do the step to set the $GOPATH.
 
-**Dependencies:** If you want to run Clutter locally, you will need `nodejs` installed, with `npm` or `yarn`:
+**Dependencies:** If you want to run Clutter locally, you will need `nodejs` (https://nodejs.org/en/) (LTS) installed, with `npm` or `yarn` (https://yarnpkg.com/lang/en/docs/install):
 ```
 git clone https://github.com/Holochain/clutter.git
 cd clutter/ui-src
