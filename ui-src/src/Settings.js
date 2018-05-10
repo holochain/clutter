@@ -43,8 +43,10 @@ class Settings extends Component {
     return (
       <div className="panel panel-default">
         <div className="panel-body">
-          <h3 id="setHandleModalLabel">Set your handle</h3>
-          <div>
+          <h3 style={{ paddingLeft: 15 }} id="setHandleModalLabel">
+            Set your handle
+          </h3>
+          <div style={{ paddingLeft: 15 }}>
             <p
               className="bg-danger"
               style={{
@@ -54,7 +56,7 @@ class Settings extends Component {
               Handle already taken - try another one
             </p>
           </div>
-          <div>
+          <div style={{ paddingLeft: 15 }}>
             <p
               className="bg-warning"
               style={{
@@ -65,7 +67,7 @@ class Settings extends Component {
                     : "none"
               }}
             >
-              Must provide a handle to continue
+              ** Must provide a handle to continue **
             </p>
           </div>
           <br />

@@ -25,16 +25,18 @@ class Modal extends React.Component {
       backgroundColor: "#fff",
       borderRadius: 5,
       maxWidth: 500,
-      minHeight: 300,
+      minHeight: 200,
       margin: "0 auto",
       padding: 30
     };
 
     return (
-      <div className="backdropStyle">
-        <div className="modalStyle">
-          {this.props.children}
-          <div className="footer" />
+      <div style={backdropStyle}>
+        <div style={modalStyle}>
+          <div align="center">
+            <p className="h1">Welcome to Clutter!</p>
+          </div>
+          <div>{this.props.children}</div>
         </div>
       </div>
     );
