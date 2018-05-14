@@ -32,32 +32,31 @@ class App extends Component {
         <div className='spinner transition500' />
         <div className='error transition500' />
         <div className='row'>
-          <div className='col-sm-2'>
+          <div className='col-sm-2 contentcontainer'>
             <div className='logo'>
               <img src='/cat-eating-bird-circle.png' alt='cat eating bird' />
+              <Link to='/' id='handle'>{this.props.handle}</Link>
             </div>
           </div>
           <div className='col-sm-7'>
             <div className='contentcontainer'>
               <div>
-                <Link to='/' id='handle'>{this.props.handle}</Link>
-                <Link to='/settings' id='changeHandleButton' className='btn btn-default'>Settings</Link>
+                <Link to='/settings' id='changeHandleButton' className='btn btn-default'>Profile</Link>
               </div>
               <Link to='/follow' id='followButton' className='btn btn-default'>Follow People</Link>
               <div id='banner'>
-                Clutter
+                <a href="/">Clutter</a>
                 <div className='subtitle'>can haz herd cats?</div>
               </div>
               <div id='content'>
                 <Route path='/' exact component={NewMeowContainer} />
-                <Route path='/' exact component={FollowingFeedContainer} />
-                <Route path='/u/:handle' component={UserFeedContainer} />
                 <Route path='/settings' component={SettingsContainer} />
                 <Route path='/follow' component={FollowContainer} />
                 <Route path='/meow/:meowHash' component={MeowContainer} />
               </div>
             </div>
-          </div>
+            </div>
+
           <div className='col-sm-3'>
             <div className='alphabox'>
               <div id='about'>
@@ -68,6 +67,14 @@ class App extends Component {
                 <p>Join the mewvolution on <a href='http://holochain.org'>holochain.org</a>.</p>
               </div>
             </div>
+          </div>
+          <div className='row'>
+            <div className='contentcontainer' id='feedContent'>
+              <div>
+                <Route path='/' exact component={FollowingFeedContainer} />
+                <Route path='/u/:handle' component={UserFeedContainer} />
+              </div>
+              </div>
           </div>
         </div>
       </div>
