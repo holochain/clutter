@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import EditProfile from "./EditProfile";
-import { appProperty, setFirstName } from "./actions";
+import { appProperty, getFirstName, setFirstName } from "./actions";
 
 const mapStateToProps = state => {
   return {
@@ -13,6 +13,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setFirstName: data => {
       dispatch(setFirstName(data));
+    },
+    getFirstName: () => {
+      dispatch(getFirstName());
     }
   };
 };

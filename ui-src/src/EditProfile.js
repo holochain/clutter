@@ -9,7 +9,8 @@ class EditProfile extends Component {
     };
   }
   componentDidMount() {
-    console.log("componenet did mount");
+    const { firstName } = this.props;
+    this.setState({ newNameText: firstName });
   }
   updateNameText = e => {
     this.setState({
@@ -20,7 +21,7 @@ class EditProfile extends Component {
     const { newNameText } = this.state;
     const { setFirstName } = this.props;
     e.preventDefault();
-    console.log("clicked " + newNameText);
+
     if (!newNameText) return;
     setFirstName(newNameText);
   };

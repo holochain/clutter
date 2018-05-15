@@ -29,8 +29,18 @@ export function getHandle(userHash, isMe = false, then) {
   };
 }
 
+export function getFirstName(then) {
+  return {
+    type: GET_FIRST_NAME,
+    meta: {
+      isHc: true,
+      namespace: "clutter",
+      then
+    }
+  };
+}
+
 export function setFirstName(value, then) {
-  console.log("action " + value);
   return {
     type: SET_FIRST_NAME,
     meta: {

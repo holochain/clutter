@@ -29,13 +29,13 @@ function setFirstName(data) {
   } catch (exception) {
     debug(exception);
   }
-  return nameHash;
+  return data;
 }
 /**
  * @param none
  * @return firstName associated with this user
  **/
-function getFirstName() {
+function getFirstName(then) {
   var links;
   try {
     links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
