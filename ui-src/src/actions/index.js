@@ -12,6 +12,8 @@ export const GET_AGENT = "getAgent";
 export const NEW_HANDLE = "newHandle";
 export const UNFOLLOW = "unfollow";
 export const TOGGLE_MODAL = "toggleModal";
+export const SET_FIRST_NAME = "setFirstName";
+export const GET_FIRST_NAME = "getFirstName";
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -22,6 +24,19 @@ export function getHandle(userHash, isMe = false, then) {
       namespace: "clutter",
       data: userHash,
       isMe,
+      then
+    }
+  };
+}
+
+export function setFirstName(value, then) {
+  console.log("action " + value);
+  return {
+    type: SET_FIRST_NAME,
+    meta: {
+      isHc: true,
+      namespace: "clutter",
+      data: value,
       then
     }
   };

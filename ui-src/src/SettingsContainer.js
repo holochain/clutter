@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Settings from "./Settings";
-import { appProperty, getHandles, newHandle, toggleModal } from "./actions";
+import { appProperty, newHandle, toggleModal } from "./actions";
 
 const mapStateToProps = state => {
   return {

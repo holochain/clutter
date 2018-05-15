@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
-import SettingsContainer from "./SettingsContainer";
+import EditProfileContainer from "./EditProfileContainer";
 import FollowContainer from "./FollowContainer";
-import NewMeowContainer from "./NewMeowContainer";
 import FollowingFeedContainer from "./FollowingFeedContainer";
-import UserFeedContainer from "./UserFeedContainer";
 import MeowContainer from "./MeowContainer";
 import Modal from "./components/Modal";
+import NewMeowContainer from "./NewMeowContainer";
+import SettingsContainer from "./SettingsContainer";
+import UserFeedContainer from "./UserFeedContainer";
 
 class App extends Component {
   componentWillMount() {
@@ -28,10 +29,11 @@ class App extends Component {
   }
 
   render() {
+    const { appProperties, handle, isOpen } = this.props;
     // if an agent handle already exists, there is no need to query for a handle
-    return this.props.isOpen /*&& !this.props.appProperties.Agent_Handle*/ ? (
+    return isOpen && !appProperties.Agent_Handle ? (
       <div>
-        <Modal show={this.props.isOpen}>
+        <Modal show={isOpen}>
           <SettingsContainer />
         </Modal>
       </div>
@@ -49,14 +51,14 @@ class App extends Component {
             <div className="contentcontainer">
               <div>
                 <Link to="/" id="handle">
-                  {this.props.handle}
+                  {handle}
                 </Link>
                 <Link
-                  to="/settings"
+                  to="/editProfile"
                   id="changeHandleButton"
                   className="btn btn-default"
                 >
-                  Settings
+                  Edit Profile
                 </Link>
               </div>
               <Link to="/follow" id="followButton" className="btn btn-default">
@@ -69,8 +71,8 @@ class App extends Component {
               <div id="content">
                 <Route path="/" exact component={NewMeowContainer} />
                 <Route path="/" exact component={FollowingFeedContainer} />
-                /**<Route path="/u/:handle" component={UserFeedContainer} />**/
-                /**<Route path="/settings" component={SettingsContainer} />**/
+                {/**<Route path="/u/:handle" component={UserFeedContainer} />**/}
+                <Route path="/editProfile" component={EditProfileContainer} />
                 <Route path="/follow" component={FollowContainer} />
                 <Route path="/meow/:meowHash" component={MeowContainer} />
               </div>

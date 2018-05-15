@@ -15,6 +15,8 @@ const initialState = {
   },
   // active users handle
   handle: "",
+  // active users name
+  firstName: "",
   // active users userHash
   me: ""
 };
@@ -23,6 +25,11 @@ export default function clutterApp(state = initialState, action) {
   const { type, meta, payload } = action;
   // console.log('reducer type ' + type)
   switch (type) {
+    case A.SET_FIRST_NAME:
+      return {
+        ...state,
+        firstName: payload
+      };
     case A.TOGGLE_MODAL:
       return {
         ...state,

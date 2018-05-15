@@ -13,23 +13,25 @@ class Settings extends Component {
     });
   };
   onHandleSubmit = e => {
-    console.log(this.props);
+    const { newHandle, handles, toggleModal } = this.props;
+    const { newHandleText } = this.state;
+
     e.preventDefault();
     this.setState({
       newHandleText: ""
     });
 
     // empty string given as input
-    if (!this.state.newHandleText) return;
+    if (!newHandleText) return;
 
-    this.props.newHandle(this.state.newHandleText);
+    newHandle(newHandleText);
 
-    const handleExists = this.props.handles.find(
-      handleObj => handleObj.handle === this.state.newHandleText
+    const handleExists = handles.find(
+      handleObj => handleObj.handle === newHandleText
     );
     if (handleExists) {
-      console.log(this.state.newHandleText + " taken");
-      this.props.newHandle("");
+      console.log(newHandleText + " taken");
+      newHandle("");
       return;
     }
     // reset newHandleText input field to empty
@@ -37,28 +39,15 @@ class Settings extends Component {
       newHandleText: ""
     });
 
-    this.props.toggleModal();
+    toggleModal();
   };
   render() {
     return (
       <div className="panel panel-default">
         <div className="panel-body">
-          <h3 style={{ paddingLeft: 15 }} id="setHandleModalLabel">
-            Set your handle
-          </h3>
-          <div style={{ paddingLeft: 15 }}>
+          <div style={{ paddingLeft: 30, paddingBottom: 10 }}>
             <p
-              className="bg-danger"
-              style={{
-                display: this.props.handleTaken === true ? "inline" : "none"
-              }}
-            >
-              Handle already taken - try another one
-            </p>
-          </div>
-          <div style={{ paddingLeft: 15 }}>
-            <p
-              className="bg-warning"
+              className="text-info"
               style={{
                 display:
                   this.state.newHandleText.length === 0 &&
@@ -67,10 +56,19 @@ class Settings extends Component {
                     : "none"
               }}
             >
-              ** Must provide a handle to continue **
+              Set your handle to get meowing
             </p>
           </div>
-          <br />
+          <div style={{ paddingLeft: 30, paddingBottom: 10 }}>
+            <p
+              className="text-danger"
+              style={{
+                display: this.props.handleTaken === true ? "inline" : "none"
+              }}
+            >
+              This handle already has a home, try something else!
+            </p>
+          </div>
           <form
             id="handleForm"
             onSubmit={this.onHandleSubmit}
