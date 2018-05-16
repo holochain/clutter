@@ -71,7 +71,7 @@ class App extends Component {
               <div id="content">
                 <Route path="/" exact component={NewMeowContainer} />
                 <Route path="/" exact component={FollowingFeedContainer} />
-                {/**<Route path="/u/:handle" component={UserFeedContainer} />**/}
+                <Route path="/u/:handle" component={UserFeedContainer} />
                 <Route path="/editProfile" component={EditProfileContainer} />
                 <Route path="/follow" component={FollowContainer} />
                 <Route path="/meow/:meowHash" component={MeowContainer} />

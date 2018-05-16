@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import EditProfile from "./EditProfile";
-import { appProperty, getFirstName, setFirstName } from "./actions";
+import { getFirstName, setFirstName } from "./actions";
 
 const mapStateToProps = state => {
   return {
