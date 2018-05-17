@@ -13,7 +13,13 @@ class Settings extends Component {
     });
   };
   onHandleSubmit = e => {
-    const { newHandle, handles, toggleModal } = this.props;
+    const {
+      getFirstName,
+      handles,
+      newHandle,
+      setFirstName,
+      toggleModal
+    } = this.props;
     const { newHandleText } = this.state;
 
     e.preventDefault();
@@ -38,6 +44,11 @@ class Settings extends Component {
     this.setState({
       newHandleText: ''
     });
+
+    // check if a name has been set, and if not default to handle
+    if (!getFirstName() || getFirstName().length > 1) {
+      setFirstName(newHandleText);
+    }
 
     toggleModal();
   };

@@ -1,6 +1,12 @@
-import { connect } from "react-redux";
-import Settings from "./Settings";
-import { appProperty, newHandle, toggleModal } from "./actions";
+import { connect } from 'react-redux';
+import Settings from './Settings';
+import {
+  appProperty,
+  getFirstName,
+  newHandle,
+  setFirstName,
+  toggleModal
+} from './actions';
 
 const mapStateToProps = state => {
   return {
@@ -13,11 +19,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getFirstName: () => {
+      dispatch(getFirstName());
+    },
     getMyHandle: () => {
-      dispatch(appProperty("Agent_Handle"));
+      dispatch(appProperty('Agent_Handle'));
     },
     newHandle: (handle, then) => {
       dispatch(newHandle(handle));
+    },
+    setFirstName: firstName => {
+      dispatch(setFirstName(firstName));
     },
     toggleModal: () => {
       dispatch(toggleModal());

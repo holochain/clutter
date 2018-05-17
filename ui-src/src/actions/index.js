@@ -31,25 +31,23 @@ export function getHandle(userHash, isMe = false, then) {
   };
 }
 
-export function getFirstName(then) {
+export function getFirstName() {
   return {
     type: GET_FIRST_NAME,
     meta: {
       isHc: true,
-      namespace: 'clutter',
-      then
+      namespace: 'clutter'
     }
   };
 }
 
-export function setFirstName(value, then) {
+export function setFirstName(value) {
   return {
     type: SET_FIRST_NAME,
     meta: {
       isHc: true,
       namespace: 'clutter',
-      data: value,
-      then
+      data: value
     }
   };
 }

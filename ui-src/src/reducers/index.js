@@ -32,8 +32,7 @@ export default function clutterApp(state = initialState, action) {
       };
     case A.GET_FIRST_NAME:
       return {
-        ...state,
-        firstName: payload
+        ...state
       };
     case A.TOGGLE_MODAL:
       return {

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newNameText: ""
+      newNameText: ''
     };
   }
   componentDidMount() {
@@ -18,11 +18,13 @@ class EditProfile extends Component {
   };
   onHandleSubmit = e => {
     const { newNameText } = this.state;
-    const { setFirstName } = this.props;
+    const { history, firstName, setFirstName } = this.props;
     e.preventDefault();
 
     if (!newNameText) return;
-    setFirstName(newNameText);
+    if (!(newNameText === firstName)) setFirstName(newNameText);
+    // Redirect user to main page
+    history.push('/');
   };
 
   render() {
