@@ -31,7 +31,8 @@ class App extends Component {
       <div className='container'>
         <div className='spinner transition500' />
         <div className='error transition500' />
-        <div className='row'>
+        <div className='row first'>
+          <div className='fixed-area'>
           <div className='col-sm-2 contentcontainer'>
             <div className='logo'>
               <img src='/cat-eating-bird-circle.png' alt='cat eating bird' />
@@ -67,6 +68,7 @@ class App extends Component {
                 <p>Join the mewvolution on <a href='http://holochain.org'>holochain.org</a>.</p>
               </div>
             </div>
+          </div>
           </div>
           <div className='row'>
             <div className='contentcontainer' id='feedContent'>

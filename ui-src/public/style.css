@@ -19,9 +19,14 @@ ul {
   margin-top: 1em;
 }
 
+.row .first {
+	width: 100%;
+}
+
 /* Profile Style*/
 .logo img {
 	padding: 10px 0px;
+	max-width: 150px;
 }
 
 
@@ -129,6 +134,7 @@ ul li {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+/* Logo style */
 .logo {
   margin-bottom: 1em;
   text-align: center;
@@ -136,6 +142,11 @@ ul li {
 
 .logo img {
 	width: 100%;
+}
+
+.col-sm-2.contentcontainer {
+	margin: 0 auto;
+	max-width: 50%;
 }
 
 #about {
@@ -201,9 +212,30 @@ a#handle {
 	border-radius: 4px;
 	background-color: rgba(0, 0, 0, 0.6);
 	margin-bottom: 1em;
-	padding-left: 10px;
-	padding-right: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 }
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+		width: 100% !important;
+    margin-right: 0!important;
+    margin-left: 0!important;
+}
+
+@media (min-width: 768px) {
+	.fixed-area{
+		position: fixed;
+		top: 0px;
+		z-index: 99999;
+		background: #000;
+		width: 100%;
+	}
+
+}
+
+/* Meow Feed Style */
 
 #content, #feedContent {
 	font-size: 1.15em;
@@ -218,13 +250,20 @@ a#handle {
 
 #feedContent {
 	clear:both;
-	max-width: 75%;
+	max-width: 55%;
 	margin: 25% auto 0 auto;
 }
 
 @media (max-width: 1200px) and (min-width: 768px){
 	#feedContent{
 		margin: 40% auto 0 auto!important;
+		max-width: 75%!important;
+	}
+}
+
+@media (max-width: 768px){
+	#feedContent{
+		max-width: 77%!important;
 	}
 }
 
