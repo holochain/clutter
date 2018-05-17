@@ -7,7 +7,7 @@ function getProperty(name) {
 
 /**
  * @param data is a string representing a firstName
- * @return nameHash is the hash of the firstName
+ * @return data which is firstName
  **/
 function setFirstName(data) {
   var nameHash;
@@ -27,7 +27,7 @@ function setFirstName(data) {
       });
     }
   } catch (exception) {
-    debug(exception);
+    return "Error: " + exception;
   }
   return data;
 }
@@ -35,12 +35,12 @@ function setFirstName(data) {
  * @param none
  * @return firstName associated with this user
  **/
-function getFirstName(then) {
+function getFirstName() {
   var links;
   try {
     links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
   } catch (exception) {
-    debug(exception);
+    return "Error: " + exception;
   }
   return links[0].Entry;
 }

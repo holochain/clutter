@@ -8,6 +8,13 @@ class Meow extends Component {
     }
   }
 
+  timeBetween(datePosted) {
+    const now = Date.now();
+    console.log(datePosted);
+    console.log(now);
+    return datePosted.toString();
+  }
+
   render() {
     if (!this.props.post) {
       return null;
