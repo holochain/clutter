@@ -43,51 +43,62 @@ class Settings extends Component {
   };
   render() {
     return (
-      this.state.newHandleText.length === 0 &&
-      this.props.handleTaken === false && (
-        <div className="panel panel-default">
-          <div className="panel-body">
-            <div style={{ paddingLeft: 30, paddingBottom: 10 }}>
-              <p className="text-info">Set your handle to get meowing</p>
-            </div>
-            {this.props.handleTaken && (
-              <div style={{ paddingLeft: 30, paddingBottom: 10 }}>
-                <p className="text-danger">
-                  This handle already has a home, try something else!
-                </p>
-              </div>
-            )}
-            <form
-              id="handleForm"
-              onSubmit={this.onHandleSubmit}
-              className="form-group"
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <div style={{ paddingLeft: 30, paddingBottom: 10 }}>
+            <p
+              className="text-info"
+              style={{
+                display:
+                  this.state.newHandleText.length === 0 &&
+                  this.props.handleTaken === false
+                    ? 'inline'
+                    : 'none'
+              }}
             >
-              <div className="col-xs-8">
-                <div className="form-group input-icon">
-                  <i>@</i>
-                  <input
-                    value={this.state.newHandleText}
-                    onChange={this.updateHandleText}
-                    type="text"
-                    className="form-control"
-                    id="myHandle"
-                    placeholder="handle"
-                  />
-                </div>
-              </div>
-              <div className="col-xs-2">
-                <button
-                  id="setHandleButton"
-                  type="submit"
-                  className="btn btn-primary"
-                >
-                  Set Handle
-                </button>
-              </div>
-            </form>
+              Set your handle to get meowing
+            </p>
           </div>
+          <div style={{ paddingLeft: 30, paddingBottom: 10 }}>
+            <p
+              className="text-danger"
+              style={{
+                display: this.props.handleTaken === true ? 'inline' : 'none'
+              }}
+            >
+              This handle already has a home, try something else!
+            </p>
+          </div>
+          <form
+            id="handleForm"
+            onSubmit={this.onHandleSubmit}
+            className="form-group"
+          >
+            <div className="col-xs-8">
+              <div className="form-group input-icon">
+                <i>@</i>
+                <input
+                  value={this.state.newHandleText}
+                  onChange={this.updateHandleText}
+                  type="text"
+                  className="form-control"
+                  id="myHandle"
+                  placeholder="handle"
+                />
+              </div>
+            </div>
+            <div className="col-xs-2">
+              <button
+                id="setHandleButton"
+                type="submit"
+                className="btn btn-primary"
+              >
+                Set Handle
+              </button>
+            </div>
+          </form>
         </div>
-      )
+      </div>
     );
   }
 }

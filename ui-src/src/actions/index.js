@@ -1,19 +1,21 @@
+// UI actions
+export const TOGGLE_MODAL = 'toggleModal';
+
 // Holochain actions
-export const GET_HANDLE = "getHandle";
-export const GET_HANDLES = "getHandles";
-export const GET_FOLLOW = "getFollow";
-export const APP_PROPERTY = "appProperty";
-export const POST = "post";
-export const GET_POST = "getPost";
-export const POST_MOD = "postMod";
-export const FOLLOW = "follow";
-export const GET_POSTS_BY = "getPostsBy";
-export const GET_AGENT = "getAgent";
-export const NEW_HANDLE = "newHandle";
-export const UNFOLLOW = "unfollow";
-export const TOGGLE_MODAL = "toggleModal";
-export const SET_FIRST_NAME = "setFirstName";
-export const GET_FIRST_NAME = "getFirstName";
+export const GET_HANDLE = 'getHandle';
+export const GET_HANDLES = 'getHandles';
+export const GET_FOLLOW = 'getFollow';
+export const APP_PROPERTY = 'appProperty';
+export const POST = 'post';
+export const GET_POST = 'getPost';
+export const POST_MOD = 'postMod';
+export const FOLLOW = 'follow';
+export const GET_POSTS_BY = 'getPostsBy';
+export const GET_AGENT = 'getAgent';
+export const NEW_HANDLE = 'newHandle';
+export const UNFOLLOW = 'unfollow';
+export const SET_FIRST_NAME = 'setFirstName';
+export const GET_FIRST_NAME = 'getFirstName';
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -21,7 +23,7 @@ export function getHandle(userHash, isMe = false, then) {
     type: GET_HANDLE,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: userHash,
       isMe,
       then
@@ -34,7 +36,7 @@ export function getFirstName(then) {
     type: GET_FIRST_NAME,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       then
     }
   };
@@ -45,7 +47,7 @@ export function setFirstName(value, then) {
     type: SET_FIRST_NAME,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: value,
       then
     }
@@ -63,7 +65,7 @@ export function getHandles(then) {
     type: GET_HANDLES,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       then
     }
   };
@@ -74,7 +76,7 @@ export function newHandle(handle, then) {
     type: NEW_HANDLE,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: handle,
       then
     }
@@ -86,7 +88,7 @@ export function getFollow(handle, type, then) {
     type: GET_FOLLOW,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: {
         from: handle,
         type: type
@@ -101,7 +103,7 @@ export function appProperty(key, then) {
     type: APP_PROPERTY,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: key,
       then
     }
@@ -113,7 +115,7 @@ export function post(message, then) {
     type: POST,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: {
         message: message,
         stamp: new Date().valueOf()
@@ -128,7 +130,7 @@ export function getPost(postHash, then) {
     type: GET_POST,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: {
         postHash
       },
@@ -142,7 +144,7 @@ export function postMod(hash, message, then) {
     type: POST_MOD,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: {
         hash,
         post: {
@@ -160,7 +162,7 @@ export function getPostsBy(handles, then) {
     type: GET_POSTS_BY,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: handles,
       then
     }
@@ -172,7 +174,7 @@ export function getAgent(handle, then) {
     type: GET_AGENT,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: handle,
       then
     }
@@ -184,7 +186,7 @@ export function follow(handle, then) {
     type: FOLLOW,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: handle,
       then
     }
@@ -196,7 +198,7 @@ export function unfollow(userHash, then) {
     type: UNFOLLOW,
     meta: {
       isHc: true,
-      namespace: "clutter",
+      namespace: 'clutter',
       data: userHash,
       then
     }

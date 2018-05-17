@@ -1,11 +1,11 @@
-import * as A from "../actions";
+import * as A from '../actions';
 
 const initialState = {
   // any app properties received from clutter backend
   appProperties: {},
   // posts with 'stamp' as their key
   posts: {},
-  isOpen: true,
+  modalIsOpen: true,
   handles: {
     // userHash: handle
   },
@@ -14,11 +14,11 @@ const initialState = {
     // userHash: true
   },
   // active users handle
-  handle: "",
+  handle: '',
   // active users name
-  firstName: "",
+  firstName: '',
   // active users userHash
-  me: ""
+  me: ''
 };
 
 export default function clutterApp(state = initialState, action) {
@@ -38,7 +38,7 @@ export default function clutterApp(state = initialState, action) {
     case A.TOGGLE_MODAL:
       return {
         ...state,
-        isOpen: !state.isOpen
+        modalIsOpen: !state.modalIsOpen
       };
     case A.GET_HANDLE:
       return {
@@ -114,7 +114,7 @@ export default function clutterApp(state = initialState, action) {
         }
       };
     case A.GET_POSTS_BY:
-      console.log("GET_POSTS_BY " + JSON.stringify(payload));
+      console.log('GET_POSTS_BY ' + JSON.stringify(payload));
       const newPosts = payload.reduce((memo, item) => {
         return {
           ...memo,
@@ -136,7 +136,7 @@ export default function clutterApp(state = initialState, action) {
       return state;
     case A.NEW_HANDLE:
       //console.log("HandleInUse" + payload);
-      if (payload === "HandleInUse") {
+      if (payload === 'HandleInUse') {
         return {
           ...state,
           handleTaken: true

@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
-import EditProfileContainer from "./EditProfileContainer";
-import FollowContainer from "./FollowContainer";
-import FollowingFeedContainer from "./FollowingFeedContainer";
-import MeowContainer from "./MeowContainer";
-import Modal from "./components/Modal";
-import NewMeowContainer from "./NewMeowContainer";
-import SettingsContainer from "./SettingsContainer";
-import UserFeedContainer from "./UserFeedContainer";
+import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+import EditProfileContainer from './EditProfileContainer';
+import FollowContainer from './FollowContainer';
+import FollowingFeedContainer from './FollowingFeedContainer';
+import MeowContainer from './MeowContainer';
+import Modal from './components/Modal';
+import NewMeowContainer from './NewMeowContainer';
+import SettingsContainer from './SettingsContainer';
+import UserFeedContainer from './UserFeedContainer';
 
 class App extends Component {
   componentWillMount() {
@@ -20,7 +20,7 @@ class App extends Component {
   componentDidUpdate(prevProps) {
     // console.log(prevProps.handle, this.props.handle)
     if (!prevProps.handle && this.props.handle) {
-      this.props.getFollow(this.props.handle, "following");
+      this.props.getFollow(this.props.handle, 'following');
     }
   }
 
@@ -29,11 +29,11 @@ class App extends Component {
   }
 
   render() {
-    const { appProperties, handle, isOpen } = this.props;
+    const { appProperties, handle, modalIsOpen } = this.props;
     // if an agent handle already exists, there is no need to query for a handle
-    return isOpen && !appProperties.Agent_Handle ? (
+    return modalIsOpen && !appProperties.Agent_Handle ? (
       <div>
-        <Modal show={isOpen}>
+        <Modal show={modalIsOpen}>
           <SettingsContainer />
         </Modal>
       </div>
@@ -83,10 +83,10 @@ class App extends Component {
               <div id="about">
                 <h2>What is Clutter?</h2>
                 <p>
-                  A{" "}
+                  A{' '}
                   <a href="https://en.wiktionary.org/wiki/clutter">
                     <em>clutter</em>
-                  </a>{" "}
+                  </a>{' '}
                   is a flock of cats.
                 </p>
                 <p>
@@ -95,7 +95,7 @@ class App extends Component {
                 </p>
                 <p>Impossible to censor or control.</p>
                 <p>
-                  Join the mewvolution on{" "}
+                  Join the mewvolution on{' '}
                   <a href="http://holochain.org">holochain.org</a>.
                 </p>
               </div>
