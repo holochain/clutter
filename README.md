@@ -1,23 +1,43 @@
 # Clutter
 
-[![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/Holochain/clutter#feature-roadmap-and-current-progress)
-[![In Progress](https://img.shields.io/waffle/label/Holochain/clutter/in%20progress.svg)](http://waffle.io/Holochain/clutter)
+[![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/holochain/clutter#feature-roadmap-and-current-progress)
+[![Build Status](https://travis-ci.org/holochain/clutter.svg?branch=develop)](https://travis-ci.org/Holochain/clutter)
+[![In Progress](https://img.shields.io/waffle/label/holochain/clutter/in%20progress.svg)](http://waffle.io/holochain/clutter)
 [![Gitter](https://badges.gitter.im/metacurrency/holochain.svg)](https://gitter.im/metacurrency/holochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 **P2P twitter-clone built on holochain**
-A group of cats is called a Clutter, Cludder, Clowder, Kendle, or Kindle. Maybe it's time for a fully distributed shoutcast network of cool cats to eat a certain bluebird.
+A group of cats is called a Clutter, Cludder, Clowder, Kendle, or Kindle. Maybe it's time for a peer-to-peer shoutcast system to eat a certain blue bird.
 
-Clutter is a work in progress, sample application which exists to demonstrate how easy it is to build applications on holochain.
+Clutter is a work in progress. It's a sample application designed to demonstrate how easy it is to build applications on [Holochain](https://github.com/holochain/holochain-proto).
+
+If you would like to simply download a build version of the latest Clutter, download and unzip the [latest release](https://github.com/holochain/clutter/releases) Or this [archive](https://drive.google.com/file/d/11xRHfLPJkHATFo0NJYg_rhX1i3JgUvCv/view?usp=sharing)
 
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
 ## Installation & Usage
 
-Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine and make sure you do the step to set the $GOPATH.
+**Prerequiste:** [Install holochain](http://developer.holochain.org/Install_Holochain) on your machine and make sure you do the step to set the $GOPATH.
 
-The best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and make 2 copies of the contents into folders called clutter1 and clutter2.  Both folders will have a dna folder and a ui folder in each.
+**Dependencies:** If you want to run Clutter locally, you will need `nodejs` (https://nodejs.org/en/) (LTS) installed, with `npm` or `yarn` (https://yarnpkg.com/lang/en/docs/install):
+```
+git clone https://github.com/Holochain/clutter.git
+cd clutter/ui-src
+npm install # (or yarn install)
+npm run build # (or yarn build)
+cd ..
+```
+Now if you want to run the app, you can run:
+```
+hcdev web # if you want to just run it temporarily and test it out, with scratch data
+```
+or
+```
+hcd web # if you want to really start to use the app
+```
+
+If you want to just see Clutter in action, the best way to try out Clutter on your own is to run 2 instances of Clutter and your own Bootstrap server.  So download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and make 2 copies of the contents into folders called clutter1 and clutter2.  Both folders will have a dna folder and a ui folder in each.
 
 Firstly run the bootstrap server which will let each instance of Clutter know about its peers.  The ```bs```  command is part of the Holochain install.  If it doesn't work you probably need to set the $GO_PATH variable. (Soon we won't need this step)
 ```
@@ -32,11 +52,11 @@ You will get a response like
 Now start up Clutter in each folder.
 ```
   cd clutter1
-  hcdev -no-nat-upnp -port=6001 -agentID=lucy -mdns=true -bootstrapServer=localhost:3142 web 3141
+  hcdev -DHTport=6001 -agentID=lucy -bootstrapServer=localhost:3142 web 3141
 
   cd ..
   cd clutter2
-  hcdev -no-nat-upnp -port=6002 -agentID=phil -mdns=true -bootstrapServer=localhost:3142 web 4141
+  hcdev -DHTport=6002 -agentID=phil -bootstrapServer=localhost:3142 web 4141
 ```
 You will see a response like:
 ```
@@ -53,8 +73,8 @@ Now open a browser to http://localhost:3141 and you will see Clutter.  Open anot
 You can do all this much easier with Docker. Download the latest release from [Clutter Release](https://github.com/Holochain/clutter/releases), unzip it and cd into the folder. Then run
 ```
   cd ui-src
-  yarn install
-  yarn build
+  npm install # (or yarn install)
+  npm run build # (or yarn build)
   cd ..
   TARGETDIR=$(pwd) docker-compose up
 ```
@@ -74,20 +94,41 @@ To run all the stand alone DNA tests:
 hcdev test
 ```
 
-Currently there are two scenario tests:
+## Scenarios
+
+### Scenario - Collision Of Handles - Sequence Diagram
+
+``` shell
+  hcdev scenario collisionOfHandles
+```
+
+<img src="collisionOfHandles-sequence.svg" width="80%" />
 
 #### followAndShare
 ``` shell
-hcdev -mdns=true scenario followAndShare
+hcdev scenario followAndShare
 ```
 This test spins up two nodes `jane` and `joe` and tests that following and reading posts works. To watch the network traffic and details try:
 
 ``` shell
-hcdev -debug -mdns=true scenario followAndShare
+hcdev -debug scenario followAndShare
 ```
 #### scaling
 
 This test is designed to be run on separate machines and spins up many clones on each and confirms that they all talk to each other.
+
+## UI automation
+in clutter folder
+```
+  hcdev -execpath=$HOME/.holochaindev1 -DHTport=6001 -agentID=agent3141 web 3141
+  hcdev -execpath=$HOME/.holochaindev2 -DHTport=6002 -agentID=agent4141 web 4141
+  hcdev -execpath=$HOME/.holochaindev3 -DHTport=6003 -agentID=agent5141 web 5141
+```
+
+if running all in one terminal you will need to kill the processes between restarts.
+```
+  kill -kill `lsof -t -i tcp:3141` & kill -kill `lsof -t -i tcp:4141` & kill -kill `lsof -t -i tcp:5141`
+```
 
 ## What the Automated build does
 
@@ -105,12 +146,14 @@ When a branch is pushed to Github Travis runs a build.  The build does the follo
  - [x] Follow someone (by specified handle)
  - [x] Unfollow someone
  - [x] View post stream of people you follow sorted by time
- - [x] Detect #hashtags in post text
- - [x] Create hashtag anchors if they don't exist
- - [x] Link from hashtag anchor to posts with that hashtag
- - [x] Show posts which have a particular hashtag
- - [x] Mark posts as a favorite :star:
- - [x] Link favorited posts from a user/handle
+ - [x] Provide React/Redux UI
+ - [x] Implement Cypress and Storybook UI testing
+ - [ ] Detect #hashtags in post text
+ - [ ] Create hashtag anchors if they don't exist
+ - [ ] Link from hashtag anchor to posts with that hashtag
+ - [ ] Show posts which have a particular hashtag
+ - [ ] Mark posts as a favorite :star:
+ - [ ] Link favorited posts from a user/handle
  - [ ] Show someone's :star: favorited posts
  - [ ] Edit a previous post **(partially implemented)**
  - [ ] Refollow someone previously unfollowed **(partially implemented - Have to fix put/del/put links sequence)**

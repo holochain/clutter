@@ -2,7 +2,7 @@
     "Version": 0,
     "UUID": "00000000-0000-0000-0000-000000000000",
     "Name": "clutter",
-    "RequiresVersion": 18,
+    "RequiresVersion": 21,
     "Properties": {
         "description": "distributed micro-blogging (Twitter clone)",
         "language": "en",
@@ -21,8 +21,16 @@
             "Description": "zome that implements micro-blogging",
             "RibosomeType": "js",
             "CodeFile": "clutter.js",
+            "Config": {
+              "ErrorHandling": "throwErrors"
+            },
             "Entries": [
-                {
+              {
+                  "Name": "dummy",
+                  "DataFormat": "string",
+                  "Sharing": "public"
+              },
+              {
                     "Name": "handle",
                     "DataFormat": "string",
                     "Sharing": "public"
@@ -52,12 +60,6 @@
                 {
                     "Name": "unfollow",
                     "DataFormat": "links"
-                },
-                {
-                    "Name": "anchor",
-                    "DataFormat": "json",
-                    "Sharing": "public",
-                    "SchemaFile": "anchor.json"
                 }
             ],
             "Functions": [
@@ -73,11 +75,6 @@
                 },
                 {
                     "Name": "follow",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "addPost",
                     "CallingType": "string",
                     "Exposure":"public"
                 },
@@ -130,6 +127,44 @@
                     "Name": "getHandles",
                     "CallingType": "json",
                     "Exposure":"public"
+                }
+            ]
+        },
+        {
+            "Name": "anchors",
+            "Description": "anchors mixin",
+            "RibosomeType": "js",
+            "CodeFile": "anchors.js",
+            "Config": {
+              "ErrorHandling": "throwErrors"
+            },
+            "Entries": [
+                {
+                    "Name": "anchor",
+                    "DataFormat": "json",
+                    "SchemaFile": "anchor.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "anchor_link",
+                    "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "anchor",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "exists",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "anchors",
+                    "CallingType": "string",
+                    "Exposure": "public"
                 }
             ]
         }

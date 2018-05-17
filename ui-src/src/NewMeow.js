@@ -24,7 +24,7 @@ class NewMeow extends Component {
     return (
       <form onSubmit={this.onMeowSubmit} id='meow-form' action=''>
         <input value={this.state.newMeowText} onChange={this.updateMeowText} className='form-control' id='meow' name='meow' type='text' size='64' />
-        <button type='submit' className='btn btn-primary'>Meow</button>
+        <button type='submit' id='postMeow' className='btn btn-primary'>Meow</button>
       </form>
     )
   }
