@@ -31,7 +31,6 @@ export default function clutterApp(state = initialState, action) {
         firstName: payload
       }
     case A.GET_FIRST_NAME:
-      console.log('payload: ' + payload)
       return {
         ...state,
         firstName: payload

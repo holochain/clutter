@@ -8,10 +8,14 @@ class EditProfile extends Component {
     }
   }
   componentWillMount() {
-    const { firstName, getFirstName } = this.props
-    console.log(getFirstName())
-    console.log(firstName)
-    this.setState({ newNameText: firstName })
+    const { getFirstName } = this.props
+    getFirstName()
+  }
+  componentDidUpdate(prevProps) {
+    const { firstName } = this.props
+    if (!prevProps.firstName && firstName) {
+      this.setState({ newNameText: firstName })
+    }
   }
   updateNameText = e => {
     this.setState({
