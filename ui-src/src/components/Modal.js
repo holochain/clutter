@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class Modal extends React.Component {
   render() {
     // Render nothing if the "show" prop is false
     if (!this.props.show) {
-      return null;
+      return null
     }
 
     // The gray background
@@ -17,7 +17,7 @@ class Modal extends React.Component {
       right: 0,
       backgroundColor: 'rgba(0,0,0,0.3)',
       padding: 50
-    };
+    }
 
     // The modal "window"
     const modalStyle = {
@@ -27,7 +27,7 @@ class Modal extends React.Component {
       minHeight: 200,
       margin: '0 auto',
       padding: 30
-    };
+    }
 
     return (
       <div style={backdropStyle}>
@@ -38,13 +38,13 @@ class Modal extends React.Component {
           <div>{this.props.children}</div>
         </div>
       </div>
-    );
+    )
   }
 }
 
 Modal.propTypes = {
   show: PropTypes.bool,
   children: PropTypes.node
-};
+}
 
-export default Modal;
+export default Modal

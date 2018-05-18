@@ -1,21 +1,21 @@
 // UI actions
-export const TOGGLE_MODAL = 'toggleModal';
+export const TOGGLE_MODAL = 'toggleModal'
 
 // Holochain actions
-export const GET_HANDLE = 'getHandle';
-export const GET_HANDLES = 'getHandles';
-export const GET_FOLLOW = 'getFollow';
-export const APP_PROPERTY = 'appProperty';
-export const POST = 'post';
-export const GET_POST = 'getPost';
-export const POST_MOD = 'postMod';
-export const FOLLOW = 'follow';
-export const GET_POSTS_BY = 'getPostsBy';
-export const GET_AGENT = 'getAgent';
-export const NEW_HANDLE = 'newHandle';
-export const UNFOLLOW = 'unfollow';
-export const SET_FIRST_NAME = 'setFirstName';
-export const GET_FIRST_NAME = 'getFirstName';
+export const GET_HANDLE = 'getHandle'
+export const GET_HANDLES = 'getHandles'
+export const GET_FOLLOW = 'getFollow'
+export const APP_PROPERTY = 'appProperty'
+export const POST = 'post'
+export const GET_POST = 'getPost'
+export const POST_MOD = 'postMod'
+export const FOLLOW = 'follow'
+export const GET_POSTS_BY = 'getPostsBy'
+export const GET_AGENT = 'getAgent'
+export const NEW_HANDLE = 'newHandle'
+export const UNFOLLOW = 'unfollow'
+export const SET_FIRST_NAME = 'setFirstName'
+export const GET_FIRST_NAME = 'getFirstName'
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -28,7 +28,7 @@ export function getHandle(userHash, isMe = false, then) {
       isMe,
       then
     }
-  };
+  }
 }
 
 export function getFirstName() {
@@ -38,7 +38,7 @@ export function getFirstName() {
       isHc: true,
       namespace: 'clutter'
     }
-  };
+  }
 }
 
 export function setFirstName(value) {
@@ -49,13 +49,13 @@ export function setFirstName(value) {
       namespace: 'clutter',
       data: value
     }
-  };
+  }
 }
 
 export function toggleModal() {
   return {
     type: TOGGLE_MODAL
-  };
+  }
 }
 
 export function getHandles(then) {
@@ -66,7 +66,7 @@ export function getHandles(then) {
       namespace: 'clutter',
       then
     }
-  };
+  }
 }
 
 export function newHandle(handle, then) {
@@ -78,7 +78,7 @@ export function newHandle(handle, then) {
       data: handle,
       then
     }
-  };
+  }
 }
 
 export function getFollow(handle, type, then) {
@@ -93,7 +93,7 @@ export function getFollow(handle, type, then) {
       },
       then
     }
-  };
+  }
 }
 
 export function appProperty(key, then) {
@@ -105,7 +105,7 @@ export function appProperty(key, then) {
       data: key,
       then
     }
-  };
+  }
 }
 
 export function post(message, then) {
@@ -120,7 +120,7 @@ export function post(message, then) {
       },
       then
     }
-  };
+  }
 }
 
 export function getPost(postHash, then) {
@@ -134,7 +134,7 @@ export function getPost(postHash, then) {
       },
       then
     }
-  };
+  }
 }
 
 export function postMod(hash, message, then) {
@@ -152,7 +152,7 @@ export function postMod(hash, message, then) {
       },
       then
     }
-  };
+  }
 }
 
 export function getPostsBy(handles, then) {
@@ -164,7 +164,7 @@ export function getPostsBy(handles, then) {
       data: handles,
       then
     }
-  };
+  }
 }
 
 export function getAgent(handle, then) {
@@ -176,7 +176,7 @@ export function getAgent(handle, then) {
       data: handle,
       then
     }
-  };
+  }
 }
 
 export function follow(handle, then) {
@@ -188,7 +188,7 @@ export function follow(handle, then) {
       data: handle,
       then
     }
-  };
+  }
 }
 
 export function unfollow(userHash, then) {
@@ -200,5 +200,5 @@ export function unfollow(userHash, then) {
       data: userHash,
       then
     }
-  };
+  }
 }

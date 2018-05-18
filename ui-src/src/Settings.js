@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Settings extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       newHandleText: ''
-    };
+    }
   }
   updateHandleText = e => {
     this.setState({
       newHandleText: e.target.value
-    });
-  };
+    })
+  }
   onHandleSubmit = e => {
     const {
       getFirstName,
@@ -19,39 +19,40 @@ class Settings extends Component {
       newHandle,
       setFirstName,
       toggleModal
-    } = this.props;
-    const { newHandleText } = this.state;
+    } = this.props
+    const { newHandleText } = this.state
+    console.log(getFirstName)
 
-    e.preventDefault();
+    e.preventDefault()
     this.setState({
       newHandleText: ''
-    });
+    })
 
     // empty string given as input
-    if (!newHandleText) return;
+    if (!newHandleText) return
 
-    newHandle(newHandleText);
+    newHandle(newHandleText)
 
     const handleExists = handles.find(
       handleObj => handleObj.handle === newHandleText
-    );
+    )
     if (handleExists) {
-      console.log(newHandleText + ' taken');
-      newHandle('');
-      return;
+      console.log(newHandleText + ' taken')
+      newHandle('')
+      return
     }
     // reset newHandleText input field to empty
     this.setState({
       newHandleText: ''
-    });
+    })
 
     // check if a name has been set, and if not default to handle
     if (!getFirstName() || getFirstName().length > 1) {
-      setFirstName(newHandleText);
+      setFirstName(newHandleText)
     }
 
-    toggleModal();
-  };
+    toggleModal()
+  }
   render() {
     return (
       <div className="panel panel-default">
@@ -110,8 +111,8 @@ class Settings extends Component {
           </form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Settings;
+export default Settings

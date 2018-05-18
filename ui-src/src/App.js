@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import EditProfileContainer from './EditProfileContainer';
-import FollowContainer from './FollowContainer';
-import FollowingFeedContainer from './FollowingFeedContainer';
-import MeowContainer from './MeowContainer';
-import Modal from './components/Modal';
-import NewMeowContainer from './NewMeowContainer';
-import SettingsContainer from './SettingsContainer';
-import UserFeedContainer from './UserFeedContainer';
+import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
+import EditProfileContainer from './EditProfileContainer'
+import FollowContainer from './FollowContainer'
+import FollowingFeedContainer from './FollowingFeedContainer'
+import MeowContainer from './MeowContainer'
+import Modal from './components/Modal'
+import NewMeowContainer from './NewMeowContainer'
+import SettingsContainer from './SettingsContainer'
+import UserFeedContainer from './UserFeedContainer'
 
 class App extends Component {
   componentWillMount() {
     // this fetches the hash which represents the active users userHash
-    this.props.getMyHandle();
-    this.props.getHandles();
-    this.interval = setInterval(this.props.getHandles, 2000);
+    this.props.getMyHandle()
+    this.props.getHandles()
+    this.interval = setInterval(this.props.getHandles, 2000)
   }
 
   componentDidUpdate(prevProps) {
     // console.log(prevProps.handle, this.props.handle)
     if (!prevProps.handle && this.props.handle) {
-      this.props.getFollow(this.props.handle, 'following');
+      this.props.getFollow(this.props.handle, 'following')
     }
   }
 
   componentWillUnmount() {
-    if (this.interval) clearInterval(this.interval);
+    if (this.interval) clearInterval(this.interval)
   }
 
   render() {
-    const { appProperties, handle, modalIsOpen } = this.props;
+    const { appProperties, handle, modalIsOpen } = this.props
     // if an agent handle already exists, there is no need to query for a handle
     return modalIsOpen && !appProperties.Agent_Handle ? (
       <div>
@@ -103,8 +103,8 @@ class App extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

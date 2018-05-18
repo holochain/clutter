@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class EditProfile extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       newNameText: ''
-    };
+    }
   }
   componentDidMount() {
-    const { firstName } = this.props;
-    this.setState({ newNameText: firstName });
+    const { firstName } = this.props
+    this.setState({ newNameText: firstName })
   }
   updateNameText = e => {
     this.setState({
       newNameText: e.target.value
-    });
-  };
+    })
+  }
   onHandleSubmit = e => {
-    const { newNameText } = this.state;
-    const { history, firstName, setFirstName } = this.props;
-    e.preventDefault();
+    const { newNameText } = this.state
+    const { history, firstName, setFirstName } = this.props
+    e.preventDefault()
 
-    if (!newNameText) return;
-    if (!(newNameText === firstName)) setFirstName(newNameText);
+    if (!newNameText) return
+    if (!(newNameText === firstName)) setFirstName(newNameText)
     // Redirect user to main page
-    history.push('/');
-  };
+    history.push('/')
+  }
 
   render() {
-    const { handle } = this.props;
-    const { newNameText } = this.state;
+    const { handle } = this.props
+    const { newNameText } = this.state
     return (
       <div className="panel panel-default">
         <div className="panel-body">
@@ -77,8 +77,8 @@ class EditProfile extends Component {
           </form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default EditProfile;
+export default EditProfile
