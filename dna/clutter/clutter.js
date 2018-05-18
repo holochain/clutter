@@ -13,7 +13,7 @@ function setFirstName(data) {
   var nameHash;
   try {
     // Check if name has been set and update if so.
-    var links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
+    var links = getLinks(App.Key.Hash, FIRST_NAME, { Load: true });
 
     if (links.length > 0) {
       nameHash = update(FIRST_NAME, data, links[0].Hash);
@@ -38,14 +38,7 @@ function setFirstName(data) {
 function getFirstName() {
   var links;
   try {
-    console.log('getting first name');
-    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
-    firstNameLink = links.map(function(link) {
-      console.log(link.Entry);
-      console.log(JSON.stringify(link));
-      return link.Entry;
-    });
-    console.log('links retreived');
+    links = getLinks(App.Key.Hash, FIRST_NAME, { Load: true });
     if (links.length < 1) {
       return;
     }

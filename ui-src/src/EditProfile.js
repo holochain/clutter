@@ -8,8 +8,9 @@ class EditProfile extends Component {
     }
   }
   componentWillMount() {
-    const { getFirstName } = this.props
+    const { firstName, getFirstName } = this.props
     getFirstName()
+    this.setState({ newNameText: firstName })
   }
   componentDidUpdate(prevProps) {
     const { firstName } = this.props
@@ -18,17 +19,19 @@ class EditProfile extends Component {
     }
   }
   updateNameText = e => {
+    e.preventDefault()
     this.setState({
       newNameText: e.target.value
     })
   }
   onHandleSubmit = e => {
     const { newNameText } = this.state
-    const { history, firstName, getFirstName, setFirstName } = this.props
+    const { history, firstName, setFirstName } = this.props
     e.preventDefault()
-    console.log(getFirstName())
+
     if (!newNameText) return
     if (!(newNameText === firstName)) setFirstName(newNameText)
+    else this.setState({ newNameText: firstName })
     // Redirect user to main page
     history.push('/')
   }
@@ -60,7 +63,8 @@ class EditProfile extends Component {
                   value={newNameText}
                 />
               </div>
-              <div className="form-group">
+
+              {/**<div className="form-group">
                 <div className="form-group col-xs-10">
                   <label>Profile Picture</label>
                   <input
@@ -69,7 +73,7 @@ class EditProfile extends Component {
                     id="exampleFormControlFile1"
                   />
                 </div>
-              </div>
+    </div>**/}
             </div>
             <div className="form-group col-xs-6">
               <button
