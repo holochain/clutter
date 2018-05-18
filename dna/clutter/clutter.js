@@ -38,7 +38,14 @@ function setFirstName(data) {
 function getFirstName() {
   var links;
   try {
+    console.log('getting first name');
     links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
+    firstNameLink = links.map(function(link) {
+      console.log(link.Entry);
+      console.log(JSON.stringify(link));
+      return link.Entry;
+    });
+    console.log('links retreived');
     if (links.length < 1) {
       return;
     }

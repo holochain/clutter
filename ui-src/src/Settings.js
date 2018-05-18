@@ -21,7 +21,6 @@ class Settings extends Component {
       toggleModal
     } = this.props
     const { newHandleText } = this.state
-    console.log(getFirstName)
 
     e.preventDefault()
     this.setState({

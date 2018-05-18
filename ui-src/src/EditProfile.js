@@ -7,8 +7,10 @@ class EditProfile extends Component {
       newNameText: ''
     }
   }
-  componentDidMount() {
-    const { firstName } = this.props
+  componentWillMount() {
+    const { firstName, getFirstName } = this.props
+    console.log(getFirstName())
+    console.log(firstName)
     this.setState({ newNameText: firstName })
   }
   updateNameText = e => {
@@ -18,9 +20,9 @@ class EditProfile extends Component {
   }
   onHandleSubmit = e => {
     const { newNameText } = this.state
-    const { history, firstName, setFirstName } = this.props
+    const { history, firstName, getFirstName, setFirstName } = this.props
     e.preventDefault()
-
+    console.log(getFirstName())
     if (!newNameText) return
     if (!(newNameText === firstName)) setFirstName(newNameText)
     // Redirect user to main page
