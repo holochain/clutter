@@ -68,6 +68,7 @@ class App extends Component {
                 Clutter
                 <div className="subtitle">can haz herd cats?</div>
               </div>
+
               <div id="content">
                 <Route path="/" exact component={NewMeowContainer} />
                 <Route path="/" exact component={FollowingFeedContainer} />

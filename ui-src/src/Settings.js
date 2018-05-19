@@ -7,6 +7,7 @@ class Settings extends Component {
       newHandleText: ''
     }
   }
+
   updateHandleText = e => {
     this.setState({
       newHandleText: e.target.value
@@ -23,9 +24,6 @@ class Settings extends Component {
     const { newHandleText } = this.state
 
     e.preventDefault()
-    this.setState({
-      newHandleText: ''
-    })
 
     // empty string given as input
     if (!newHandleText) return
@@ -36,20 +34,14 @@ class Settings extends Component {
       handleObj => handleObj.handle === newHandleText
     )
     if (handleExists) {
-      console.log(newHandleText + ' taken')
       newHandle('')
       return
     }
-    // reset newHandleText input field to empty
-    this.setState({
-      newHandleText: ''
-    })
 
     // check if a name has been set, and if not default to handle
     if (!getFirstName() || getFirstName().length > 1) {
       setFirstName(newHandleText)
     }
-
     toggleModal()
   }
   render() {

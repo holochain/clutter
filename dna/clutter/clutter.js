@@ -11,23 +11,39 @@ function getProperty(name) {
  **/
 function setFirstName(data) {
   var nameHash;
+  var links;
   try {
     // Check if name has been set and update if so.
-    var links = getLinks(App.Key.Hash, FIRST_NAME, { Load: true });
-
-    if (links.length > 0) {
+    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
+  } catch (exception) {
+    return 'Error getting links: ' + exception;
+  }
+  try {
+    if (links && links.length > 0) {
       nameHash = update(FIRST_NAME, data, links[0].Hash);
+
+      // Delete the old hash, so we only ever have one record
+      var delHash = remove(links[0].Hash, 'delete Message');
+      commit('profile_links', {
+        Links: [
+          {
+            Base: App.Agent.Hash,
+            Link: links[0].Hash,
+            Tag: FIRST_NAME,
+            LinkAction: HC.LinkAction.Del
+          }
+        ]
+      });
     } else {
       // Otherwise add it for the first time:
       nameHash = commit(FIRST_NAME, data);
-      // On the DHT, put a link from my hash to the hash of firstName
-      var me = App.Agent.Hash;
-      commit('profile_links', {
-        Links: [{ Base: me, Link: nameHash, Tag: FIRST_NAME }]
-      });
     }
+    // On the DHT, put a link from my hash to the hash of firstName
+    commit('profile_links', {
+      Links: [{ Base: App.Agent.Hash, Link: nameHash, Tag: FIRST_NAME }]
+    });
   } catch (exception) {
-    return 'Error: ' + exception;
+    return 'Error updating or committing: ' + exception;
   }
   return data;
 }
@@ -38,12 +54,13 @@ function setFirstName(data) {
 function getFirstName() {
   var links;
   try {
-    links = getLinks(App.Key.Hash, FIRST_NAME, { Load: true });
+    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
+
     if (links.length < 1) {
-      return;
+      return '';
     }
   } catch (exception) {
-    return 'Error: ' + exception;
+    return 'Error (getting firstName): ' + exception;
   }
   return links[0].Entry;
 }

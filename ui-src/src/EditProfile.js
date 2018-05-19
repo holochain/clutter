@@ -19,7 +19,6 @@ class EditProfile extends Component {
     }
   }
   updateNameText = e => {
-    e.preventDefault()
     this.setState({
       newNameText: e.target.value
     })
