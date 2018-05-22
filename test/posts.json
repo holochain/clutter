@@ -137,7 +137,7 @@
       "Zome": "clutter",
       "FnName": "getPost",
       "Input": {
-        "postHash": "%h1%"
+        "postHash": "%h3%"
       },
       "Output": null,
       "Exposure": "public",
