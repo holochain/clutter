@@ -2,7 +2,7 @@
     "Version": 0,
     "UUID": "00000000-0000-0000-0000-000000000000",
     "Name": "clutter",
-    "RequiresVersion": 21,
+    "RequiresVersion": 24,
     "Properties": {
         "description": "distributed micro-blogging (Twitter clone)",
         "language": "en",
@@ -11,9 +11,6 @@
     "PropertiesSchemaFile": "properties_schema.json",
     "DHTConfig": {
         "HashType": "sha2-256"
-    },
-    "BasedOn": {
-        "H": null
     },
     "Zomes": [
         {

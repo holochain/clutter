@@ -109,7 +109,7 @@
             "Zome":   "clutter",
             "FnName": "getPost",
             "Input":  {
-              "postHash": "%h1%"
+              "postHash": "Qmbh1ncpRLL1Zjdm8FNwS29rcunyQLJEQN5SyRcER1Mbad"
             },
             "Output": null,
             "Exposure":"public",
