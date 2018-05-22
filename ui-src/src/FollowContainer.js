@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import Follow from './components/Follow'
-import {
-  follow,
-  unfollow
-} from './actions'
+import { follow, unfollow } from './actions'
 
 const mapStateToProps = state => {
   // console.log('state.handles ' + JSON.stringify(state.handles))
@@ -14,17 +11,21 @@ const mapStateToProps = state => {
       }
     }),
     notFollowing: Object.keys(state.handles)
-      .filter(handleHash => !state.follows[state.handles[handleHash].handle] && state.handles[handleHash].handle !== state.handle)
+      .filter(
+        handleHash =>
+          !state.follows[state.handles[handleHash].handle] &&
+          state.handles[handleHash].handle !== state.handle
+      )
       .map(handleHash => {
         return {
           handleHash,
           handle: state.handles[handleHash].handle
-       }
+        }
       })
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     follow: (handle, then) => {
       dispatch(follow(handle, then))
@@ -35,7 +36,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Follow)
+export default connect(mapStateToProps, mapDispatchToProps)(Follow)
