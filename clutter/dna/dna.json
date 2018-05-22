@@ -1,0 +1,58 @@
+{
+    "Version": 1,
+    "UUID": "ffdcba75-5e0d-11e8-a68e-8c85908a3f13",
+    "Name": "clutter",
+    "Properties": {
+        "description": "provides an application template",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "BasedOn": {
+        "H": null
+    },
+    "RequiresVersion": 24,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "NeighborhoodSize": 0
+    },
+    "Progenitor": {
+        "Identity": "",
+        "PubKey": null
+    },
+    "Zomes": [
+        {
+            "Name": "sampleZome",
+            "Description": "provide a sample zome",
+            "CodeFile": "sampleZome.js",
+            "RibosomeType": "js",
+            "BridgeFuncs": null,
+            "Config": null,
+            "Entries": [
+                {
+                    "Name": "sampleEntry",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "sampleEntry.json",
+                    "Sharing": "public"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "sampleEntryCreate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "sampleEntryRead",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "doSampleAction",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}

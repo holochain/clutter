@@ -1,0 +1,28 @@
+{
+    "Tests": [
+        {
+            "Convey": "Example: (which fails because we haven't actually implemented a sampleEntryCreate function) We can create a new sampleEntry",
+            "Zome": "sampleZome",
+            "FnName": "sampleEntryCreate",
+            "Input": {
+                "content": "this is the entry body",
+                "stamp": 12345
+            },
+            "Output": "\"%h1%\"",
+            "Err": null,
+            "ErrMsg": "",
+            "Regexp": "",
+            "Time": 0,
+            "Wait": 0,
+            "Exposure": "public",
+            "Raw": false,
+            "Repeat": 0,
+            "Benchmark": false
+        }
+    ],
+    "Identity": "",
+    "Fixtures": {
+        "Agents": null
+    },
+    "Benchmark": false
+}
