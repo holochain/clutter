@@ -125,7 +125,6 @@
         "postHash": "%h2%"
       },
       "Output": {
-        "H": "%h2%",
         "author": "buffaloBill",
         "post": { "message": "this is the modified post", "stamp": 12346 }
       },

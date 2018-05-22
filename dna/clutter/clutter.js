@@ -337,8 +337,8 @@ function getPost(params) {
   } else {
     post = {
       post: rawPost.Entry,
-      author: getHandle(rawPost.Sources[0]),
-      H: params.postHash
+      author: getHandle(rawPost.Sources[0])
+      //H: params.postHash
     };
     return post;
   }
