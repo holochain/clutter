@@ -112,16 +112,6 @@
         "post": {
           "stamp": 12346,
           "message": "this is the modified post"
-            "Convey":"Retrieving single post will return null if not found",
-            "Zome":   "clutter",
-            "FnName": "getPost",
-            "Input":  {
-              "postHash": "Qmbh1ncpRLL1Zjdm8FNwS29rcunyQLJEQN5SyRcER1Mbad"
-            },
-            "Output": null,
-            "Exposure":"public",
-            "Err": "",
-            "Regexp": ""
         }
       },
       "Exposure": "public",
@@ -148,7 +138,7 @@
       "Zome": "clutter",
       "FnName": "getPost",
       "Input": {
-        "postHash": "QmYeinX5vhuA91D3v24YbgyLofw9QAxY6PoATrBHnRwbtt"
+        "postHash": "Qmbh1ncpRLL1Zjdm8FNwS29rcunyQLJEQN5SyRcER1Mbad"
       },
       "Output": null,
       "Exposure": "public",
