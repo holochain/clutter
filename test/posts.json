@@ -125,6 +125,7 @@
         "postHash": "%h2%"
       },
       "Output": {
+        "H": "%h2%",
         "author": "buffaloBill",
         "post": { "message": "this is the modified post", "stamp": 12346 }
       },
@@ -137,7 +138,7 @@
       "Zome": "clutter",
       "FnName": "getPost",
       "Input": {
-        "postHash": "QmY8Mzg9F69e5P9AoQPYat655HEhc1TVGs11tmfNSzkqh2"
+        "postHash": "QmYeinX5vhuA91D3v24YbgyLofw9QAxY6PoATrBHnRwbtt"
       },
       "Output": null,
       "Exposure": "public",
