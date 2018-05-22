@@ -30,8 +30,7 @@ class Settings extends Component {
     if (!newHandleText) return
 
     // max characters exceeded
-    if (newHandleText.length > 20) {
-      console.log('too long')
+    if (newHandleText.length > MAX_HANDLE_LENGTH) {
       this.setState({ newHandleText: '' })
       return
     }
