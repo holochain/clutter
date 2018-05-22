@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+const MAX_HANDLE_LENGTH = 20
 
 class Settings extends Component {
   constructor(props) {
@@ -27,6 +28,13 @@ class Settings extends Component {
 
     // empty string given as input
     if (!newHandleText) return
+
+    // max characters exceeded
+    if (newHandleText.length > 20) {
+      console.log('too long')
+      this.setState({ newHandleText: '' })
+      return
+    }
 
     newHandle(newHandleText)
 
