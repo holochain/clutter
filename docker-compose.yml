@@ -37,3 +37,13 @@ services:
     volumes:
       - "${TARGETDIR}:/clutter"
     command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -DHTport=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 web 5141"
+
+  clutter4:
+    image: holochain/holochain-proto:develop
+    ports:
+      - "6141:6141"
+    depends_on:
+      - bootstrap
+    volumes:
+      - "${TARGETDIR}:/clutter"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -DHTport=6004 -agentID=lindsey -bootstrapServer=bootstrap:3142 web 6141"

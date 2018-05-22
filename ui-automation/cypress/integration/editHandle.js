@@ -33,11 +33,4 @@ describe('This section describes how to manage your Clutter handle', function() 
       .get('#inputName')
       .should('have.value', 'phillip');
   });
-  // it('Now update your handle to something new', function() {
-  //   cy.visit('/');
-  //   cy.get('#changeHandleButton').click();
-  //   cy.get('#myHandle').type('lucy');
-  //   cy.get('#setHandleButton').click();
-  //   cy.get('#handle').should('contain', 'lucy');
-  // });
 });
