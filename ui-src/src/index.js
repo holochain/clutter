@@ -8,8 +8,5 @@ import CreateStore from './store'
 
 let store = CreateStore()
 
-ReactDOM.render(
-  <Root store={store} />,
-  document.getElementById('root')
-)
+ReactDOM.render(<Root store={store} />, document.getElementById('root'))
 registerServiceWorker()

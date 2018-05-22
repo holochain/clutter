@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/Holochain/clutter/issues"
   },
-  "standard":  {
+  "standard": {
     "parser": "babel-eslint",
     "globals": [
       "describe",
