@@ -28,7 +28,7 @@ describe('This section describes how to manage your Clutter handle', function() 
       .type('lip')
     cy.get('#saveChanges').click()
     cy.get('#handle').should('contain', 'phil')
-    cy.wait(200)
+    cy.wait(500)
     cy.get('#changeHandleButton').click()
     cy
       .get('form')
