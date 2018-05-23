@@ -50,7 +50,7 @@
       "Comments": "Uses the link hash for the Anchor - %h6%",
       "Zome": "clutter",
       "FnName": "getPostsWithHashtag",
-      "Input": "#hashtag",
+      "Input": ["hashtag"],
       "Output": [
         {
           "H": "%h6%",
