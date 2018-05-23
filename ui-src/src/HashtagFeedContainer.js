@@ -1,23 +1,23 @@
 import { connect } from 'react-redux'
-import UserFeed from './UserFeed'
-import { getPostsBy } from './actions'
+import HashtagFeed from './HashtagFeed'
+import { getPostsWithHashtag } from './actions'
 
 const mapStateToProps = (state, ownProps) => {
-  const byUser = (pId) => state.posts[pId].author === ownProps.match.params.handle
+  const containsTag = (pId) => state.posts[pId].message.includes('#'+ownProps.match.params.hashtag)
   return {
-    postList: Object.keys(state.posts).filter(byUser).sort().reverse().map(pId => {
+    postList: Object.keys(state.posts).filter(containsTag).sort().reverse().map(pId => {
       return Object.assign({}, state.posts[pId], {
         userHandle: state.handles[state.posts[pId].author] || state.posts[pId].author
       })
     }),
-    handle: ownProps.match.params.handle
+    hashtag: ownProps.match.params.hashtag
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getPosts: (handle) => {
-      dispatch(getPostsBy([handle]))
+    getPosts: (hashtag) => {
+      dispatch(getPostsWithHashtag([hashtag]))
     }
   }
 }
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserFeed)
+)(HashtagFeed)
