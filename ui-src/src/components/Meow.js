@@ -15,24 +15,16 @@ class Meow extends Component {
     return datePosted.toString();
   }
 
-  getHashtags() {
-    let message = this.props.post.message;
-    var tags = message.match(/\B#\w*[a-zA-Z]+\w*/g);
-    if(tags) {
-      var uniqueTags = tags.filter(function(value, index, self) {
-        return self.indexOf(value) === index;
-      }); //remove duplicates
-      return uniqueTags;
-    } else {
-      return [];
-    }
-  }
 
   render() {
     if (!this.props.post) {
       return null;
     }
     const { stamp, message, author, hash, userHandle } = this.props.post;
+
+    // replace hashtag matches in the message body with links
+    message.replace(/\B#\w*[a-zA-Z]+\w*/g, "<Link to={`/tag/${hash}`} className='hashtag'>$1</Link>");
+    
     return (
       <div className="meow" id={stamp}>
         <a className="meow-edit" onClick={() => "openEditPost('+id+')"}>
