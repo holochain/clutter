@@ -44,7 +44,22 @@
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
+    },
+    {
+      "Convey": "We can retrieve posts",
+      "Comments": "Uses the link hash for the Anchor - %h6%",
+      "Zome": "clutter",
+      "FnName": "getPostsWithHashtag",
+      "Input": "#hashtag",
+      "Output": [
+        {
+          "H": "%h6%",
+          "post": { "message": "here is a test post with a #hashtag", "stamp": 12345 }
+        }
+      ],
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
     }
-
   ]
 }

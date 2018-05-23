@@ -305,9 +305,9 @@ function post(post) {
   // create an anchor of type hashtag for each tag present
   // link from the the anchor to the post
   hashtags.forEach(function(hashtag) {
-    var anchorHash = anchor('hashtag', 'exampletext');
+    var anchorHash = anchor('hashtag', hashtag);
     commit('post_links', {
-      Links: [{ Base: anchorHash, Link: key, Tag: ''}]
+      Links: [{ Base: anchorHash, Link: key, Tag: 'post'}]
     });
   });
 
@@ -343,7 +343,7 @@ function getPostsBy(handles) {
   return posts;
 }
 
-function getPostWithHashtag(hashtag) {
+function getPostsWithHashtag(hashtag) {
   var taggedPosts = doGetLinkLoad(anchor('hashtag', hashtag), 'post');
   return taggedPosts; 
 }
