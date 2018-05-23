@@ -22,8 +22,13 @@ class Meow extends Component {
     }
     const { stamp, message, author, hash, userHandle } = this.props.post;
 
-    // replace hashtag matches in the message body with links
-    message.replace(/\B#\w*[a-zA-Z]+\w*/g, "<Link to={`/tag/${hash}`} className='hashtag'>$1</Link>");
+    // identify all hashtags and replace with links
+    var splitMessage = message.split(/(\B#\w*[a-zA-Z]+\w*)/g);
+    splitMessage.forEach(function(str, i) {
+      if(str.startsWith('#')){
+        splitMessage[i] = <Link to={`/tag/${str.replace('#','')}`} className='hashtag'>{str}</Link>;
+      }
+    });
     
     return (
       <div className="meow" id={stamp}>
@@ -37,7 +42,7 @@ class Meow extends Component {
         <Link to={`/meow/${hash}`} className="stamp">
           {new Date(stamp).toString()}
         </Link>
-        <div className="message">{message}</div>
+        <div className="message">{splitMessage}</div>
       </div>
     );
   }
