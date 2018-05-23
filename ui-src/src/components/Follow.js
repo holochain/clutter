@@ -88,6 +88,7 @@ class Follow extends Component {
             <div className="col-xs-3">
               <button
                 type="button"
+                id="close"
                 className="btn btn-default"
                 onClick={() => this.props.history.push('/')}
               >
