@@ -8,6 +8,7 @@ class Meow extends Component {
     }
   }
 
+  // replace 'https' URLs with links
   urlify = text => {
     const urlRegex = /(https?:\/\/[^\s]+)/g
     return text.replace(urlRegex, '<a target="_blank" href="$1">$1</a>')

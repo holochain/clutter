@@ -1,23 +1,23 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class Follow extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      newFollowText: ""
-    };
+      newFollowText: ''
+    }
   }
   updateFollowText = e => {
     this.setState({
       newFollowText: e.target.value
-    });
-  };
+    })
+  }
   render() {
     const filteredNotFollowing = this.props.notFollowing.filter(u => {
       return u.handle
         .toLowerCase()
-        .startsWith(this.state.newFollowText.toLowerCase());
-    });
+        .startsWith(this.state.newFollowText.toLowerCase())
+    })
     return (
       <div className="panel panel-default">
         <div className="panel-body">
@@ -43,7 +43,7 @@ class Follow extends Component {
                       </button>
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
           </div>
@@ -82,14 +82,23 @@ class Follow extends Component {
                       </button>
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
+            <div className="col-xs-3">
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => this.props.history.push('/')}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Follow;
+export default Follow
