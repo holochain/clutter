@@ -299,18 +299,17 @@ function post(post) {
   );
 
   // get any hashtags in the post message
-  // var hashtags = getHashtags(post.message);
-  // debug(hashtags);
+  var hashtags = getHashtags(post.message);
+  debug(hashtags);
 
   // create an anchor of type hashtag for each tag present
-  // link from the hashtag to the post
-  var anchorHash = anchor('hashtag', 'exampletext');
-
-  // hashtags.forEach(function(hashtag) {
-    // commit('post_links', {
-    //   Links: [{ Base: anchorHash, Link: key}]
-    // });
-  // });
+  // link from the the anchor to the post
+  hashtags.forEach(function(hashtag) {
+    var anchorHash = anchor('hashtag', 'exampletext');
+    commit('post_links', {
+      Links: [{ Base: anchorHash, Link: key, Tag: ''}]
+    });
+  });
 
   // debug(key);
   return key; // Returns the hash key of the new post to the calling function
