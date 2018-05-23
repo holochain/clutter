@@ -1,0 +1,75 @@
+{
+    "Tests":[
+      {
+          "Zome": "clutter",
+          "FnName": "appProperty",
+          "Input": "Agent_Handle",
+          "Output": "",
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
+            "Convey":"We can create a new handle",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "buffaloBill",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Zome": "clutter",
+            "FnName": "appProperty",
+            "Input": "Agent_Handle",
+            "Output": "buffaloBill",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+      {
+            "Zome": "clutter",
+            "FnName": "appProperty",
+            "Input": "App_DNA_Hash",
+            "Output": "%dna%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Zome": "clutter",
+            "FnName": "appProperty",
+            "Input": "App_Key_Hash",
+            "Output": "%key%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Zome": "clutter",
+            "FnName": "appProperty",
+            "Input": "garbage",
+            "Output": "Error: No App Property with name: garbage",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Zome": "clutter",
+            "FnName": "getProperty",
+            "Input": "description",
+            "Output": "",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": "[a-z]{2,3}"
+        },
+        {
+            "Zome": "clutter",
+            "FnName": "getProperty",
+            "Input": "enableDirectoryAccess",
+            "Output": "true",
+            "Exposure":"public"
+        }
+    ]
+}

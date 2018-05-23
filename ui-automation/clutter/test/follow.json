@@ -1,0 +1,24 @@
+{
+"Tests":[
+    {
+      "Convey":"setup handle for following",
+      "Zome": "clutter",
+      "FnName": "newHandle",
+      "Input": "buffaloBill",
+      "Output": "%h2%",
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":"You will get an empty array when you call getFollow and you are not following anyone",
+      "Zome": "clutter",
+      "FnName": "getFollow",
+      "Input": {"from":"buffaloBill","type":"following"},
+      "Output": [],
+      "Exposure":"public",
+      "Err": "",
+      "Regexp": ""
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+    "Tests":[
+      {
+            "Time":2000,
+            "Convey":"setup handle for posting",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "joe",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Time":2500,
+            "Convey":"There are no followers for Joe yet",
+            "Zome": "clutter",
+            "FnName": "getFollow",
+            "Input": {
+              "from": "joe",
+              "type": "following"
+            },
+            "Output": [],
+            "Exposure":"public"
+        },
+        {
+            "Time":2700,
+            "Convey":"follow jane",
+            "Zome": "clutter",
+            "FnName": "follow",
+            "Input": "jane",
+            "Output": "%h%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Time":3000,
+            "Convey":"retrieve jane's posts",
+            "Zome":   "clutter",
+            "FnName": "getPostsBy",
+            "Input":  ["jane"],
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ".*hello world.*"
+        },
+        {
+            "Time":5000,
+            "Convey":"We can retrieve a list of all handles",
+            "Zome": "clutter",
+            "Input": "var handles = getHandles(); handles.length==2",
+            "Output": true,
+            "Exposure": "public",
+            "Err": "",
+            "Raw": true
+        },
+        {
+            "Time":5000,
+            "Convey":"We can retrieve a list of people Joe is following",
+            "Zome": "clutter",
+            "FnName": "getFollow",
+            "Input": {
+              "from": "joe",
+              "type": "following"
+            },
+            "Output": ["jane"],
+            "Exposure":"public"
+        }
+    ]
+}

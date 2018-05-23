@@ -1,0 +1,59 @@
+{
+    "DHTPort": 6283,
+    "EnableMDNS": true,
+    "PeerModeAuthor": true,
+    "PeerModeDHTNode": true,
+    "EnableNATUPnP": false,
+    "BootstrapServer": "bootstrap.holochain.net:10000",
+    "Loggers": {
+        "App": {
+            "Name": "App",
+            "Enabled": false,
+            "Format": "%{color:cyan}%{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        },
+        "Debug": {
+            "Name": "Debug",
+            "Enabled": false,
+            "Format": "HC: %{file}.%{line}: %{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        },
+        "DHT": {
+            "Name": "DHT",
+            "Enabled": false,
+            "Format": "%{color:yellow}%{time} DHT: %{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        },
+        "Gossip": {
+            "Name": "Gossip",
+            "Enabled": false,
+            "Format": "%{color:blue}%{time} Gossip: %{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        },
+        "TestPassed": {
+            "Name": "TestPassed",
+            "Enabled": true,
+            "Format": "%{color:green}%{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        },
+        "TestFailed": {
+            "Name": "TestFailed",
+            "Enabled": true,
+            "Format": "%{color:red}%{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        },
+        "TestInfo": {
+            "Name": "TestInfo",
+            "Enabled": true,
+            "Format": "%{message}",
+            "Prefix": "",
+            "PrefixColor": null
+        }
+    }
+}

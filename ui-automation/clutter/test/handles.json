@@ -1,0 +1,84 @@
+{
+    "Tests":[
+      {
+          "Convey":"If there is no handle set returns ''",
+          "Zome": "clutter",
+          "FnName": "getHandle",
+          "Input": "%key%",
+          "Output": "",
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
+            "Convey":"We can create a new handle",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "buffaloBill",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"We can retrieve the new handle",
+            "Zome": "clutter",
+            "FnName": "getHandle",
+            "Input": "%key%",
+            "Output": "buffaloBill",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"We can update our handle to a unique handle",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "phil",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Trying to use a handle that another person is using returns 'HandleInUse'",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "phil",
+            "Output": "HandleInUse",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"getAgent request on non existent handle returns empty string",
+            "Zome": "clutter",
+            "FnName": "getAgent",
+            "Input": "fooHandle",
+            "Output": "",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"We can retrieve agent by handle",
+            "Zome": "clutter",
+            "FnName": "getAgent",
+            "Input": "buffaloBill",
+            "Output": "%key%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"We can retrieve a list of all handles, in single node mode there will only be the one handle",
+            "Zome": "clutter",
+            "FnName": "getHandles",
+            "Input": "",
+            "Output": [{"handle":"phil", "handleHash":"%key%"}],
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        }
+    ]
+}

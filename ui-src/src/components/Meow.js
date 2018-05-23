@@ -1,25 +1,23 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class Meow extends Component {
   componentDidMount() {
     if (!this.props.post) {
-      this.props.getPost();
+      this.props.getPost()
     }
   }
 
-  timeBetween(datePosted) {
-    const now = Date.now();
-    console.log(datePosted);
-    console.log(now);
-    return datePosted.toString();
+  urlify = text => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g
+    return text.replace(urlRegex, '<a target="_blank" href="$1">$1</a>')
   }
 
   render() {
     if (!this.props.post) {
-      return null;
+      return null
     }
-    const { stamp, message, author, hash, userHandle } = this.props.post;
+    const { stamp, message, author, hash, userHandle } = this.props.post
     return (
       <div className="meow" id={stamp}>
         <a className="meow-edit" onClick={() => "openEditPost('+id+')"}>
@@ -27,15 +25,17 @@ class Meow extends Component {
         </a>
         <Link to={`/u/${author}`} className="user">
           @{userHandle}
-        </Link>{" "}
-        |{" "}
+        </Link>{' '}
+        |{' '}
         <Link to={`/meow/${hash}`} className="stamp">
           {new Date(stamp).toString()}
         </Link>
-        <div className="message">{message}</div>
+        <div className="message">
+          <div dangerouslySetInnerHTML={{ __html: this.urlify(message) }} />
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default Meow;
+export default Meow

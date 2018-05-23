@@ -1,0 +1,62 @@
+{
+    "Tests":[
+        {
+            "Convey":"extract the server name from %server% for testing (which is just 'server' in this test)",
+            "Zome": "clutter",
+            "Raw": true,
+            "Input": "addHandle(\"%agentstr%\");server = \"%server%\".split(\".\")[0];server",
+            "Regexp": "server"
+        },
+        {
+            "Convey":"extract the server ID from %server% for testing",
+            "Zome": "clutter",
+            "Raw": true,
+            "Input": "serverID=parseInt(\"%server%\".split(\".\")[1])",
+            "Regexp": "[0-9]+"
+        },
+        {
+            "Convey":"calculate the n-1th clone agent name for testing",
+            "Zome": "clutter",
+            "Wait":!START!000,
+            "Raw": true,
+            "Input": "numClones=!CLONES!;numServers=!SERVERS!;serverID=%result1%-1;if (serverID<0){serverID=numServers-1};clone=(%clone%+1)%numClones;prefix=(numClones==1)?\"clone\":\"clone.\"+clone; ;agent = prefix+\"@%result0%.\"+serverID;agent",
+            "Regexp": "clone(.[0-9]+)*@%result0%.[0-9]"
+        },
+        {
+            "Convey":"post a bunch",
+            "Zome": "clutter",
+            "Wait": 200,
+            "Repeat": !REPS!,
+            "FnName": "post",
+            "Input": {"message": "hello world from %agentstr% repetition: %reps%",
+                      "stamp":1234},
+            "Output": "\"%h1%\"",
+            "Exposure":"public"
+        },
+        {
+            "Convey":"get the n-1th clone agent key",
+            "Zome": "clutter",
+            "Wait":!PAUSE!000,
+            "FnName": "getAgent",
+            "Input": "%result2%",
+            "Regexp": "Qm[a-zA-Z0-9]*"
+        },
+        {
+            "Wait":1000,
+            "Convey":"follow it",
+            "Zome": "clutter",
+            "FnName": "follow",
+            "Input": "%r1%",
+            "Output": "%h%"
+        },
+        {
+            "Wait":2000,
+            "Convey":"retrieve the posts",
+            "Zome":   "clutter",
+            "FnName": "getPostsBy",
+            "Input":  "[\"%r2%\"]",
+            "Exposure":"public",
+            "Regexp": ".*hello world from %result2% repetition: 2.*"
+        }
+    ]
+}

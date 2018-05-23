@@ -1,0 +1,203 @@
+{
+    "Version": 0,
+    "UUID": "00000000-0000-0000-0000-000000000000",
+    "Name": "clutter",
+    "Properties": {
+        "description": "distributed micro-blogging (Twitter clone)",
+        "enableDirectoryAccess": "true",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "BasedOn": {
+        "H": null
+    },
+    "RequiresVersion": 24,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "NeighborhoodSize": 0
+    },
+    "Progenitor": {
+        "Identity": "",
+        "PubKey": null
+    },
+    "Zomes": [
+        {
+            "Name": "clutter",
+            "Description": "zome that implements micro-blogging",
+            "CodeFile": "clutter.js",
+            "RibosomeType": "js",
+            "BridgeFuncs": null,
+            "Config": {
+                "ErrorHandling": "throwErrors"
+            },
+            "Entries": [
+                {
+                    "Name": "dummy",
+                    "DataFormat": "string",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "handle",
+                    "DataFormat": "string",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "post",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "post.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "post_links",
+                    "DataFormat": "links",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": ""
+                },
+                {
+                    "Name": "handle_links",
+                    "DataFormat": "links",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": ""
+                },
+                {
+                    "Name": "directory_links",
+                    "DataFormat": "links",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": ""
+                },
+                {
+                    "Name": "follow",
+                    "DataFormat": "links",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": ""
+                },
+                {
+                    "Name": "unfollow",
+                    "DataFormat": "links",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": ""
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "getProperty",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "appProperty",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "follow",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "unfollow",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "post",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getPost",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "postMod",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getPostsBy",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "newHandle",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getHandle",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getAgent",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getFollow",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getHandles",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        },
+        {
+            "Name": "anchors",
+            "Description": "anchors mixin",
+            "CodeFile": "anchors.js",
+            "RibosomeType": "js",
+            "BridgeFuncs": null,
+            "Config": {
+                "ErrorHandling": "throwErrors"
+            },
+            "Entries": [
+                {
+                    "Name": "anchor",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "anchor.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "anchor_link",
+                    "DataFormat": "links",
+                    "Schema": "",
+                    "SchemaFile": "",
+                    "Sharing": ""
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "anchor",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "exists",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "anchors",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}
