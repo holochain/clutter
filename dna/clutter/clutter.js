@@ -277,7 +277,8 @@ function getFollow(params) {
 }
 
 function post(post) {
-  var key = commit('post', post); // Commits the post block to my source chain, assigns resulting hash to 'key'
+  var key = commit('post', post); // Commits the post block to my source chain, assigns resulting hash to 'key'  
+
   debug(
     '<mermaid>' +
       App.Agent.String +
@@ -296,6 +297,20 @@ function post(post) {
       App.Agent.String +
       '->>DHT:Link meow to "post_links"</mermaid>'
   );
+
+  // get any hashtags in the post message
+  // var hashtags = getHashtags(post.message);
+  // debug(hashtags);
+
+  // create an anchor of type hashtag for each tag present
+  // link from the hashtag to the post
+  var anchorHash = anchor('hashtag', 'exampletext');
+
+  // hashtags.forEach(function(hashtag) {
+    // commit('post_links', {
+    //   Links: [{ Base: anchorHash, Link: key}]
+    // });
+  // });
 
   // debug(key);
   return key; // Returns the hash key of the new post to the calling function
@@ -327,6 +342,11 @@ function getPostsBy(handles) {
     }
   }
   return posts;
+}
+
+function getPostWithHashtag(hashtag) {
+  var taggedPosts = doGetLinkLoad(anchor('hashtag', hashtag), 'post');
+  return taggedPosts; 
 }
 
 function getPost(params) {
@@ -367,6 +387,20 @@ function doGetLink(base, tag) {
     links_filled.push(links[i].Hash);
   }
   return links_filled;
+}
+
+// returns a list of unique hashtags in the message string
+function getHashtags(message) {
+  var tags = message.match(/\B#\w*[a-zA-Z]+\w*/g);
+  if(tags) {
+    var uniqueTags = tags.filter(function(value, index, self) {
+      return self.indexOf(value) === index;
+    }); //remove duplicates
+    return uniqueTags;
+  } else {
+    return [];
+  }
+
 }
 
 function anchor(anchorType, anchorText) {
