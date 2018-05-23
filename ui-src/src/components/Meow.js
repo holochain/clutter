@@ -15,6 +15,19 @@ class Meow extends Component {
     return datePosted.toString();
   }
 
+  getHashtags() {
+    let message = this.props.post.message;
+    var tags = message.match(/\B#\w*[a-zA-Z]+\w*/g);
+    if(tags) {
+      var uniqueTags = tags.filter(function(value, index, self) {
+        return self.indexOf(value) === index;
+      }); //remove duplicates
+      return uniqueTags;
+    } else {
+      return [];
+    }
+  }
+
   render() {
     if (!this.props.post) {
       return null;
