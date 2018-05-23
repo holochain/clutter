@@ -167,6 +167,18 @@ export function getPostsBy(handles, then) {
   }
 }
 
+export function getPostsWithHashtag(handles, then) {
+  return {
+    type: GET_POSTS_HASHTAG,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: handles,
+      then
+    }
+  }
+}
+
 export function getAgent(handle, then) {
   return {
     type: GET_AGENT,
