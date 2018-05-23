@@ -251,18 +251,19 @@ a#handle {
 #feedContent {
 	clear:both;
 	max-width: 55%;
-	margin: 25% auto 0 auto;
+	margin: 250px auto 0 auto;
 }
 
 @media (max-width: 1200px) and (min-width: 768px){
 	#feedContent{
-		margin: 40% auto 0 auto!important;
+		margin: 300px auto 0 auto!important;
 		max-width: 75%!important;
 	}
 }
 
 @media (max-width: 768px){
 	#feedContent{
+		margin: 50px auto 0 auto!important;
 		max-width: 77%!important;
 	}
 }
