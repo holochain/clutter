@@ -344,9 +344,16 @@ function getPostsBy(handles) {
 }
 
 function getPostsWithHashtag(hashtag) {
-  var taggedPosts = doGetLinkLoad(anchor('hashtag', hashtag), 'post');
-  return taggedPosts; 
+  var targets = getLinks(anchor('hashtag', hashtag), 'post');
+
+  var posts = [];
+  targets.forEach(function(target) {
+    posts.push(getPost({postHash: target.Hash}))
+  });
+
+  return posts; 
 }
+
 
 function getPost(params) {
   var post,
