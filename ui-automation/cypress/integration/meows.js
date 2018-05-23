@@ -23,7 +23,8 @@ describe('This section describes how to post meows', function() {
     cy.visit('/')
     cy.get('#meow').type('Your first URL meow is https://google.ca!!')
     cy.get('#postMeow').click()
-
-    cy.get('.message')
+    cy.visit('/')
+    cy.get('.stamp:first').click()
+    cy.get('.message a').click()
   })
 })
