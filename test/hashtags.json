@@ -1,0 +1,66 @@
+{
+  "Tests":[
+    {
+        "Convey":"Extract a single hashtag",
+        "Zome": "clutter",
+        "Raw": true,
+        "Input": "getHashtags('message has a #hashtag');",
+        "Output": "#hashtag"
+    },    
+    {
+        "Convey":"Correctly extract hashtags from a string removing duplicates",
+        "Zome": "clutter",
+        "Raw": true,
+        "Input": "getHashtags('message has duplicate #hash #hash #tags #tags');",
+        "Output": "#hash,#tags"
+    },
+    {
+        "Convey":"Correctly handle the case where there are no hashtags",
+        "Zome": "clutter",
+        "Raw": true,
+        "Input": "getHashtags('no hash tags');",
+        "Output": ""
+    },
+
+    {
+      "Convey": "setup handle for posting",
+      "Zome": "clutter",
+      "FnName": "newHandle",
+      "Input": "hashmasterBill",
+      "Output": "%h2%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "We can create a new post with a hashtag",
+      "Zome": "clutter",
+      "FnName": "post",
+      "Input": {
+        "message": "here is a test post with a #hashtag",
+        "stamp": 12345
+      },
+      "Output": "%h6%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "We can retrieve posts",
+      "Comments": "Uses the link hash for the Anchor - %h6%",
+      "Zome": "clutter",
+      "FnName": "getPostsWithHashtag",
+      "Input": ["hashtag"],
+      "Output": [
+        {
+          "H": "%h6%",
+          "post": { "message": "here is a test post with a #hashtag", "stamp": 12345 },
+          "author": "hashmasterBill"
+        }
+      ],
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    }
+  ]
+}

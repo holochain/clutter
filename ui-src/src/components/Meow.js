@@ -15,11 +15,21 @@ class Meow extends Component {
     return datePosted.toString();
   }
 
+
   render() {
     if (!this.props.post) {
       return null;
     }
     const { stamp, message, author, hash, userHandle } = this.props.post;
+
+    // identify all hashtags and replace with links
+    var splitMessage = message.split(/(\B#\w*[a-zA-Z]+\w*)/g);
+    splitMessage.forEach(function(str, i) {
+      if(str.startsWith('#')){
+        splitMessage[i] = <Link to={`/tag/${str.replace('#','')}`} className='hashtag'>{str}</Link>;
+      }
+    });
+    
     return (
       <div className="meow" id={stamp}>
         <a className="meow-edit" onClick={() => "openEditPost('+id+')"}>
@@ -32,7 +42,7 @@ class Meow extends Component {
         <Link to={`/meow/${hash}`} className="stamp">
           {new Date(stamp).toString()}
         </Link>
-        <div className="message">{message}</div>
+        <div className="message">{splitMessage}</div>
       </div>
     );
   }

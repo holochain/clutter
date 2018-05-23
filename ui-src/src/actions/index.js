@@ -11,6 +11,7 @@ export const GET_POST = 'getPost'
 export const POST_MOD = 'postMod'
 export const FOLLOW = 'follow'
 export const GET_POSTS_BY = 'getPostsBy'
+export const GET_POSTS_HASHTAG = 'getPostsWithHashtag'
 export const GET_AGENT = 'getAgent'
 export const NEW_HANDLE = 'newHandle'
 export const UNFOLLOW = 'unfollow'
@@ -162,6 +163,18 @@ export function getPostsBy(handles, then) {
       isHc: true,
       namespace: 'clutter',
       data: handles,
+      then
+    }
+  }
+}
+
+export function getPostsWithHashtag(hashtag, then) {
+  return {
+    type: GET_POSTS_HASHTAG,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: hashtag,
       then
     }
   }
