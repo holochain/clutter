@@ -21,7 +21,7 @@ describe('This section describes how to post meows', function() {
   })
   it("Let's go to the main screen and post a meow with a URL", function() {
     cy.visit('/')
-    cy.get('#meow').type('Your first URL meow is https://google.ca!!')
+    cy.get('#meow').type('Your first URL meow is https://google.ca')
     cy.get('#postMeow').click()
     cy.visit('/')
     cy.get('.stamp:first').click()
