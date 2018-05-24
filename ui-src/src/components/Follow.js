@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class Follow extends Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class Follow extends Component {
     })
     return (
       <div className="panel panel-default">
+        <div className="close">
+          <Link to="/">x</Link>
+        </div>
         <div className="panel-body">
           <div className="row">
             <h3>Following</h3>
@@ -85,15 +89,19 @@ class Follow extends Component {
                 )
               })}
             </ul>
-            <div className="col-xs-3">
-              <button
-                type="button"
-                id="close"
-                className="btn btn-default"
-                onClick={() => this.props.history.push('/')}
-              >
-                Close
-              </button>
+            <div class="row">
+              <div class="col-sm-1" />
+              <div class="col-sm-4" />
+              <div class="col-sm-6">
+                <button
+                  type="button"
+                  id="close"
+                  class="btn btn-primary pull-right"
+                  onClick={() => this.props.history.push('/')}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
