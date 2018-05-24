@@ -1,25 +1,29 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class Follow extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      newFollowText: ""
-    };
+      newFollowText: ''
+    }
   }
   updateFollowText = e => {
     this.setState({
       newFollowText: e.target.value
-    });
-  };
+    })
+  }
   render() {
     const filteredNotFollowing = this.props.notFollowing.filter(u => {
       return u.handle
         .toLowerCase()
-        .startsWith(this.state.newFollowText.toLowerCase());
-    });
+        .startsWith(this.state.newFollowText.toLowerCase())
+    })
     return (
       <div className="panel panel-default">
+        <div className="close">
+          <Link to="/">x</Link>
+        </div>
         <div className="panel-body">
           <div className="row">
             <h3>Following</h3>
@@ -43,7 +47,7 @@ class Follow extends Component {
                       </button>
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
           </div>
@@ -82,14 +86,28 @@ class Follow extends Component {
                       </button>
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
+            <div class="row">
+              <div class="col-sm-1" />
+              <div class="col-sm-4" />
+              <div class="col-sm-6">
+                <button
+                  type="button"
+                  id="close"
+                  class="btn btn-primary pull-right"
+                  onClick={() => this.props.history.push('/')}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Follow;
+export default Follow

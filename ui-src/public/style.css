@@ -25,7 +25,7 @@ ul {
 
 /* Profile Style*/
 .logo img {
-	padding: 10px 0px;
+	padding: 50px 0px 10px 0px;
 	max-width: 150px;
 }
 
@@ -48,13 +48,23 @@ ul {
 
 #followButton {
   float: right;
-  margin: 8px;
+  margin: 50px 8px 8px 8px;
 }
 
+@media (max-width: 410px) {
+	#followButton {
+			margin: 30px 30%!important;
+			float:none;
+	}
+}
 #meow {
   margin: 10px;
+	height: 100px;
 }
 
+#postMeow {
+	float: right;
+}
 p {
 	margin-top: 0;
 }
@@ -153,6 +163,10 @@ ul li {
   color: white;
 }
 
+.form-row #handle {
+	text-align: left;
+}
+
 a#handle {
   display:block;
   //background-color: rgba(0, 0, 0, 0.6);
@@ -235,6 +249,12 @@ a#handle {
 
 }
 
+#displayName
+{
+	font-size: 1.3em;
+	color: #fff;
+	padding-bottom: 10px;
+}
 /* Meow Feed Style */
 
 #content, #feedContent {
@@ -244,14 +264,13 @@ a#handle {
 }
 
 #content p, #feedContent p {
-	text-indent: 2.4em;
 	margin-bottom: 1.25em;
 }
 
 #feedContent {
 	clear:both;
 	max-width: 55%;
-	margin: 250px auto 0 auto;
+	margin: 275px auto 0 auto;
 }
 
 @media (max-width: 1200px) and (min-width: 768px){
@@ -282,6 +301,14 @@ blockquote {
 
 .right {
 	float: right;
+
+}
+
+.close {
+	float: right;
+	position: relative;
+	top: 10px;
+	right: 10px;
 }
 
 

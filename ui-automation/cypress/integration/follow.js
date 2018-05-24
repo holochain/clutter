@@ -6,6 +6,7 @@ describe('This section shows how to follow someone and see their meows', functio
     cy.visit('/')
     cy.get('#followButton').click()
     cy.get('.following-handle button:first').click()
-    cy.visit('/')
+    cy.get('#close').click()
+    cy.url().should('eq', 'http://localhost:4141/')
   })
 })

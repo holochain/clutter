@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class EditProfile extends Component {
   constructor(props) {
@@ -40,7 +41,11 @@ class EditProfile extends Component {
     const { newNameText } = this.state
     return (
       <div className="panel panel-default">
+        <div className="close">
+          <Link to="/">x</Link>
+        </div>
         <div className="panel-body">
+          <p>Profile</p>
           <form
             id="editProfileForm"
             onSubmit={this.onHandleSubmit}
@@ -48,11 +53,11 @@ class EditProfile extends Component {
           >
             <div className="form-row">
               <div className="form-group col-xs-6">
-                <label>handle</label>
+                <label>Handle</label>
                 <p id="handle">@{handle}</p>
               </div>
               <div className="form-group col-xs-6">
-                <label>name</label>
+                <label>Name</label>
                 <input
                   type="text"
                   onChange={this.updateNameText}
@@ -64,15 +69,15 @@ class EditProfile extends Component {
               </div>
 
               {/**<div className="form-group">
-                <div className="form-group col-xs-10">
-                  <label>Profile Picture</label>
-                  <input
-                    type="file"
-                    className="form-control-file"
-                    id="exampleFormControlFile1"
-                  />
-                </div>
-    </div>**/}
+                  <div className="form-group col-xs-10">
+                    <label>Profile Picture</label>
+                    <input
+                      type="file"
+                      className="form-control-file"
+                      id="exampleFormControlFile1"
+                    />
+                  </div>
+      </div>**/}
             </div>
             <div className="form-group col-xs-6">
               <button
