@@ -23,15 +23,16 @@ class NewMeow extends Component {
   render() {
     return (
       <form onSubmit={this.onMeowSubmit} id="meow-form" action="">
-        <textarea
-          value={this.state.newMeowText}
-          onChange={this.updateMeowText}
-          className="form-control"
-          id="meow"
-          name="meow"
-          wrap="soft"
-          size="64"
-        />
+        <div className="form-group col-xs-12">
+          <textarea
+            value={this.state.newMeowText}
+            onChange={this.updateMeowText}
+            className="form-control"
+            id="meow"
+            name="meow"
+            wrap="soft"
+          />
+        </div>
         <button type="submit" id="postMeow" className="btn btn-primary">
           Meow
         </button>
