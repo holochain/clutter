@@ -21,7 +21,7 @@ If you would like to simply download a build version of the latest Clutter, down
 
 **Dependencies:** If you want to run Clutter locally, you will need `nodejs` (https://nodejs.org/en/) (LTS) installed, with `npm` or `yarn` (https://yarnpkg.com/lang/en/docs/install):
 
-The following commands will clone the latest build of clutter to your machine and then you will either install npm or yarn to build the UI for the app. (this)
+The following commands will clone the latest build of clutter to your machine and then you will either install npm or yarn to build the UI for the app.
 ```
 git clone https://github.com/Holochain/clutter.git
 cd clutter/ui-src
@@ -30,7 +30,7 @@ npm run build # (or yarn build)
 cd ..
 ```
 
-## Running Clutter (this)
+## Running Clutter
 Now if you want to run the app, you can run:
 ```
 hcdev web # if you want to just run it temporarily and test it out, with scratch data
