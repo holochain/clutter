@@ -12,9 +12,9 @@ function anchor(anchor){
     debug('anchorTypeGet ' + JSON.stringify(anchorTypeGet));
     debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + anchor.anchorType + ' has been setup</mermaid>');
     if(anchorTypeGet === null){
-      var rootAnchorTypeHash = get(makeHash('anchor', rootAnchortype));
+      var rootAnchorTypeHash = makeHash('anchor', rootAnchortype);
       debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if the Root of all anchors has been setup</mermaid>');
-      if (rootAnchorTypeHash === null){
+      if (get(rootAnchorTypeHash) === null){
         rootAnchorTypeHash = commit('anchor', rootAnchortype);
         debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit Root of all anchors to local chain</mermaid>');
         debug('<mermaid>' + App.Agent.String + '->>DHT:Publish Root of all anchors</mermaid>');
@@ -25,6 +25,7 @@ function anchor(anchor){
       debug('<mermaid>' + App.Agent.String + '->>' + App.Agent.String + ':commit ' + anchor.anchorType + ' to local chain</mermaid>');
       debug('<mermaid>' + App.Agent.String + '->>DHT:Publish ' + anchor.anchorType + '</mermaid>');
       // debug('Anchor Type Created: ' + anchorTypeHash)
+
       commit('anchor_link', { Links:[{Base: rootAnchorTypeHash, Link: anchorTypeHash, Tag: anchorType.anchorType}]});
       debug('<mermaid>' + App.Agent.String + '->>DHT:Link ' + anchor.anchorType + ' to Root of all anchors</mermaid>');
 
