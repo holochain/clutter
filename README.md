@@ -42,7 +42,7 @@ and point your browser at `http://localhost:4141` to access the UI.
 
 **--or--**,
 
-assuming that you've already setup you Holochain environment with [`hcadmin init`](https://developer.holochain.org/Command_Line_Tools#hcadmin_init) you can join and run Clutter with:
+assuming that you've already setup your Holochain environment with [`hcadmin init`](https://developer.holochain.org/Command_Line_Tools#hcadmin_init) you can join and run Clutter with:
 
 ``` shell
 cd clutter
@@ -55,7 +55,7 @@ and point your browser at `http://localhost:3141` to access the UI.
 
 **Prerequiste:** [Install Holochain](http://developer.holochain.org/Install_Holochain) on your machine and make sure you do the step to set the $GOPATH.
 
-**Dependencies:** If you want to work on the Clutter UI, you will need `nodejs` (https://nodejs.org/en/) (LTS) installed, with `npm` or `yarn` (https://yarnpkg.com/lang/en/docs/install) to be able to build it from the `ui-src` to the `ui` directory:
+**Dependencies:** If you want to work on the Clutter UI, you will need `nodejs` (https://nodejs.org/en/) (LTS) installed, with `npm` or `yarn` (https://yarnpkg.com/lang/en/docs/install) to be able to build and copy it from the `ui-src` to the `ui` directory:
 
 The following commands will clone the latest build of clutter to your machine (you may want to use your own fork instead of our repo) and then you will either install npm or yarn to build the UI for the app.
 ```
@@ -65,6 +65,8 @@ npm install # (or yarn install)
 npm run build # (or yarn build)
 cd ..
 ```
+
+After `npm run build`, `npm start` to configure and start the React UI.
 
 ### Running Clutter in Dev mode
 Now if you want to run the app, you can run:
@@ -82,7 +84,7 @@ Firstly run the bootstrap server which will let each instance of Clutter know ab
 ```
   bs
 ```
-You will get a response likev
+You will get a response like
 ```
 2018/01/11 11:24:03 app version: 0.0.2; Holochain bootstrap server
 2018/01/11 11:24:03 starting up on port 3142
@@ -174,7 +176,7 @@ if running all in one terminal you will need to kill the processes between resta
 When a branch is pushed to Github Travis runs a build. The build does the following:
 1. Installs docker-compose
 2. Runs docker-compose up -d which spins up a bootstrap server and 3 instances of clutter
-3. Install the cypress dependencies
+3. Installs the cypress dependencies
 4. Runs the Cypress e2e tests.
 5. If on master a new release is published to github releases. (coming soon)
 

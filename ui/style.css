@@ -1,0 +1,475 @@
+body {
+	line-height: 1.3em;
+	height: 100%;
+	background-color: #BBB;
+	background-image: url("cats.jpg") ;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: calc(100vw - 34px); /* Prevent jump from scrollbar appearing on only some pages */
+	padding-left: 9px; /* Recenter page from scrollbar width adjustment */
+}
+
+ul {
+	list-style: none;
+	padding-left: 10px;
+}
+
+.row {
+  margin-top: 1em;
+}
+
+.row .first {
+	width: 100%;
+}
+
+/* Profile Style*/
+.logo img {
+	padding: 50px 0px 10px 0px;
+	max-width: 150px;
+}
+
+
+#banner a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#container {
+	margin: 0;
+	width: 100%;
+	padding: 0;
+}
+
+#changeHandleButton {
+  float: left;
+  margin: 8px;
+}
+
+#followButton {
+  float: right;
+  margin: 50px 8px 8px 8px;
+}
+
+@media (max-width: 410px) {
+	#followButton {
+			margin: 30px 30%!important;
+			float:none;
+	}
+}
+#meow {
+  margin: 10px;
+	height: 100px;
+}
+
+#postMeow {
+	float: right;
+}
+p {
+	margin-top: 0;
+}
+
+h1 {
+	font-family: "Play";
+	font-size: 1.6em;
+	margin-top: 0;
+	text-align: center;
+}
+
+h2 {
+	font-family: "Play";
+	font-size: 1.25em;
+	margin-bottom: 0.75em;
+	margin-top: 0.9em;
+	text-align: center;
+}
+
+h3 {
+	margin-top: 0;
+	font-size: 1.15em;
+	margin-bottom: 0.5em;
+	clear: none;
+}
+
+h4 {
+	font-size: 1.05em;
+	margin-top: 0em;
+	padding:0;
+	margin-bottom: 0.25em;
+	font-family: "Play";
+}
+
+a:link {
+	color: #a35f1a;
+}
+
+a:visited {
+	color: #a35f1a;
+}
+
+ul {
+	margin-top: -0.25em;
+}
+
+ul li {
+	text-indent: -1.25em;
+	padding-left: 1.25em;
+}
+
+#header {
+	height: 1.36em;
+	padding: 0.8em;
+}
+
+#banner {
+	padding-right: 1em;
+	padding-left: 1em;
+	padding-top: 0.4em;
+	width: auto;
+	/* text-shadow: -3px 5px 8px #000000; */
+	margin: 0 0em 0.18em 0em;
+	font-family: "Griffy";
+	font-size: 3.7em;
+	text-align: center;
+	line-height: 1.1em;
+	display: block;
+	color: white;
+ 	background: url("calico2.png") no-repeat no-repeat stretch;
+ 	-webkit-background-clip: text;
+}
+
+.alphabox {
+  padding: 1em;
+	border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Logo style */
+.logo {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.logo img {
+	width: 100%;
+}
+
+.col-sm-2.contentcontainer {
+	margin: 0 auto;
+	max-width: 50%;
+}
+
+#about {
+  color: white;
+}
+
+.form-row #handle {
+	text-align: left;
+}
+
+a#handle {
+  display:block;
+  //background-color: rgba(0, 0, 0, 0.6);
+  text-align:center;
+  color:white;
+	font-size: 1.3em;
+	font-weight: 400;
+}
+
+.subtitle {
+	font-size: 0.3em;
+	font-style: italic;
+	padding-top: 0em;
+	padding-bottom: 0.5em;
+	margin-bottom: 0.5em;
+	text-align: center;
+	letter-spacing: 0.25px;
+	line-height: normal;
+	color: #ccc;
+	font-family: Palatino;
+}
+
+.current {
+	color: #4E99FF;
+	text-decoration: none;
+	background-color: rgba(80, 50, 255, 0.3);
+	padding-top: 2em;
+	text-shadow: 2px 2px 4px #000;
+}
+
+#footer {
+	text-align: center;
+	font-size: 1em;
+	margin-top: 0.5em;
+}
+
+.rightcolumn {
+	font-size: 1.2em;
+	line-height: 1.4;
+	min-width: 10em;
+}
+
+#leftfloat {
+	float: left;
+	width: 16em;
+	line-height: 1.6em;
+	font-size: 1.25em;
+	margin: 1em 1em 1em 3em;
+}
+
+#leftfloat p {
+	text-align: justify;
+	text-indent: 15px;
+}
+
+.contentcontainer {
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.6);
+	margin-bottom: 1em;
+		padding-left: 10px;
+		padding-right: 10px;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+		width: 100% !important;
+    margin-right: 0!important;
+    margin-left: 0!important;
+}
+
+@media (min-width: 768px) {
+	.fixed-area{
+		position: fixed;
+		top: 0px;
+		z-index: 99999;
+		background: #000;
+		width: 100%;
+	}
+
+}
+
+#displayName
+{
+	font-size: 1.3em;
+	color: #fff;
+	padding-bottom: 10px;
+}
+/* Meow Feed Style */
+
+#content, #feedContent {
+	font-size: 1.15em;
+	line-height: 1.4;
+	overflow: hidden;
+}
+
+#content p, #feedContent p {
+	margin-bottom: 1.25em;
+}
+
+#feedContent {
+	clear:both;
+	max-width: 55%;
+	margin: 275px auto 0 auto;
+}
+
+@media (max-width: 1200px) and (min-width: 768px){
+	#feedContent{
+		margin: 300px auto 0 auto!important;
+		max-width: 75%!important;
+	}
+}
+
+@media (max-width: 768px){
+	#feedContent{
+		margin: 50px auto 0 auto!important;
+		max-width: 77%!important;
+	}
+}
+
+blockquote {
+	font-style: italic;
+	margin: 0em 25px 1em 25px;
+	padding: 1em;
+	border-radius: 15px;
+	background-color: rgba(40, 40, 40, 0.5);
+}
+
+#content blockquote p {
+	margin-bottom: 0;
+}
+
+.right {
+	float: right;
+
+}
+
+.close {
+	float: right;
+	position: relative;
+	top: 10px;
+	right: 10px;
+}
+
+
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 480px) {
+	.col {  margin: 1% 0 1% 0%; }
+
+    .span_1_of_12, .span_2_of_12, .span_3_of_12, .span_4_of_12, .span_5_of_12, .span_6_of_12, .span_7_of_12, .span_8_of_12, .span_9_of_12, .span_10_of_12, .span_11_of_12, .span_12_of_12 {
+	width: 100%;
+	}
+}
+
+.meow {
+	margin: 1em;
+	padding: 0.75em;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 10px;
+        color: wheat;
+}
+.meow-edit {
+  display: none;
+}
+.closer {
+  float:right;
+}
+.results-tab {
+  display:inline-block;
+  background-color:green;
+}
+.active-tab {
+  background-color:white;
+  color:green;
+}
+
+.search-results-data {
+    background-color: lightgray;
+    color: black;
+    padding: 4px;
+}
+
+#user-header {
+  color:white;
+}
+
+#usersDialog .user {
+  margin: 5px 10px 5px 10px;
+}
+
+.modal-title {
+	font-weight: bold;
+}
+
+/* organization of user information */
+.user .follow-button {
+	float:right;
+	padding-right: 15px;
+}
+
+.user .follow-text {
+	float:right;
+}
+
+.user .handle {
+	display:inline-block;
+	width: 200px;
+}
+
+.user .audience {
+	display:inline-block;
+	width: 100px;
+}
+
+.user .listening-to {
+	display:inline-block;
+	width: 100px;
+}
+
+
+.meow-edit {
+  float:right;
+}
+
+
+.spinner
+{ display: none;
+
+	position: absolute;
+
+	width: 		100%;
+	height: 	100%;
+
+	z-index:  314159;
+
+	background-color: rgba(0,0,0,0.4);
+}
+.error
+{ display: none;
+
+	position: absolute;
+
+	width: 		30%;
+	height: 	30%;
+
+	z-index:  3141592;
+
+	background-color: rgba(128,0,0,0.3);
+}
+
+/*
+ TOOLS
+*/
+.transition500
+{ transition: all 0.5s ease;
+}
+
+.show
+{ display: block;
+}
+.spin
+{ animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+}
+
+.colorCycle
+{ animation: color_change 1s infinite alternate;
+}
+@keyframes color_change {
+	0% { background-color: blue; }
+	25% { background-color: orange; }
+	50% { background-color: yellow; }
+	75% { background-color: black; }
+	100% { background-color: red; }
+}
+
+/* make @ symbol always in handle input field. */
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 20px;
+	padding-right: 0;
+}
