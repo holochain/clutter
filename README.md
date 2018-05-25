@@ -11,8 +11,7 @@ A group of cats is called a Clutter, Cludder, Clowder, Kendle, or Kindle. Maybe 
 
 Clutter is a work in progress. It's a sample application designed to demonstrate how easy it is to build applications on [Holochain](https://github.com/holochain/holochain-proto).
 
-If you would like to simply download a build version of the latest Clutter, download and unzip the [latest release](https://github.com/holochain/clutter/releases) Or this [archive](https://drive.google.com/file/d/11xRHfLPJkHATFo0NJYg_rhX1i3JgUvCv/view?usp=sharing)
-
+If you would like to simply download a build version of the latest Clutter, download and unzip the [latest release](https://github.com/holochain/clutter/releases)
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
@@ -21,6 +20,8 @@ If you would like to simply download a build version of the latest Clutter, down
 **Prerequiste:** [Install holochain](http://developer.holochain.org/Install_Holochain) on your machine and make sure you do the step to set the $GOPATH.
 
 **Dependencies:** If you want to run Clutter locally, you will need `nodejs` (https://nodejs.org/en/) (LTS) installed, with `npm` or `yarn` (https://yarnpkg.com/lang/en/docs/install):
+
+The following commands will clone the latest build of clutter to your machine and then you will either install npm or yarn to build the UI for the app. (this)
 ```
 git clone https://github.com/Holochain/clutter.git
 cd clutter/ui-src
@@ -28,6 +29,8 @@ npm install # (or yarn install)
 npm run build # (or yarn build)
 cd ..
 ```
+
+## Running Clutter (this)
 Now if you want to run the app, you can run:
 ```
 hcdev web # if you want to just run it temporarily and test it out, with scratch data
