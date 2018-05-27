@@ -25,7 +25,7 @@ class Meow extends Component {
     // identify all hashtags and replace with links
     var splitMessage = message.split(/(\B#\w*[a-zA-Z]+\w*)/g);
     splitMessage.forEach(function(str, i) {
-      if(str.startsWith('#')){
+      if( str.startsWith('#') && str.length > 1 ){
         splitMessage[i] = <Link to={`/tag/${str.replace('#','')}`} className='hashtag'>{str}</Link>;
       }
     });
