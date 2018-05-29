@@ -277,7 +277,7 @@ function getFollow(params) {
 }
 
 function post(post) {
-  var key = commit('post', post); // Commits the post block to my source chain, assigns resulting hash to 'key'  
+  var key = commit('post', post); // Commits the post block to my source chain, assigns resulting hash to 'key'
 
   debug(
     '<mermaid>' +
@@ -307,7 +307,7 @@ function post(post) {
   hashtags.forEach(function(hashtag) {
     var anchorHash = anchor('hashtag', hashtag);
     commit('post_links', {
-      Links: [{ Base: anchorHash, Link: key, Tag: 'post'}]
+      Links: [{ Base: anchorHash, Link: key, Tag: 'post' }]
     });
   });
 
@@ -345,16 +345,15 @@ function getPostsBy(handles) {
 
 function getPostsWithHashtag(input) {
   var hashtag = input[0];
-  var targets = getLinks(anchor('hashtag', '#'+hashtag), 'post');
+  var targets = getLinks(anchor('hashtag', '#' + hashtag), 'post');
 
   var posts = [];
   targets.forEach(function(target) {
-    posts.push(getPost({postHash: target.Hash}))
+    posts.push(getPost({ postHash: target.Hash }));
   });
 
-  return posts; 
+  return posts;
 }
-
 
 function getPost(params) {
   var post,
@@ -399,7 +398,7 @@ function doGetLink(base, tag) {
 // returns a list of unique hashtags in the message string
 function getHashtags(message) {
   var tags = message.match(/\B#\w*[a-zA-Z]+\w*/g);
-  if(tags) {
+  if (tags) {
     var uniqueTags = tags.filter(function(value, index, self) {
       return self.indexOf(value) === index;
     }); //remove duplicates
@@ -407,7 +406,6 @@ function getHashtags(message) {
   } else {
     return [];
   }
-
 }
 
 function anchor(anchorType, anchorText) {

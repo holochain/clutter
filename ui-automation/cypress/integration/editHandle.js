@@ -27,7 +27,7 @@ describe('This section describes how to manage your Clutter handle', function() 
       }
     })
     cy.get('#handle').should('contain', 'phil')
-    cy.get('#changeHandleButton').click()
+    cy.get('#handle').click()
     cy
       .get('form')
       .get('#inputName')
