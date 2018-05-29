@@ -1,0 +1,26 @@
+{
+    "Tests":[
+      {
+          "Time": 12000,
+          "Convey":"Art tries to use handle 'Archer' which is already taken by Phil",
+          "Zome": "clutter",
+          "FnName": "newHandle",
+          "Input": "Archer",
+          "Output": "HandleInUse",
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
+          "Time":4000,
+          "Convey":"Art can retrieve a list of all handles",
+          "Zome": "clutter",
+          "FnName": "getHandles",
+          "Input": "Array.length==1",
+          "Output": true,
+          "Exposure":"public",
+          "Err": "",
+          "Raw": true
+      }
+    ]
+}

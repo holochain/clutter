@@ -1,0 +1,44 @@
+{
+  "Tests":[
+    {
+        "Convey":"Ask for an anchor that is not there",
+        "Zome": "anchors",
+        "FnName": "anchor",
+        "Input": {"anchorType": "test", "anchorText": "Phil"},
+        "Output": "%h1%",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"Ask for an anchor that is not there again...",
+        "Zome": "anchors",
+        "FnName": "anchor",
+        "Input": {"anchorType": "test2", "anchorText": "Will"},
+        "Output": "%h1%",
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"Check to see if an anchor exists",
+        "Zome": "anchors",
+        "FnName": "exists",
+        "Input": {"anchorType": "test", "anchorText": "Phil"},
+        "Output": true,
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    },
+    {
+        "Convey":"Check to see if an anchor does not exist",
+        "Zome": "anchors",
+        "FnName": "exists",
+        "Input": {"anchorType": "test", "anchorText": "Lucy"},
+        "Output": false,
+        "Exposure":"public",
+        "Err": "",
+        "Regexp": ""
+    }
+  ]
+}

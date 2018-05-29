@@ -1,7 +1,34 @@
 {
     "Tests":[
+      {
+          "Zome": "clutter",
+          "FnName": "appProperty",
+          "Input": "Agent_Handle",
+          "Output": "",
+          "Exposure":"public",
+          "Err": "",
+          "Regexp": ""
+      },
+      {
+            "Convey":"We can create a new handle",
+            "Zome": "clutter",
+            "FnName": "newHandle",
+            "Input": "buffaloBill",
+            "Output": "%h2%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
         {
-
+            "Zome": "clutter",
+            "FnName": "appProperty",
+            "Input": "Agent_Handle",
+            "Output": "buffaloBill",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+      {
             "Zome": "clutter",
             "FnName": "appProperty",
             "Input": "App_DNA_Hash",

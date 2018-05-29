@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 
 class NewMeow extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       newMeowText: ''
     }
   }
-  updateMeowText = (e) => {
+  updateMeowText = e => {
     this.setState({
       newMeowText: e.target.value
     })
   }
-  onMeowSubmit = (e) => {
+  onMeowSubmit = e => {
     e.preventDefault()
     if (!this.state.newMeowText) return
     this.props.post(this.state.newMeowText)
@@ -20,11 +20,22 @@ class NewMeow extends Component {
       newMeowText: ''
     })
   }
-  render () {
+  render() {
     return (
-      <form onSubmit={this.onMeowSubmit} id='meow-form' action=''>
-        <input value={this.state.newMeowText} onChange={this.updateMeowText} className='form-control' id='meow' name='meow' type='text' size='64' />
-        <button type='submit' className='btn btn-primary'>Meow</button>
+      <form onSubmit={this.onMeowSubmit} id="meow-form" action="">
+        <div className="form-group col-xs-12">
+          <textarea
+            value={this.state.newMeowText}
+            onChange={this.updateMeowText}
+            className="form-control"
+            id="meow"
+            name="meow"
+            wrap="soft"
+          />
+        </div>
+        <button type="submit" id="postMeow" className="btn btn-primary">
+          Meow
+        </button>
       </form>
     )
   }

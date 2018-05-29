@@ -4,7 +4,9 @@
   "description": "Cypress automation for Clutter",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "cypress:open": "CYPRESS_baseUrl=http://localhost:3000 cypress open",
+    "cypress:docker": "CYPRESS_baseUrl=http://localhost:4141 cypress open"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/Holochain/clutter/issues"
   },
-  "standard":  {
+  "standard": {
     "parser": "babel-eslint",
     "globals": [
       "describe",

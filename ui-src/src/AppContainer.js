@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import App from './App'
 import {
   appProperty,
+  getFirstName,
   getHandle,
   getHandles,
   getFollow,
@@ -14,27 +15,27 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    getMyAppKeyHash: () => {
-      dispatch(appProperty('App_Key_Hash'))
+    getFirstName: () => {
+      dispatch(getFirstName())
+    },
+    getMyHandle: () => {
+      dispatch(appProperty('Agent_Handle'))
     },
     getHandle: (userHash, isMe, then) => {
       dispatch(getHandle(userHash, isMe, then))
     },
-    getHandles: (then) => {
+    getHandles: then => {
       dispatch(getHandles(then))
     },
-    getFollow: (userHash, type, then) => {
-      dispatch(getFollow(userHash, type, then))
+    getFollow: (handle, type, then) => {
+      dispatch(getFollow(handle, type, then))
     },
-    getPostsBy: (userHashes, then) => {
-      dispatch(getPostsBy(userHashes, then))
+    getPostsBy: (handles, then) => {
+      dispatch(getPostsBy(handles, then))
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

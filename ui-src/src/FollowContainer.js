@@ -1,41 +1,39 @@
 import { connect } from 'react-redux'
 import Follow from './components/Follow'
-import {
-  follow,
-  unfollow
-} from './actions'
+import { follow, unfollow } from './actions'
 
 const mapStateToProps = state => {
+  // console.log('state.handles ' + JSON.stringify(state.handles))
   return {
-    following: Object.keys(state.follows).map(userHash => {
+    following: Object.keys(state.follows).map(handle => {
       return {
-        userHash,
-        handle: state.handles[userHash]
+        handle
       }
     }),
     notFollowing: Object.keys(state.handles)
-      .filter(userHash => !state.follows[userHash] && userHash !== state.me)
-      .map(userHash => {
+      .filter(
+        handleHash =>
+          !state.follows[state.handles[handleHash].handle] &&
+          state.handles[handleHash].handle !== state.handle
+      )
+      .map(handleHash => {
         return {
-          userHash,
-          handle: state.handles[userHash]
-       }
+          handleHash,
+          handle: state.handles[handleHash].handle
+        }
       })
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    follow: (userHash, then) => {
-      dispatch(follow(userHash, then))
+    follow: (handle, then) => {
+      dispatch(follow(handle, then))
     },
-    unfollow: (userHash, then) => {
-      dispatch(unfollow(userHash, then))
+    unfollow: (handle, then) => {
+      dispatch(unfollow(handle, then))
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Follow)
+export default connect(mapStateToProps, mapDispatchToProps)(Follow)
