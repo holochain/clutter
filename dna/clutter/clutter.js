@@ -344,7 +344,7 @@ function getPostsBy(handles) {
 }
 
 function getPostsWithHashtag(input) {
-  var hashtag = input[0];
+  var hashtag = input;
   var targets = getLinks(anchor('hashtag', '#' + hashtag), 'post');
 
   var posts = [];
