@@ -1,16 +1,19 @@
 {
-    "title": "Profile Schema",
-    "type": "object",
-    "properties": {
-	"firstName": {
-	    "type": "string"
-	},
-	"lastName": {
-	    "type": "string"
-	},
-	"nick": {
-	    "type": "string"
-	}
+  "title": "Profile Schema",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
     },
-    "required": ["nick"]
+    "lastName": {
+      "type": "string"
+    },
+    "nick": {
+      "type": "string"
+    },
+    "favourites": {
+      "type": "array"
+    }
+  },
+  "required": ["nick"]
 }

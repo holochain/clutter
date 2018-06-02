@@ -44,6 +44,11 @@
           "SchemaFile": "post.json"
         },
         {
+          "Name": "favourites",
+          "DataFormat": "json",
+          "Sharing": "public"
+        },
+        {
           "Name": "firstName",
           "DataFormat": "string",
           "Sharing": "public"
@@ -86,6 +91,16 @@
         },
         {
           "Name": "getFirstName",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "addFavourite",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "getFavourites",
           "CallingType": "string",
           "Exposure": "public"
         },

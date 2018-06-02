@@ -1,9 +1,65 @@
 var FIRST_NAME = 'firstName';
+var FAVOURITES = 'favourites';
 
 function getProperty(name) {
   // The definition of the function you intend to expose
   return property(name); // Retrieves a property of the holochain from the DNA (e.g., Name, Language
 }
+
+/**
+ * @param fave is the hash to add to favourites
+ * @return current array of favourites or null if input is invalid
+ **/
+function addFavourite(fave) {
+  var links;
+  debug('fave: ' + fave);
+  // TODO: validate fave is a hash
+  if (!RegExp(/Qm[a-zA-Z0-9]*/).test(fave)) {
+    return null;
+  }
+  try {
+    links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+  } catch (exception) {
+    debug('Error getting favourite link: ' + exception);
+  }
+  try {
+    var faveHash;
+    var faves = [];
+
+    if (links && links.length > 0) {
+      // the link is there and we append the fave to the existing list
+      faves = links[0].Entry;
+    }
+    faves.push(fave);
+    faveHash = commit(FAVOURITES, faves);
+
+    commit('profile_links', {
+      Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
+    });
+  } catch (exception) {
+    debug('Error committing faves: ' + exception);
+  }
+
+  return faves;
+}
+
+/**
+ * @param none
+ * @returns an array of favourites
+ **/
+function getFavourites() {
+  var links;
+  var faves = [];
+  try {
+    links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+    if (links && links.length > 0) faves = links[links.length - 1].Entry;
+  } catch (exception) {
+    debug('Error getting favourite link: ' + exception);
+  }
+  return faves;
+}
+
+function removeFavourite(fave) {}
 
 /**
  * @param data is a string representing a firstName
@@ -311,7 +367,7 @@ function post(post) {
     });
   });
 
-  // debug(key);
+  //debug(key);
   return key; // Returns the hash key of the new post to the calling function
 }
 
@@ -328,6 +384,7 @@ function postMod(params) {
 
 // TODO add "last 10" or "since timestamp" when query info is supported
 function getPostsBy(handles) {
+  debug(handles);
   // From the DHT, gets all "post" metadata entries linked from this userAddress
   var posts = [];
   for (var i = 0; i < handles.length; i++) {

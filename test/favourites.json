@@ -1,0 +1,82 @@
+{
+  "Tests": [
+    {
+      "Convey": "Setting up a new handle to test favourites",
+      "Zome": "clutter",
+      "FnName": "newHandle",
+      "Input": "lindsey",
+      "Output": "%h2%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Creating a new post to add later as a favourite",
+      "Zome": "clutter",
+      "FnName": "post",
+      "Input": {
+        "message": "here is a test post",
+        "stamp": 12345
+      },
+      "Output": "%h1%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":
+        "Adding the last post as a favourite returns an array of one favourite",
+      "Zome": "clutter",
+      "FnName": "addFavourite",
+      "Input": "%h1%",
+      "Output": "%h3%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Creating a new post to add later as a favourite",
+      "Zome": "clutter",
+      "FnName": "post",
+      "Input": {
+        "message": "here is another test post",
+        "stamp": 12345
+      },
+      "Output": "%h1%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":
+        "Adding another favourite (2 favourites) returns an array of 2 items",
+      "Zome": "clutter",
+      "FnName": "addFavourite",
+      "Input": "%h1%",
+      "Output": "%h7%,%h3%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Adding a favourite that is not a hash returns null",
+      "Zome": "clutter",
+      "FnName": "addFavourite",
+      "Input": "Hello!",
+      "Output": "null",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Retrieving favourites returns an array of 2 values",
+      "Zome": "clutter",
+      "FnName": "getFavourites",
+      "Input": "",
+      "Output": "%h7%,%h3%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    }
+  ]
+}
