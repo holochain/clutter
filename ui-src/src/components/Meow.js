@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import FavesContainer from '../FavesContainer'
 
 class Meow extends Component {
   componentDidMount() {
+    console.log(this.props)
     if (!this.props.post) {
       this.props.getPost()
     }
@@ -60,6 +62,7 @@ class Meow extends Component {
           {new Date(stamp).toString()}
         </Link>
         <div className="message">{this.urlify(message)}</div>
+        <FavesContainer hash={hash} />
       </div>
     )
   }

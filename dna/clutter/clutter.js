@@ -48,6 +48,7 @@ function addFavourite(fave) {
  * @returns an array of favourites
  **/
 function getFavourites() {
+  debug('getFavourites');
   var links;
   var faves = [];
   try {
