@@ -1,0 +1,71 @@
+{
+  "Tests": [
+    {
+      "Convey": "Extract a single hashtag from a message",
+      "Zome": "clutter",
+      "Raw": true,
+      "Input": "getHashtags('message has a #hashtag');",
+      "Output": "#hashtag"
+    },
+    {
+      "Convey":
+        "A message with 2 duplicate hashtags returns only one copy of each duplicate hashtag",
+      "Zome": "clutter",
+      "Raw": true,
+      "Input": "getHashtags('message has duplicate #hash #hash #tags #tags');",
+      "Output": "#hash,#tags"
+    },
+    {
+      "Convey":
+        "When no hashtags are present in a message, an empty string is returned",
+      "Zome": "clutter",
+      "Raw": true,
+      "Input": "getHashtags('no hash tags');",
+      "Output": ""
+    },
+
+    {
+      "Convey": "A handle is set up correctly",
+      "Zome": "clutter",
+      "FnName": "newHandle",
+      "Input": "hashmasterBill",
+      "Output": "%h2%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "A message with a hashtag is successfully created",
+      "Zome": "clutter",
+      "FnName": "post",
+      "Input": {
+        "message": "here is a test post with a #hashtag",
+        "stamp": 12345
+      },
+      "Output": "%h6%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Given a hashtag, a post containing that hashtag is returned",
+      "Comments": "Uses the link hash for the Anchor - %h6%",
+      "Zome": "clutter",
+      "FnName": "getPostsWithHashtag",
+      "Input": ["hashtag"],
+      "Output": [
+        {
+          "H": "%h6%",
+          "post": {
+            "message": "here is a test post with a #hashtag",
+            "stamp": 12345
+          },
+          "author": "hashmasterBill"
+        }
+      ],
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    }
+  ]
+}

@@ -125,6 +125,11 @@
           "Exposure": "public"
         },
         {
+          "Name": "getPostsWithHashtag",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
           "Name": "newHandle",
           "CallingType": "string",
           "Exposure": "public"

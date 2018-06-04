@@ -10,8 +10,36 @@ class Meow extends Component {
 
   // replace 'https' URLs with links
   urlify = text => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g
-    return text.replace(urlRegex, '<a target="_blank" href="$1">$1</a>')
+    const urlRegexSplit = text.split(/(https?:\/\/[^\s]+)/g)
+    return urlRegexSplit.map((str, i) => {
+      if (str.startsWith('https')) {
+        return (
+          <a key={i} target="_blank" href={str}>
+            {str}
+          </a>
+        )
+      } else if (str.includes('#')) {
+        return this.hashify(str)
+      }
+      return str
+    })
+  }
+
+  //identify all hashtags and replace with links
+  hashify = text => {
+    const message = text
+    const splitMessage = message.split(/(\B#\w*[a-zA-Z]+\w*)/g)
+    return splitMessage.map((str, i) => {
+      if (str.startsWith('#')) {
+        return (
+          <Link key={i} to={`/tag/${str.replace('#', '')}`} className="hashtag">
+            {str}
+          </Link>
+        )
+      } else {
+        return str
+      }
+    })
   }
 
   render() {
@@ -31,9 +59,7 @@ class Meow extends Component {
         <Link to={`/meow/${hash}`} className="stamp">
           {new Date(stamp).toString()}
         </Link>
-        <div className="message">
-          <div dangerouslySetInnerHTML={{ __html: this.urlify(message) }} />
-        </div>
+        <div className="message">{this.urlify(message)}</div>
       </div>
     )
   }
