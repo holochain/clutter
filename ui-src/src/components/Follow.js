@@ -26,12 +26,19 @@ class Follow extends Component {
         </div>
         <div className="panel-body">
           <div className="row">
+            <h3>Following</h3>
             <div
               class="panel-body"
               style={{ 'overflow-y': 'scroll', height: '100px' }}
             >
-              <div class="mid-width wrapItems" style={{ height: '100px' }}>
-                <h3>Following</h3>
+              <div
+                class="mid-width wrapItems"
+                style={{
+                  'padding-top': '10px',
+                  'background-color': 'pink',
+                  height: '100px'
+                }}
+              >
                 <ul id="following">
                   {this.props.following.length === 0 && (
                     <li>You currently aren't following anyone.</li>
@@ -42,7 +49,10 @@ class Follow extends Component {
                         <div className="col-xs-9">
                           <span className="handle">{user.handle}</span>
                         </div>
-                        <div className="col-xs-3">
+                        <div
+                          className="col-xs-3"
+                          style={{ 'padding-bottom': '10px' }}
+                        >
                           <button
                             type="button"
                             className="btn btn-default"
