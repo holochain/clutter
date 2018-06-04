@@ -132,6 +132,26 @@ export default function clutterApp(state = initialState, action) {
           ...newPosts
         }
       }
+    case A.GET_POSTS_HASHTAG:
+      console.log('GET_POSTS_HASHTAG ' + JSON.stringify(payload))  
+      const newPostsHashtag = payload.reduce((memo, item) => {
+        return {
+          ...memo,
+          [item.post.stamp]: {
+            ...item.post,
+            author: item.author,
+            message: item.post.message,
+            hash: item.H,
+          }
+        }
+      }, {})
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          ...newPostsHashtag
+        }
+      }    
     case A.GET_AGENT:
       return state
     case A.NEW_HANDLE:
