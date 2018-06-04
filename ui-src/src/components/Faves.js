@@ -1,13 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
-const Faves = ({ addFavourite, favourites, getFavourites, hash }) => {
+const Faves = ({
+  addFavourite,
+  favourites,
+  getFavourites,
+  hash,
+  removeFavourite
+}) => {
   return (
     <div>
-      {favourites.includes(hash) ? (
+      {favourites && favourites.includes(hash) ? (
         <button
-          onClick={() => getFavourites()}
+          onClick={() => removeFavourite()}
           className="glyphicon glyphicon-heart"
+          style={{ color: 'red' }}
         />
       ) : (
         <button
@@ -15,6 +21,7 @@ const Faves = ({ addFavourite, favourites, getFavourites, hash }) => {
             addFavourite(hash)
           }}
           className="glyphicon glyphicon-heart-empty"
+          style={{ color: 'red' }}
         />
       )}
     </div>

@@ -37,6 +37,11 @@ export default function clutterApp(state = initialState, action) {
         ...state,
         favourites: payload
       }
+    case A.REMOVE_FAVOURITE:
+      return {
+        ...state,
+        favourites: payload
+      }
     case A.SET_FIRST_NAME:
       return {
         ...state,

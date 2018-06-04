@@ -46,6 +46,17 @@ export function addFavourite(favourite) {
   }
 }
 
+export function removeFavourite(favourite) {
+  return {
+    type: REMOVE_FAVOURITE,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: favourite
+    }
+  }
+}
+
 export function getFavourites() {
   console.log('action get fave')
   return {
