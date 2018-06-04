@@ -11,7 +11,9 @@ const Faves = ({ addFavourite, favourites, getFavourites, hash }) => {
         />
       ) : (
         <button
-          onClick={() => addFavourite(hash)}
+          onClick={() => {
+            addFavourite(hash)
+          }}
           className="glyphicon glyphicon-heart-empty"
         />
       )}

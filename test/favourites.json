@@ -77,6 +77,36 @@
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
+    },
+    {
+      "Convey": "Removing a favourite that exists will return true",
+      "Zome": "clutter",
+      "FnName": "removeFavourite",
+      "Input": "%h3%",
+      "Output": true,
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Retrieving favourites list after a remove; one value remains",
+      "Zome": "clutter",
+      "FnName": "getFavourites",
+      "Input": "",
+      "Output": "%h4%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Removing a favourite that doesn't exist",
+      "Zome": "clutter",
+      "FnName": "removeFavourite",
+      "Input": "QmYkgGKX1q66Qtiryf8HqEFhXdbySFfLn2Yu2ETDfZpBAD",
+      "Output": false,
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
     }
   ]
 }

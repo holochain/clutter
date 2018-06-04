@@ -13,7 +13,8 @@ function getProperty(name) {
 function addFavourite(fave) {
   var links;
   debug('fave: ' + fave);
-  // TODO: validate fave is a hash
+
+  // validates if fave is a hash
   if (!RegExp(/Qm[a-zA-Z0-9]*/).test(fave)) {
     return null;
   }
@@ -24,12 +25,8 @@ function addFavourite(fave) {
   }
   try {
     var faveHash;
-    var faves = [];
+    var faves = getFavourites();
 
-    if (links && links.length > 0) {
-      // the link is there and we append the fave to the existing list
-      faves = links[0].Entry;
-    }
     faves.push(fave);
     faveHash = commit(FAVOURITES, faves);
 
@@ -39,7 +36,6 @@ function addFavourite(fave) {
   } catch (exception) {
     debug('Error committing faves: ' + exception);
   }
-
   return faves;
 }
 
@@ -48,7 +44,6 @@ function addFavourite(fave) {
  * @returns an array of favourites
  **/
 function getFavourites() {
-  debug('getFavourites');
   var links;
   var faves = [];
   try {
@@ -60,7 +55,29 @@ function getFavourites() {
   return faves;
 }
 
-function removeFavourite(fave) {}
+/**
+ * @param fave to remove
+ * @returns true if removed and false otherwise
+ **/
+function removeFavourite(fave) {
+  var faves = getFavourites();
+  var faveIndex = faves.indexOf(fave);
+
+  if (faveIndex < 0) return false;
+
+  try {
+    var oldLink = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+    var faveHash = update(
+      FAVOURITES,
+      faves.splice(faveIndex, 1),
+      oldLink[faveIndex].Hash
+    );
+  } catch (exception) {
+    debug('Error removing from favourites: ' + exception);
+    return false;
+  }
+  return true;
+}
 
 /**
  * @param data is a string representing a firstName

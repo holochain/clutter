@@ -105,6 +105,11 @@
           "Exposure": "public"
         },
         {
+          "Name": "removeFavourite",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
           "Name": "appProperty",
           "CallingType": "string",
           "Exposure": "public"
