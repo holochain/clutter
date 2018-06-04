@@ -8,6 +8,7 @@ import Modal from './components/Modal'
 import NewMeowContainer from './NewMeowContainer'
 import SettingsContainer from './SettingsContainer'
 import UserFeedContainer from './UserFeedContainer'
+import HashtagFeedContainer from './HashtagFeedContainer'
 
 class App extends Component {
   componentWillMount() {
@@ -71,10 +72,13 @@ class App extends Component {
                   <Route path="/editProfile" component={EditProfileContainer} />
                   <Route path="/follow" component={FollowContainer} />
                   <Route path="/meow/:meowHash" component={MeowContainer} />
+                  <Route
+                    path="/tag/:hashtag"
+                    component={HashtagFeedContainer}
+                  />
                 </div>
               </div>
             </div>
-
             <div className="col-sm-3">
               <div className="alphabox">
                 <div id="about">
