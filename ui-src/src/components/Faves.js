@@ -11,7 +11,7 @@ const Faves = ({
     <div>
       {favourites && favourites.includes(hash) ? (
         <button
-          onClick={() => removeFavourite()}
+          onClick={() => removeFavourite(hash)}
           className="glyphicon glyphicon-heart"
           style={{ color: 'red' }}
         />

@@ -28,8 +28,8 @@ function addFavourite(fave) {
     var faves = getFavourites();
 
     faves.push(fave);
-    faveHash = commit(FAVOURITES, faves);
 
+    faveHash = commit(FAVOURITES, faves);
     commit('profile_links', {
       Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
     });
@@ -48,6 +48,7 @@ function getFavourites() {
   var faves = [];
   try {
     links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+    debug('links ' + links[links.length]);
     if (links && links.length > 0) faves = links[links.length - 1].Entry;
   } catch (exception) {
     debug('Error getting favourite link: ' + exception);
@@ -57,26 +58,35 @@ function getFavourites() {
 
 /**
  * @param fave to remove
- * @returns true if removed and false otherwise
+ * @returns the list of favourites
  **/
 function removeFavourite(fave) {
+  debug('to remove: ' + fave);
   var faves = getFavourites();
   var faveIndex = faves.indexOf(fave);
+  debug('faveIndex ' + faveIndex);
 
-  if (faveIndex < 0) return false;
+  if (faveIndex < 0) return faves;
 
   try {
-    var oldLink = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
-    var faveHash = update(
-      FAVOURITES,
-      faves.splice(faveIndex, 1),
-      oldLink[faveIndex].Hash
-    );
+    debug(faves);
+    faves.splice(faveIndex, 1);
+    debug(faves);
+    faveHash = commit(FAVOURITES, faves);
+    commit('profile_links', {
+      Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
+    });
+    // var oldLink = getLinks(App.Agent.Hash, FAVOURITES);
+    // debug('length ' + get(oldLink[oldLink.length - 1].Hash));
+    // var faveHash = update(
+    //   FAVOURITES,
+    //   faves.splice(faveIndex, 1),
+    //   oldLink[faveIndex].Hash
+    // );
   } catch (exception) {
     debug('Error removing from favourites: ' + exception);
-    return false;
   }
-  return true;
+  return getFavourites();
 }
 
 /**

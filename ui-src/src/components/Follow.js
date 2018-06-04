@@ -51,6 +51,7 @@ class Follow extends Component {
               })}
             </ul>
           </div>
+
           <div className="row">
             <h3 id="myModalLabel">Follow someone</h3>
             <div className="col-xs-12">

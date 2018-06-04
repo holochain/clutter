@@ -62,6 +62,7 @@ class Meow extends Component {
           {new Date(stamp).toString()}
         </Link>
         <div className="message">{this.urlify(message)}</div>
+        {hash}
         <FavesContainer hash={hash} />
       </div>
     )

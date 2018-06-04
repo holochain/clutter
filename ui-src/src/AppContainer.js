@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import App from './App'
 import {
   appProperty,
-  getFavourites,
   getFirstName,
   getHandle,
   getHandles,
@@ -18,9 +17,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getFavourites: () => {
-      dispatch(getFavourites())
-    },
     getFirstName: () => {
       dispatch(getFirstName())
     },

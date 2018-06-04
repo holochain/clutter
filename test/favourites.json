@@ -79,11 +79,12 @@
       "Regexp": ""
     },
     {
-      "Convey": "Removing a favourite that exists will return true",
+      "Convey":
+        "Removing a favourite that exists from a list of 2 will the remaining favourite",
       "Zome": "clutter",
       "FnName": "removeFavourite",
       "Input": "%h3%",
-      "Output": true,
+      "Output": "%h4%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -99,11 +100,12 @@
       "Regexp": ""
     },
     {
-      "Convey": "Removing a favourite that doesn't exist",
+      "Convey":
+        "Removing a favourite that doesn't exist returns an unchanged list of favourites",
       "Zome": "clutter",
       "FnName": "removeFavourite",
       "Input": "QmYkgGKX1q66Qtiryf8HqEFhXdbySFfLn2Yu2ETDfZpBAD",
-      "Output": false,
+      "Output": "%h4%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
