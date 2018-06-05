@@ -1,0 +1,13 @@
+{
+  "title": "getPost Input Schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string"
+    }
+  },
+  "required": ["type", "from"]
+}

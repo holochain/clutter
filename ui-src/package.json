@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:4141",
   "dependencies": {
+    "@holochain/dna-to-openapi": "^0.1.0",
     "axios": "^0.17.1",
     "hc-redux-middleware": "^1.0.3",
     "prop-types": "^15.6.0",
@@ -19,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && node copy-to-ui.js",
+    "build": "react-scripts build && dna-to-openapi --path .. --doc ./public/clutter-api-docs.html && node copy-to-ui.js",
     "test": "react-scripts test --env=jsdom --debug",
     "eject": "react-scripts eject",
     "standard": "standard --fix",

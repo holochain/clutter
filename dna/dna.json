@@ -77,81 +77,104 @@
         {
           "Name": "getProperty",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "setFirstName",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getFirstName",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "appProperty",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "follow",
+          "Description": "Begin following another user by their handle.\n## returns\nThe follow links hash.",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "unfollow",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "post",
+          "Description": "Post a message with your currently set handle.\n## returns\nThe post entry hash.",
           "CallingType": "json",
+          "InputSchemaFile": "post.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getPost",
           "CallingType": "json",
+          "InputSchemaFile": "input-get-post.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "postMod",
           "CallingType": "json",
+          "InputSchemaFile": "input-post-mod.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getPostsBy",
           "CallingType": "json",
+          "InputSchemaFile": "input-get-posts-by.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getPostsWithHashtag",
-          "CallingType": "json",
+          "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "newHandle",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getHandle",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getAgent",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getFollow",
           "CallingType": "json",
+          "InputSchemaFile": "input-get-follow.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getHandles",
-          "CallingType": "json",
+          "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         }
       ]
@@ -180,16 +203,21 @@
         {
           "Name": "anchor",
           "CallingType": "json",
+          "InputSchemaFile": "anchor.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "exists",
           "CallingType": "json",
+          "InputSchemaFile": "anchor.json",
+          "ReturnType": "string",
           "Exposure": "public"
         },
         {
           "Name": "anchors",
           "CallingType": "string",
+          "ReturnType": "string",
           "Exposure": "public"
         }
       ]
