@@ -1,0 +1,22 @@
+{
+  "title": "Post Schema",
+  "type": "object",
+  "properties": {
+    "post": {
+      "type": "object",
+      "properties": {
+        "message": {
+            "type": "string"
+        },
+        "stamp": {
+            "type": "integer"
+        }
+      },
+      "required": ["message", "stamp"]
+    },
+    "hash": {
+      "type": "string"
+    }
+  },
+  "required": ["post", "hash"]
+}

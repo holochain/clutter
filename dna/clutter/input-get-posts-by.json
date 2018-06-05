@@ -1,0 +1,7 @@
+{
+  "title": "getPostsBy Input Schema",
+  "type": "array",
+  "items": {
+    "type": "string"
+  }
+}

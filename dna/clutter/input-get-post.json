@@ -1,0 +1,10 @@
+{
+  "title": "getPost Input Schema",
+  "type": "object",
+  "properties": {
+    "postHash": {
+        "type": "string"
+    }
+  },
+  "required": ["postHash"]
+}
