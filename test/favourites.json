@@ -29,7 +29,7 @@
       "Zome": "clutter",
       "FnName": "addFavourite",
       "Input": "%h1%",
-      "Output": "%h3%",
+      "Output": "%h3%, %h4%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""

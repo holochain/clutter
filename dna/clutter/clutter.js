@@ -26,9 +26,6 @@ function addFavourite(fave) {
     var faveHash;
     var faves = getFavourites();
 
-    // add a random value to the array to maintain uniqueness
-    // for the purposes of using update
-    faves[0] = makeHash(FAVOURITES, Math.random());
     faves.push(fave);
 
     // if the link doesn't exist, create it:
@@ -38,7 +35,7 @@ function addFavourite(fave) {
         Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
       });
     } else {
-      updateFavourite(faves);
+      faves = updateFavourite(faves);
     }
   } catch (exception) {
     debug('Error committing faves: ' + exception);
@@ -76,22 +73,28 @@ function removeFavourite(fave) {
 
   try {
     var removed = faves.splice(faveIndex, 1);
-    updateFavourite(faves);
+    faves = updateFavourite(faves);
   } catch (exception) {
     debug('Error removing from favourites: ' + exception);
   }
+
   return faves;
 }
 
 /**
  * Helper function to update the fave array and the associated links:
  * @param faves is the array of favourites we want stored
- * @return none
+ * @return updated array of faves
  **/
 function updateFavourite(faves) {
   try {
     var links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
     var oldHash = links[links.length - 1].Hash;
+
+    // add a random value to the array to maintain uniqueness
+    // for the purposes of using update
+    faves.unshift(makeHash(FAVOURITES, Math.random()));
+
     var faveHash = update(FAVOURITES, faves, oldHash);
 
     commit('profile_links', {
@@ -117,6 +120,8 @@ function updateFavourite(faves) {
   } catch (exception) {
     debug('Error updating favourites: ' + exception);
   }
+  faves.splice(0, 1);
+  return faves;
 }
 
 /**
