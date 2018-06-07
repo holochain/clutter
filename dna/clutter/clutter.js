@@ -12,7 +12,6 @@ function getProperty(name) {
  **/
 function addFavourite(fave) {
   var links;
-  debug('fave: ' + fave);
 
   // validates if fave is a hash
   if (!RegExp(/Qm[a-zA-Z0-9]*/).test(fave)) {
@@ -26,34 +25,24 @@ function addFavourite(fave) {
   try {
     var faveHash;
     var faves = getFavourites();
-    if (faves.indexOf(fave) >= 0) return faves;
 
-    debug('adding to these faves ' + faves);
-    debug(JSON.stringify(links));
+    // add a random value to the array to maintain uniqueness
+    // for the purposes of using update
+    faves[0] = Math.random() + 'abc';
     faves.push(fave);
 
-    if (!links || links < 1) {
-      debug('LINK DNE, so added');
+    // if the link doesn't exist, create it:
+    if (!links || links.length < 1) {
       faveHash = commit(FAVOURITES, faves);
-      debug('fave hash ' + faveHash);
       commit('profile_links', {
         Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
       });
     } else {
-      //var oldHash = makeHash(FAVOURITES, getFavourites());
-      var oldHash = links[links.length - 1].Hash;
-      debug('getting hash to add: ' + oldHash);
-
-      // var faveHash = commit(FAVOURITES, faves);
-      // commit('profile_links', {
-      //   Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
-      // });
-      updateFavourite(faves, oldHash);
+      updateFavourite(faves);
     }
   } catch (exception) {
     debug('Error committing faves: ' + exception);
   }
-  debug(faves);
   return faves;
 }
 
@@ -66,18 +55,12 @@ function getFavourites() {
   var faves = [];
   try {
     links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
-    var flinks = getLinks(App.Agent.Hash, FAVOURITES);
-    // debug('link hash ' + links[0].Hash);
-    // debug('links: ' + get(links[0].Hash));
     if (links && links.length > 0) {
-      debug('flinks ' + get(flinks[0].Hash));
-      faves = get(flinks[0].Hash);
-      //faves = links[links.length - 1].Entry;
+      faves = links[links.length - 1].Entry;
     }
   } catch (exception) {
     debug('Error getting favourite link: ' + exception);
   }
-  debug(faves);
   return faves;
 }
 
@@ -86,23 +69,14 @@ function getFavourites() {
  * @returns the list of favourites
  **/
 function removeFavourite(fave) {
-  debug('to remove: ' + fave);
-  var faves = getLinks(App.Agent.Hash, FAVOURITES, { Load: true })[0].Entry; //getFavourites();
+  var faves = getFavourites();
   var faveIndex = faves.indexOf(fave);
-  debug('faveIndex ' + faveIndex);
 
   if (faveIndex < 0) return faves;
 
   try {
-    debug(faves);
-    var links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
-    var oldHash = links[links.length - 1].Hash;
-    debug('oldHash ' + oldHash);
-    debug('oldHash get ' + get(oldHash));
     var removed = faves.splice(faveIndex, 1);
-    debug(faves);
-
-    updateFavourite(faves, oldHash);
+    updateFavourite(faves);
   } catch (exception) {
     debug('Error removing from favourites: ' + exception);
   }
@@ -110,13 +84,15 @@ function removeFavourite(fave) {
 }
 
 /**
- * @param faves is the array of favourites we want stored and
- * oldHash is the hash for FAVOURITES
+ * Helper function to update the fave array and the associated links:
+ * @param faves is the array of favourites we want stored
  * @return none
  **/
-function updateFavourite(faves, oldHash) {
+function updateFavourite(faves) {
   try {
-    var delHash = remove(oldHash, 'deleted');
+    var links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+    var oldHash = links[links.length - 1].Hash;
+    var faveHash = update(FAVOURITES, faves, oldHash);
 
     commit('profile_links', {
       Links: [
@@ -129,11 +105,15 @@ function updateFavourite(faves, oldHash) {
       ]
     });
 
-    var faveHash = commit(FAVOURITES, faves);
     commit('profile_links', {
-      Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
+      Links: [
+        {
+          Base: App.Agent.Hash,
+          Link: faveHash,
+          Tag: FAVOURITES
+        }
+      ]
     });
-    debug('after update: ' + getFavourites());
   } catch (exception) {
     debug('Error updating favourites: ' + exception);
   }
