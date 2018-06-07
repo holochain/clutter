@@ -28,7 +28,7 @@ function addFavourite(fave) {
 
     // add a random value to the array to maintain uniqueness
     // for the purposes of using update
-    faves[0] = Math.random() + 'abc';
+    faves[0] = makeHash(FAVOURITES, Math.random());
     faves.push(fave);
 
     // if the link doesn't exist, create it:
