@@ -29,7 +29,7 @@
       "Zome": "clutter",
       "FnName": "addFavourite",
       "Input": "%h1%",
-      "Output": "%h3%, %h4%",
+      "Output": "%h3%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -53,17 +53,7 @@
       "Zome": "clutter",
       "FnName": "addFavourite",
       "Input": "%h1%",
-      "Output": "%h6%,%h2%",
-      "Exposure": "public",
-      "Err": "",
-      "Regexp": ""
-    },
-    {
-      "Convey": "Retrieving favourites list after a adding: 2 items returned",
-      "Zome": "clutter",
-      "FnName": "getFavourites",
-      "Input": "",
-      "Output": "%h6%,%h2%",
+      "Output": "%h8%,%h4%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -79,32 +69,12 @@
       "Regexp": ""
     },
     {
-      "Convey": "Retrieving favourites returns an array of 2 values",
-      "Zome": "clutter",
-      "FnName": "getFavourites",
-      "Input": "",
-      "Output": "%h6%,%h2%",
-      "Exposure": "public",
-      "Err": "",
-      "Regexp": ""
-    },
-    {
       "Convey":
         "Removing a favourite that exists from a list of 2 will leave the one favourite",
       "Zome": "clutter",
       "FnName": "removeFavourite",
-      "Input": "%h2%",
-      "Output": "%h8%",
-      "Exposure": "public",
-      "Err": "",
-      "Regexp": ""
-    },
-    {
-      "Convey": "Retrieving favourites list after a remove; one value remains",
-      "Zome": "clutter",
-      "FnName": "getFavourites",
-      "Input": "",
-      "Output": "%h8%",
+      "Input": "%h4%",
+      "Output": "%h11%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -115,7 +85,7 @@
       "Zome": "clutter",
       "FnName": "removeFavourite",
       "Input": "QmYkgGKX1q66Qtiryf8HqEFhXdbySFfLn2Yu2ETDfZpBAD",
-      "Output": "%h8%",
+      "Output": "%h11%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
