@@ -53,7 +53,17 @@
       "Zome": "clutter",
       "FnName": "addFavourite",
       "Input": "%h1%",
-      "Output": "%h7%,%h3%",
+      "Output": "%h6%,%h2%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Retrieving favourites list after a adding: 2 items returned",
+      "Zome": "clutter",
+      "FnName": "getFavourites",
+      "Input": "",
+      "Output": "%h6%,%h2%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -73,18 +83,18 @@
       "Zome": "clutter",
       "FnName": "getFavourites",
       "Input": "",
-      "Output": "%h7%,%h3%",
+      "Output": "%h6%,%h2%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
     },
     {
       "Convey":
-        "Removing a favourite that exists from a list of 2 will the remaining favourite",
+        "Removing a favourite that exists from a list of 2 will leave the one favourite",
       "Zome": "clutter",
       "FnName": "removeFavourite",
-      "Input": "%h3%",
-      "Output": "%h4%",
+      "Input": "%h2%",
+      "Output": "%h8%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -94,7 +104,7 @@
       "Zome": "clutter",
       "FnName": "getFavourites",
       "Input": "",
-      "Output": "%h4%",
+      "Output": "%h8%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
@@ -105,7 +115,7 @@
       "Zome": "clutter",
       "FnName": "removeFavourite",
       "Input": "QmYkgGKX1q66Qtiryf8HqEFhXdbySFfLn2Yu2ETDfZpBAD",
-      "Output": "%h4%",
+      "Output": "%h8%",
       "Exposure": "public",
       "Err": "",
       "Regexp": ""
