@@ -1,12 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const Faves = ({
-  addFavourite,
-  favourites,
-  getFavourites,
-  hash,
-  removeFavourite
-}) => {
+const Faves = ({ addFavourite, favourites, hash, removeFavourite }) => {
   return (
     <div>
       {favourites && favourites.includes(hash) ? (
@@ -26,6 +21,13 @@ const Faves = ({
       )}
     </div>
   )
+}
+
+Faves.propTypes = {
+  addFavourite: PropTypes.func.isRequired,
+  favourites: PropTypes.array,
+  hash: PropTypes.String,
+  removeFavourite: PropTypes.func.isRequired
 }
 
 export default Faves

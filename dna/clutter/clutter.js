@@ -84,7 +84,6 @@ function removeFavourite(fave) {
   } catch (exception) {
     debug('Error removing from favourites: ' + exception);
   }
-  debug(faves);
   return faves;
 }
 

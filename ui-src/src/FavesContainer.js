@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Faves from './components/Faves'
-import { addFavourite, getFavourites, removeFavourite } from './actions'
+import { addFavourite, removeFavourite } from './actions'
 
 const mapStateToProps = state => {
   return {
@@ -12,9 +12,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addFavourite: favouriteHash => {
       dispatch(addFavourite(favouriteHash))
-    },
-    getFavourites: () => {
-      dispatch(getFavourites())
     },
     removeFavourite: favouriteHash => {
       dispatch(removeFavourite(favouriteHash))
