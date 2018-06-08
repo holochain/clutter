@@ -23,10 +23,13 @@ const Faves = ({ addFavourite, favourites, hash, removeFavourite }) => {
   )
 }
 
+Faves.defaultProps = {
+  hash: '',
+  favourites: []
+}
+
 Faves.propTypes = {
   addFavourite: PropTypes.func.isRequired,
-  favourites: PropTypes.array,
-  hash: PropTypes.String,
   removeFavourite: PropTypes.func.isRequired
 }
 

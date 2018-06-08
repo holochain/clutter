@@ -4,7 +4,6 @@ import FavesContainer from '../FavesContainer'
 
 class Meow extends Component {
   componentDidMount() {
-    console.log(this.props)
     if (!this.props.post) {
       this.props.getPost()
     }

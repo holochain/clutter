@@ -90,14 +90,14 @@ class Follow extends Component {
                 )
               })}
             </ul>
-            <div class="row">
-              <div class="col-sm-1" />
-              <div class="col-sm-4" />
-              <div class="col-sm-6">
+            <div className="row">
+              <div className="col-sm-1" />
+              <div className="col-sm-4" />
+              <div className="col-sm-6">
                 <button
                   type="button"
                   id="close"
-                  class="btn btn-primary pull-right"
+                  className="btn btn-primary pull-right"
                   onClick={() => this.props.history.push('/')}
                 >
                   Close
