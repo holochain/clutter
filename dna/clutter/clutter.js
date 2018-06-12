@@ -11,37 +11,44 @@ function getProperty(name) {
  * @return data which is a 64-bit encoded image
  **/
 function setProfilePic(data) {
-  var profilePicHash;
+  return setProfileProp(data, PROFILE_PIC);
+}
+
+/**
+ * @param data is a string representing a profile data field
+ * @return data which is a profile data field
+ **/
+function setProfileProp(data, tag) {
+  var profilePropHash;
   var links;
   try {
     // Check if profile pic has been set and update if so.
-    links = getLinks(App.Agent.Hash, PROFILE_PIC, { Load: true });
+    links = getLinks(App.Agent.Hash, tag, { Load: true });
   } catch (exception) {
     return 'Error getting links: ' + exception;
   }
   try {
     if (links && links.length > 0) {
-      profilePicHash = update(PROFILE_PIC, data, links[0].Hash);
+      profilePropHash = update(tag, data, links[0].Hash);
 
       // Delete the old hash, so we only ever have one record
-      //var delHash = remove(links[0].Hash, 'delete Message');
       commit('profile_links', {
         Links: [
           {
             Base: App.Agent.Hash,
             Link: links[0].Hash,
-            Tag: PROFILE_PIC,
+            Tag: tag,
             LinkAction: HC.LinkAction.Del
           }
         ]
       });
     } else {
       // Otherwise add it for the first time:
-      profilePicHash = commit(PROFILE_PIC, data);
+      profilePropHash = commit(tag, data);
     }
     // On the DHT, put a link from my hash to the hash of firstName
     commit('profile_links', {
-      Links: [{ Base: App.Agent.Hash, Link: profilePicHash, Tag: PROFILE_PIC }]
+      Links: [{ Base: App.Agent.Hash, Link: profilePropHash, Tag: tag }]
     });
   } catch (exception) {
     return 'Error updating or committing: ' + exception;
