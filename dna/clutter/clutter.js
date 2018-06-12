@@ -1,8 +1,52 @@
 var FIRST_NAME = 'firstName';
+var PROFILE_PIC = 'profilePic';
 
 function getProperty(name) {
   // The definition of the function you intend to expose
   return property(name); // Retrieves a property of the holochain from the DNA (e.g., Name, Language
+}
+
+/**
+ * @param data is a string representing a 64-bit encoded image
+ * @return data which is a 64-bit encoded image
+ **/
+function setProfilePic(data) {
+  var profilePicHash;
+  var links;
+  try {
+    // Check if profile pic has been set and update if so.
+    links = getLinks(App.Agent.Hash, PROFILE_PIC, { Load: true });
+  } catch (exception) {
+    return 'Error getting links: ' + exception;
+  }
+  try {
+    if (links && links.length > 0) {
+      profilePicHash = update(PROFILE_PIC, data, links[0].Hash);
+
+      // Delete the old hash, so we only ever have one record
+      //var delHash = remove(links[0].Hash, 'delete Message');
+      commit('profile_links', {
+        Links: [
+          {
+            Base: App.Agent.Hash,
+            Link: links[0].Hash,
+            Tag: PROFILE_PIC,
+            LinkAction: HC.LinkAction.Del
+          }
+        ]
+      });
+    } else {
+      // Otherwise add it for the first time:
+      profilePicHash = commit(PROFILE_PIC, data);
+    }
+    // On the DHT, put a link from my hash to the hash of firstName
+    commit('profile_links', {
+      Links: [{ Base: App.Agent.Hash, Link: profilePicHash, Tag: PROFILE_PIC }]
+    });
+  } catch (exception) {
+    return 'Error updating or committing: ' + exception;
+  }
+  return data;
 }
 
 /**

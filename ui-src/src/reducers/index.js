@@ -17,6 +17,8 @@ const initialState = {
   handle: '',
   // active users name
   firstName: '',
+  // active users profile name
+  profilePic: '',
   // active users userHash
   me: ''
 }
@@ -29,6 +31,11 @@ export default function clutterApp(state = initialState, action) {
       return {
         ...state,
         firstName: payload
+      }
+    case A.SET_PROFILE_PIC:
+      return {
+        ...state,
+        profilePic: payload
       }
     case A.GET_FIRST_NAME:
       return {
@@ -133,7 +140,7 @@ export default function clutterApp(state = initialState, action) {
         }
       }
     case A.GET_POSTS_HASHTAG:
-      console.log('GET_POSTS_HASHTAG ' + JSON.stringify(payload))  
+      console.log('GET_POSTS_HASHTAG ' + JSON.stringify(payload))
       const newPostsHashtag = payload.reduce((memo, item) => {
         return {
           ...memo,
@@ -141,7 +148,7 @@ export default function clutterApp(state = initialState, action) {
             ...item.post,
             author: item.author,
             message: item.post.message,
-            hash: item.H,
+            hash: item.H
           }
         }
       }, {})
@@ -151,7 +158,7 @@ export default function clutterApp(state = initialState, action) {
           ...state.posts,
           ...newPostsHashtag
         }
-      }    
+      }
     case A.GET_AGENT:
       return state
     case A.NEW_HANDLE:

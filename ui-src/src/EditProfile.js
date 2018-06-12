@@ -10,9 +10,9 @@ class EditProfile extends Component {
     }
   }
   componentWillMount() {
-    const { firstName, getFirstName } = this.props
+    const { firstName, getFirstName, profilePic } = this.props
     getFirstName()
-    this.setState({ newNameText: firstName })
+    this.setState({ newNameText: firstName, profilePic: profilePic })
   }
   componentDidUpdate(prevProps) {
     const { firstName } = this.props
@@ -27,11 +27,13 @@ class EditProfile extends Component {
   }
   onHandleSubmit = e => {
     const { newNameText, profilePic } = this.state
-    const { history, firstName, setFirstName } = this.props
+    const { history, firstName, setFirstName, setProfilePic } = this.props
 
     e.preventDefault()
 
-    console.log(profilePic)
+    if (profilePic) {
+      setProfilePic(profilePic)
+    }
 
     if (!newNameText) return
     if (!(newNameText === firstName)) setFirstName(newNameText)
@@ -41,16 +43,10 @@ class EditProfile extends Component {
   }
 
   readBlob = file => {
-    const reader = new FileReader()
     const input = file.target
-    let dataURL = this.upload(input.files[0])
-
-    // reader.onload = function() {
-    //   dataURL = reader.result
-    // }
-    // reader.readAsDataURL(input.files[0])
-
-    this.setState({ profilePic: dataURL })
+    this.upload(input.files[0]).then(dataURL => {
+      this.setState({ profilePic: dataURL })
+    })
   }
 
   upload = file =>
