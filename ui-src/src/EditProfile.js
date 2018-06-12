@@ -5,7 +5,8 @@ class EditProfile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      newNameText: ''
+      newNameText: '',
+      profilePic: ''
     }
   }
   componentWillMount() {
@@ -25,9 +26,12 @@ class EditProfile extends Component {
     })
   }
   onHandleSubmit = e => {
-    const { newNameText } = this.state
+    const { newNameText, profilePic } = this.state
     const { history, firstName, setFirstName } = this.props
+
     e.preventDefault()
+
+    console.log(profilePic)
 
     if (!newNameText) return
     if (!(newNameText === firstName)) setFirstName(newNameText)
@@ -35,6 +39,30 @@ class EditProfile extends Component {
     // Redirect user to main page
     history.push('/')
   }
+
+  readBlob = file => {
+    const reader = new FileReader()
+    const input = file.target
+    let dataURL = this.upload(input.files[0])
+
+    // reader.onload = function() {
+    //   dataURL = reader.result
+    // }
+    // reader.readAsDataURL(input.files[0])
+
+    this.setState({ profilePic: dataURL })
+  }
+
+  upload = file =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader()
+
+      reader.onload = e => {
+        resolve(e.target.result)
+      }
+
+      reader.readAsDataURL(file)
+    })
 
   render() {
     const { handle } = this.props
@@ -68,16 +96,18 @@ class EditProfile extends Component {
                 />
               </div>
 
-              {/**<div className="form-group">
-                  <div className="form-group col-xs-10">
-                    <label>Profile Picture</label>
-                    <input
-                      type="file"
-                      className="form-control-file"
-                      id="exampleFormControlFile1"
-                    />
-                  </div>
-      </div>**/}
+              <div className="form-group">
+                <div className="form-group col-xs-10">
+                  <label>Profile Picture</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={this.readBlob}
+                    hidden
+                    id="image"
+                  />
+                </div>
+              </div>
             </div>
             <div className="form-group col-xs-6">
               <button
