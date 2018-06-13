@@ -15,6 +15,7 @@ class App extends Component {
     // this fetches the hash which represents the active users userHash
     this.props.getMyHandle()
     this.props.getHandles()
+    this.props.getProfilePic()
     this.props.getFirstName()
     this.interval = setInterval(this.props.getHandles, 2000)
   }
