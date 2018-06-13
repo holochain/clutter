@@ -5,6 +5,7 @@ const initialState = {
   appProperties: {},
   // posts with 'stamp' as their key
   posts: {},
+  modalIsOpen: true,
   handles: {
     // userHash: handle
   },
@@ -14,14 +15,31 @@ const initialState = {
   },
   // active users handle
   handle: '',
+  // active users name
+  firstName: '',
   // active users userHash
   me: ''
 }
 
-export default function clutterApp (state = initialState, action) {
+export default function clutterApp(state = initialState, action) {
   const { type, meta, payload } = action
   // console.log('reducer type ' + type)
   switch (type) {
+    case A.SET_FIRST_NAME:
+      return {
+        ...state,
+        firstName: payload
+      }
+    case A.GET_FIRST_NAME:
+      return {
+        ...state,
+        firstName: payload
+      }
+    case A.TOGGLE_MODAL:
+      return {
+        ...state,
+        modalIsOpen: !state.modalIsOpen
+      }
     case A.GET_HANDLE:
       return {
         ...state,
@@ -48,7 +66,7 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.GET_FOLLOW:
-    // console.log('follows reducer ' + JSON.stringify(payload))
+      // console.log('follows reducer ' + JSON.stringify(payload))
       const newFollows = payload.reduce((memo, handleHash) => {
         return {
           ...memo,
@@ -63,7 +81,7 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.APP_PROPERTY:
-      // console.log('APP_PROPERTY' + meta.data + 'payload ' + payload)
+      //console.log("APP_PROPERTY" + meta.data + "payload " + payload);
       return {
         ...state,
         appProperties: {
@@ -96,7 +114,7 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.GET_POSTS_BY:
-    console.log('GET_POSTS_BY ' + JSON.stringify(payload))
+      console.log('GET_POSTS_BY ' + JSON.stringify(payload))
       const newPosts = payload.reduce((memo, item) => {
         return {
           ...memo,
@@ -114,11 +132,31 @@ export default function clutterApp (state = initialState, action) {
           ...newPosts
         }
       }
+    case A.GET_POSTS_HASHTAG:
+      console.log('GET_POSTS_HASHTAG ' + JSON.stringify(payload))  
+      const newPostsHashtag = payload.reduce((memo, item) => {
+        return {
+          ...memo,
+          [item.post.stamp]: {
+            ...item.post,
+            author: item.author,
+            message: item.post.message,
+            hash: item.H,
+          }
+        }
+      }, {})
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          ...newPostsHashtag
+        }
+      }    
     case A.GET_AGENT:
       return state
     case A.NEW_HANDLE:
-    // console.log('HandleInUse' + payload)
-      if(payload === 'HandleInUse'){
+      //console.log("HandleInUse" + payload);
+      if (payload === 'HandleInUse') {
         return {
           ...state,
           handleTaken: true
@@ -135,8 +173,8 @@ export default function clutterApp (state = initialState, action) {
         }
       }
     case A.UNFOLLOW:
-      const copy = {...state}
-      const copyOfFollows = {...state.follows}
+      const copy = { ...state }
+      const copyOfFollows = { ...state.follows }
       delete copyOfFollows[meta.data]
       copy.follows = copyOfFollows
       return copy

@@ -3,7 +3,6 @@ node_modules/
 videos/
 .DS_Store
 screenshots/
-ui/
 build/
 npm-debug.log
 yarn.lock

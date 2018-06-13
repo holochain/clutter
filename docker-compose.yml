@@ -16,7 +16,7 @@ services:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/clutter"
-    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -no-nat-upnp -port=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 -mdns=true web 3141"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -DHTport=6001 -agentID=lucy -bootstrapServer=bootstrap:3142 web 3141"
 
   clutter2:
     image: holochain/holochain-proto:develop
@@ -26,7 +26,7 @@ services:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/clutter"
-    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -no-nat-upnp -port=6002 -agentID=phil -bootstrapServer=bootstrap:3142 -mdns=true web 4141"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -DHTport=6002 -agentID=phil -bootstrapServer=bootstrap:3142 web 4141"
 
   clutter3:
     image: holochain/holochain-proto:develop
@@ -36,4 +36,14 @@ services:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/clutter"
-    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -no-nat-upnp -port=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 -mdns=true web 5141"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -DHTport=6003 -agentID=clarence -bootstrapServer=bootstrap:3142 web 5141"
+
+  clutter4:
+    image: holochain/holochain-proto:develop
+    ports:
+      - "6141:6141"
+    depends_on:
+      - bootstrap
+    volumes:
+      - "${TARGETDIR}:/clutter"
+    command: bash -c "cd /clutter; HCLOG_DHT_ENABLE=1 hcdev -DHTport=6004 -agentID=lindsey -bootstrapServer=bootstrap:3142 web 6141"
