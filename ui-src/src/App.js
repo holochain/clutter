@@ -10,6 +10,8 @@ import SettingsContainer from './SettingsContainer'
 import UserFeedContainer from './UserFeedContainer'
 import HashtagFeedContainer from './HashtagFeedContainer'
 
+const DEFAULT_PROFILE_PIC = '/cat-eating-bird-circle.png'
+
 class App extends Component {
   componentWillMount() {
     // this fetches the hash which represents the active users userHash
@@ -55,7 +57,7 @@ class App extends Component {
             <div className="col-sm-2 contentcontainer">
               <div className="logo">
                 <img
-                  src={profilePic ? profilePic : '/cat-eating-bird-circle.png'}
+                  src={profilePic ? profilePic : DEFAULT_PROFILE_PIC}
                   alt="user-profile"
                 />
                 <div id="displayName">{firstName}</div>
