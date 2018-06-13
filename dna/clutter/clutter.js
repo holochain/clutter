@@ -96,17 +96,7 @@ function getProfileProp(tag) {
  * @return firstName associated with this user
  **/
 function getFirstName() {
-  var links;
-  try {
-    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
-
-    if (links.length < 1) {
-      return '';
-    }
-  } catch (exception) {
-    return 'Error (getting firstName): ' + exception;
-  }
-  return links[0].Entry;
+  return getProfileProp(FIRST_NAME);
 }
 
 function appProperty(name) {
