@@ -54,7 +54,10 @@ class App extends Component {
           <div className="fixed-area">
             <div className="col-sm-2 contentcontainer">
               <div className="logo">
-                <img src={profilePic} alt="user-profile" />
+                <img
+                  src={profilePic ? profilePic : '/cat-eating-bird-circle.png'}
+                  alt="user-profile"
+                />
                 <div id="displayName">{firstName}</div>
                 <Link to="/editProfile" id="handle">
                   @{handle}

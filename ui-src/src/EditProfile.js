@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+const MAX_PIC_SIZE = 2000000
+
 class EditProfile extends Component {
   constructor(props) {
     super(props)
@@ -51,7 +53,7 @@ class EditProfile extends Component {
   readBlob = file => {
     const input = file.target
 
-    if (input.size > 5000000) {
+    if (input.size > MAX_PIC_SIZE) {
       alert('File is too big!')
       return
     }
