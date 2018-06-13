@@ -6,13 +6,13 @@ class EditProfile extends Component {
     super(props)
     this.state = {
       newNameText: '',
-      profilePic: ''
+      newProfilePic: ''
     }
   }
   componentWillMount() {
     const { firstName, getFirstName, profilePic } = this.props
     getFirstName()
-    this.setState({ newNameText: firstName, profilePic: profilePic })
+    this.setState({ newNameText: firstName, newProfilePic: profilePic })
   }
   componentDidUpdate(prevProps) {
     const { firstName } = this.props
@@ -26,13 +26,20 @@ class EditProfile extends Component {
     })
   }
   onHandleSubmit = e => {
-    const { newNameText, profilePic } = this.state
-    const { history, firstName, setFirstName, setProfilePic } = this.props
+    const { newNameText, newProfilePic } = this.state
+    const {
+      history,
+      firstName,
+      profilePic,
+      setFirstName,
+      setProfilePic
+    } = this.props
 
     e.preventDefault()
-
-    if (profilePic) {
-      setProfilePic(profilePic)
+    console.log(profilePic)
+    console.log(newProfilePic)
+    if (newProfilePic) {
+      setProfilePic(newProfilePic)
     }
 
     if (!newNameText) return
@@ -44,8 +51,13 @@ class EditProfile extends Component {
 
   readBlob = file => {
     const input = file.target
+
+    if (input.size > 5000000) {
+      alert('File is too big!')
+      return
+    }
     this.upload(input.files[0]).then(dataURL => {
-      this.setState({ profilePic: dataURL })
+      this.setState({ newProfilePic: dataURL })
     })
   }
 

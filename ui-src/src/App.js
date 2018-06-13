@@ -16,7 +16,6 @@ class App extends Component {
     this.props.getMyHandle()
     this.props.getHandles()
     this.props.getFirstName()
-    this.props.getProfilePic()
     this.interval = setInterval(this.props.getHandles, 2000)
   }
 
@@ -54,7 +53,7 @@ class App extends Component {
           <div className="fixed-area">
             <div className="col-sm-2 contentcontainer">
               <div className="logo">
-                <img src={profilePic} alt="user profile picture" />
+                <img src={profilePic} alt="user-profile" />
                 <div id="displayName">{firstName}</div>
                 <Link to="/editProfile" id="handle">
                   @{handle}
