@@ -36,9 +36,8 @@ class EditProfile extends Component {
     } = this.props
 
     e.preventDefault()
-    console.log(profilePic)
-    console.log(newProfilePic)
-    if (newProfilePic) {
+
+    if (newProfilePic && newProfilePic !== profilePic) {
       setProfilePic(newProfilePic)
     }
 
