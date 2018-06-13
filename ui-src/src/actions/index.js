@@ -18,6 +18,7 @@ export const UNFOLLOW = 'unfollow'
 export const SET_FIRST_NAME = 'setFirstName'
 export const SET_PROFILE_PIC = 'setProfilePic'
 export const GET_FIRST_NAME = 'getFirstName'
+export const GET_PROFILE_PIC = 'getProfilePic'
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -50,6 +51,16 @@ export function setFirstName(value) {
       isHc: true,
       namespace: 'clutter',
       data: value
+    }
+  }
+}
+
+export function getProfilePic() {
+  return {
+    type: GET_PROFILE_PIC,
+    meta: {
+      isHc: true,
+      namespace: 'clutter'
     }
   }
 }

@@ -37,6 +37,11 @@ export default function clutterApp(state = initialState, action) {
         ...state,
         profilePic: payload
       }
+    case A.GET_PROFILE_PIC:
+      return {
+        ...state,
+        profilePic: payload
+      }
     case A.GET_FIRST_NAME:
       return {
         ...state,

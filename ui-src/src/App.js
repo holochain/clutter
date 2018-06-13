@@ -16,6 +16,7 @@ class App extends Component {
     this.props.getMyHandle()
     this.props.getHandles()
     this.props.getFirstName()
+    this.props.getProfilePic()
     this.interval = setInterval(this.props.getHandles, 2000)
   }
 
@@ -31,7 +32,13 @@ class App extends Component {
   }
 
   render() {
-    const { appProperties, firstName, handle, modalIsOpen } = this.props
+    const {
+      appProperties,
+      firstName,
+      handle,
+      modalIsOpen,
+      profilePic
+    } = this.props
     // if an agent handle already exists, there is no need to query for a handle
     return modalIsOpen && !appProperties.Agent_Handle ? (
       <div>
@@ -47,7 +54,7 @@ class App extends Component {
           <div className="fixed-area">
             <div className="col-sm-2 contentcontainer">
               <div className="logo">
-                <img src="/cat-eating-bird-circle.png" alt="cat eating bird" />
+                <img src={profilePic} alt="user profile picture" />
                 <div id="displayName">{firstName}</div>
                 <Link to="/editProfile" id="handle">
                   @{handle}

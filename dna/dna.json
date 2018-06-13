@@ -90,6 +90,11 @@
           "Exposure": "public"
         },
         {
+          "Name": "getProfilePic",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
           "Name": "setProfilePic",
           "CallingType": "string",
           "Exposure": "public"

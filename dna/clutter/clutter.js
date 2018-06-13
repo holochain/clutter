@@ -24,6 +24,7 @@ function setFirstName(data) {
 
 /**
  * @param data is a string representing a profile data field
+ * @param tag is the tag used to store the profile data
  * @return data which is a profile data field
  **/
 function setProfileProp(data, tag) {
@@ -62,6 +63,32 @@ function setProfileProp(data, tag) {
     return 'Error updating or committing: ' + exception;
   }
   return data;
+}
+
+/**
+ * @param none
+ * @return profilePic associated with this user
+ **/
+function getProfilePic() {
+  return getProfileProp(PROFILE_PIC);
+}
+
+/**
+ * @param tag associated with the property we want to retrieve
+ * @return profileProp associated with the tag and current user
+ **/
+function getProfileProp(tag) {
+  var links;
+  try {
+    links = getLinks(App.Agent.Hash, tag, { Load: true });
+
+    if (links.length < 1) {
+      return '';
+    }
+  } catch (exception) {
+    return 'Error (getting firstName): ' + exception;
+  }
+  return links[0].Entry;
 }
 
 /**

@@ -6,7 +6,8 @@ import {
   getHandle,
   getHandles,
   getFollow,
-  getPostsBy
+  getPostsBy,
+  getProfilePic
 } from './actions'
 
 const mapStateToProps = state => {
@@ -34,6 +35,9 @@ const mapDispatchToProps = dispatch => {
     },
     getPostsBy: (handles, then) => {
       dispatch(getPostsBy(handles, then))
+    },
+    getProfilePic: () => {
+      dispatch(getProfilePic())
     }
   }
 }
