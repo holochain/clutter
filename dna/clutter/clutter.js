@@ -15,6 +15,14 @@ function setProfilePic(data) {
 }
 
 /**
+ * @param data is a string representing a firstName
+ * @return data which is firstName
+ **/
+function setFirstName(data) {
+  return setProfileProp(data, FIRST_NAME);
+}
+
+/**
  * @param data is a string representing a profile data field
  * @return data which is a profile data field
  **/
@@ -56,48 +64,6 @@ function setProfileProp(data, tag) {
   return data;
 }
 
-/**
- * @param data is a string representing a firstName
- * @return data which is firstName
- **/
-function setFirstName(data) {
-  var nameHash;
-  var links;
-  try {
-    // Check if name has been set and update if so.
-    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
-  } catch (exception) {
-    return 'Error getting links: ' + exception;
-  }
-  try {
-    if (links && links.length > 0) {
-      nameHash = update(FIRST_NAME, data, links[0].Hash);
-
-      // Delete the old hash, so we only ever have one record
-      var delHash = remove(links[0].Hash, 'delete Message');
-      commit('profile_links', {
-        Links: [
-          {
-            Base: App.Agent.Hash,
-            Link: links[0].Hash,
-            Tag: FIRST_NAME,
-            LinkAction: HC.LinkAction.Del
-          }
-        ]
-      });
-    } else {
-      // Otherwise add it for the first time:
-      nameHash = commit(FIRST_NAME, data);
-    }
-    // On the DHT, put a link from my hash to the hash of firstName
-    commit('profile_links', {
-      Links: [{ Base: App.Agent.Hash, Link: nameHash, Tag: FIRST_NAME }]
-    });
-  } catch (exception) {
-    return 'Error updating or committing: ' + exception;
-  }
-  return data;
-}
 /**
  * @param none
  * @return firstName associated with this user
