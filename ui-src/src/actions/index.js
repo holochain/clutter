@@ -16,7 +16,9 @@ export const GET_AGENT = 'getAgent'
 export const NEW_HANDLE = 'newHandle'
 export const UNFOLLOW = 'unfollow'
 export const SET_FIRST_NAME = 'setFirstName'
+export const SET_PROFILE_PIC = 'setProfilePic'
 export const GET_FIRST_NAME = 'getFirstName'
+export const GET_PROFILE_PIC = 'getProfilePic'
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -45,6 +47,27 @@ export function getFirstName() {
 export function setFirstName(value) {
   return {
     type: SET_FIRST_NAME,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: value
+    }
+  }
+}
+
+export function getProfilePic() {
+  return {
+    type: GET_PROFILE_PIC,
+    meta: {
+      isHc: true,
+      namespace: 'clutter'
+    }
+  }
+}
+
+export function setProfilePic(value) {
+  return {
+    type: SET_PROFILE_PIC,
     meta: {
       isHc: true,
       namespace: 'clutter',
