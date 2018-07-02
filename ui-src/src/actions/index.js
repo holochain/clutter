@@ -18,6 +18,9 @@ export const UNFOLLOW = 'unfollow'
 export const SET_FIRST_NAME = 'setFirstName'
 export const SET_PROFILE_PIC = 'setProfilePic'
 export const GET_FIRST_NAME = 'getFirstName'
+export const ADD_FAVOURITE = 'addFavourite'
+export const REMOVE_FAVOURITE = 'removeFavourite'
+export const GET_FAVOURITES = 'getFavourites'
 export const GET_PROFILE_PIC = 'getProfilePic'
 
 // Holochain actions
@@ -30,6 +33,39 @@ export function getHandle(userHash, isMe = false, then) {
       data: userHash,
       isMe,
       then
+    }
+  }
+}
+
+export function addFavourite(favourite) {
+  return {
+    type: ADD_FAVOURITE,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: favourite
+    }
+  }
+}
+
+export function removeFavourite(favourite) {
+  return {
+    type: REMOVE_FAVOURITE,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: favourite
+    }
+  }
+}
+
+export function getFavourites() {
+  console.log('action get fave')
+  return {
+    type: GET_FAVOURITES,
+    meta: {
+      isHc: true,
+      namespace: 'clutter'
     }
   }
 }

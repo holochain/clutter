@@ -1,0 +1,94 @@
+{
+  "Tests": [
+    {
+      "Convey": "Setting up a new handle to test favourites",
+      "Zome": "clutter",
+      "FnName": "newHandle",
+      "Input": "lindsey",
+      "Output": "%h2%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Creating a new post to add later as a favourite",
+      "Zome": "clutter",
+      "FnName": "post",
+      "Input": {
+        "message": "here is a test post",
+        "stamp": 12345
+      },
+      "Output": "%h1%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":
+        "Adding the last post as a favourite returns an array of one favourite",
+      "Zome": "clutter",
+      "FnName": "addFavourite",
+      "Input": "%h1%",
+      "Output": "%h3%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Creating a new post to add later as a favourite",
+      "Zome": "clutter",
+      "FnName": "post",
+      "Input": {
+        "message": "here is another test post",
+        "stamp": 12345
+      },
+      "Output": "%h1%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":
+        "Adding another favourite (2 favourites) returns an array of 2 items",
+      "Zome": "clutter",
+      "FnName": "addFavourite",
+      "Input": "%h1%",
+      "Output": "%h8%,%h4%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey": "Adding a favourite that is not a hash returns null",
+      "Zome": "clutter",
+      "FnName": "addFavourite",
+      "Input": "Hello!",
+      "Output": "null",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":
+        "Removing a favourite that exists from a list of 2 will leave the one favourite",
+      "Zome": "clutter",
+      "FnName": "removeFavourite",
+      "Input": "%h4%",
+      "Output": "%h11%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    },
+    {
+      "Convey":
+        "Removing a favourite that doesn't exist returns an unchanged list of favourites",
+      "Zome": "clutter",
+      "FnName": "removeFavourite",
+      "Input": "QmYkgGKX1q66Qtiryf8HqEFhXdbySFfLn2Yu2ETDfZpBAD",
+      "Output": "%h11%",
+      "Exposure": "public",
+      "Err": "",
+      "Regexp": ""
+    }
+  ]
+}

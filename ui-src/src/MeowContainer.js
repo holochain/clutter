@@ -4,7 +4,9 @@ import { getPost } from './actions'
 
 const mapStateToProps = (state, ownProps) => {
   const meowHash = ownProps.match.params.meowHash
-  const arrayOfPosts = Object.keys(state.posts).map(postStamp => state.posts[postStamp])
+  const arrayOfPosts = Object.keys(state.posts).map(
+    postStamp => state.posts[postStamp]
+  )
   let post = arrayOfPosts.find(p => p.hash === meowHash)
   if (post) {
     post = Object.assign({}, post, {
@@ -24,7 +26,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Meow)
+export default connect(mapStateToProps, mapDispatchToProps)(Meow)

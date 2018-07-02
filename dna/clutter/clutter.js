@@ -1,4 +1,5 @@
 var FIRST_NAME = 'firstName';
+var FAVOURITES = 'favourites';
 var PROFILE_PIC = 'profilePic';
 
 function getProperty(name) {
@@ -7,6 +8,125 @@ function getProperty(name) {
 }
 
 /**
+ * @param fave is the hash to add to favourites
+ * @return current array of favourites or null if input is invalid
+ **/
+function addFavourite(fave) {
+  var links;
+
+  // validates if fave is a hash
+  if (!RegExp(/Qm[a-zA-Z0-9]*/).test(fave)) {
+    return null;
+  }
+  try {
+    links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+  } catch (exception) {
+    debug('Error getting favourite links when adding: ' + exception);
+  }
+  try {
+    var faveHash;
+    var faves = getFavourites();
+
+    // add a random value to the array to maintain uniqueness
+    // for the purposes of using update
+    faves[0] = 'abc' + Math.random(); //makeHash(FAVOURITES, Math.random());
+    faves.push(fave);
+
+    // if the link doesn't exist, create it:
+    if (!links || links.length < 1) {
+      faveHash = commit(FAVOURITES, faves);
+      commit('profile_links', {
+        Links: [{ Base: App.Agent.Hash, Link: faveHash, Tag: FAVOURITES }]
+      });
+      // not great...remove 1st element here to remove unique value
+      faves.splice(0, 1);
+    } else {
+      faves = updateFavourite(faves);
+    }
+  } catch (exception) {
+    debug('Error committing faves: ' + exception);
+  }
+  return faves;
+}
+
+/**
+ * @param none
+ * @returns an array of favourites
+ **/
+function getFavourites() {
+  var links;
+  var faves = [];
+  try {
+    links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+    if (links && links.length > 0) {
+      faves = links[links.length - 1].Entry;
+    }
+  } catch (exception) {
+    debug('Error getting favourite link: ' + exception);
+  }
+  return faves;
+}
+
+/**
+ * @param fave to remove
+ * @returns the list of favourites
+ **/
+function removeFavourite(fave) {
+  var faves = getFavourites();
+  var faveIndex = faves.indexOf(fave);
+
+  if (faveIndex < 0) {
+    faves.splice(0, 1);
+    return faves;
+  }
+  try {
+    var removed = faves.splice(faveIndex, 1);
+    faves = updateFavourite(faves);
+  } catch (exception) {
+    debug('Error removing from favourites: ' + exception);
+  }
+  return faves;
+}
+
+/**
+ * Helper function to update the fave array and the associated links:
+ * @param faves is the array of favourites we want stored
+ * @return updated array of faves
+ **/
+function updateFavourite(faves) {
+  try {
+    var links = getLinks(App.Agent.Hash, FAVOURITES, { Load: true });
+    var oldHash = links[links.length - 1].Hash;
+    var faveHash = update(FAVOURITES, faves, oldHash);
+
+    commit('profile_links', {
+      Links: [
+        {
+          Base: App.Agent.Hash,
+          Link: oldHash,
+          Tag: FAVOURITES,
+          LinkAction: HC.LinkAction.Del
+        }
+      ]
+    });
+
+    commit('profile_links', {
+      Links: [
+        {
+          Base: App.Agent.Hash,
+          Link: faveHash,
+          Tag: FAVOURITES
+        }
+      ]
+    });
+  } catch (exception) {
+    debug('Error updating favourites: ' + exception);
+  }
+  faves.splice(0, 1);
+  return faves;
+}
+
+/*
  * @param data is a string representing a 64-bit encoded image
  * @return data which is a 64-bit encoded image
  **/
@@ -345,7 +465,7 @@ function post(post) {
     });
   });
 
-  // debug(key);
+  //debug(key);
   return key; // Returns the hash key of the new post to the calling function
 }
 
@@ -362,6 +482,7 @@ function postMod(params) {
 
 // TODO add "last 10" or "since timestamp" when query info is supported
 function getPostsBy(handles) {
+  debug(handles);
   // From the DHT, gets all "post" metadata entries linked from this userAddress
   var posts = [];
   for (var i = 0; i < handles.length; i++) {

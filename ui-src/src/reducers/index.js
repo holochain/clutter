@@ -17,6 +17,8 @@ const initialState = {
   handle: '',
   // active users name
   firstName: '',
+  // array of hash posts user has favourited
+  favourites: [],
   // active users profile name
   profilePic: '',
   // active users userHash
@@ -27,6 +29,21 @@ export default function clutterApp(state = initialState, action) {
   const { type, meta, payload } = action
   // console.log('reducer type ' + type)
   switch (type) {
+    case A.ADD_FAVOURITE:
+      return {
+        ...state,
+        favourites: payload
+      }
+    case A.GET_FAVOURITES:
+      return {
+        ...state,
+        favourites: payload
+      }
+    case A.REMOVE_FAVOURITE:
+      return {
+        ...state,
+        favourites: payload
+      }
     case A.SET_FIRST_NAME:
       return {
         ...state,
@@ -105,6 +122,7 @@ export default function clutterApp(state = initialState, action) {
     case A.POST:
       return {
         ...state,
+        favourites: state.favourites,
         posts: {
           ...state.posts,
           [meta.data.stamp]: {
@@ -127,6 +145,7 @@ export default function clutterApp(state = initialState, action) {
       }
     case A.GET_POSTS_BY:
       console.log('GET_POSTS_BY ' + JSON.stringify(payload))
+      console.log(state)
       const newPosts = payload.reduce((memo, item) => {
         return {
           ...memo,
@@ -139,6 +158,7 @@ export default function clutterApp(state = initialState, action) {
       }, {})
       return {
         ...state,
+        favourites: state.favourites,
         posts: {
           ...state.posts,
           ...newPosts
