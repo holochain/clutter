@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+const MAX_PIC_SIZE = 2000000
+
 class EditProfile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      newNameText: ''
+      newNameText: '',
+      newProfilePic: ''
     }
   }
   componentWillMount() {
-    const { firstName, getFirstName } = this.props
+    const { firstName, getFirstName, profilePic } = this.props
     getFirstName()
-    this.setState({ newNameText: firstName })
+    this.setState({ newNameText: firstName, newProfilePic: profilePic })
   }
   componentDidUpdate(prevProps) {
     const { firstName } = this.props
@@ -25,9 +28,20 @@ class EditProfile extends Component {
     })
   }
   onHandleSubmit = e => {
-    const { newNameText } = this.state
-    const { history, firstName, setFirstName } = this.props
+    const { newNameText, newProfilePic } = this.state
+    const {
+      history,
+      firstName,
+      profilePic,
+      setFirstName,
+      setProfilePic
+    } = this.props
+
     e.preventDefault()
+
+    if (newProfilePic && newProfilePic !== profilePic) {
+      setProfilePic(newProfilePic)
+    }
 
     if (!newNameText) return
     if (!(newNameText === firstName)) setFirstName(newNameText)
@@ -35,6 +49,29 @@ class EditProfile extends Component {
     // Redirect user to main page
     history.push('/')
   }
+
+  readBlob = file => {
+    const input = file.target
+
+    if (input.size > MAX_PIC_SIZE) {
+      alert('File is too big!')
+      return
+    }
+    this.upload(input.files[0]).then(dataURL => {
+      this.setState({ newProfilePic: dataURL })
+    })
+  }
+
+  upload = file =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader()
+
+      reader.onload = e => {
+        resolve(e.target.result)
+      }
+
+      reader.readAsDataURL(file)
+    })
 
   render() {
     const { handle } = this.props
@@ -68,16 +105,18 @@ class EditProfile extends Component {
                 />
               </div>
 
-              {/**<div className="form-group">
-                  <div className="form-group col-xs-10">
-                    <label>Profile Picture</label>
-                    <input
-                      type="file"
-                      className="form-control-file"
-                      id="exampleFormControlFile1"
-                    />
-                  </div>
-      </div>**/}
+              <div className="form-group">
+                <div className="form-group col-xs-10">
+                  <label>Profile Picture</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={this.readBlob}
+                    hidden
+                    id="image"
+                  />
+                </div>
+              </div>
             </div>
             <div className="form-group col-xs-6">
               <button

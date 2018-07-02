@@ -10,11 +10,14 @@ import SettingsContainer from './SettingsContainer'
 import UserFeedContainer from './UserFeedContainer'
 import HashtagFeedContainer from './HashtagFeedContainer'
 
+const DEFAULT_PROFILE_PIC = '/cat-eating-bird-circle.png'
+
 class App extends Component {
   componentWillMount() {
     // this fetches the hash which represents the active users userHash
     this.props.getMyHandle()
     this.props.getHandles()
+    this.props.getProfilePic()
     this.props.getFirstName()
     this.interval = setInterval(this.props.getHandles, 2000)
   }
@@ -31,7 +34,13 @@ class App extends Component {
   }
 
   render() {
-    const { appProperties, firstName, handle, modalIsOpen } = this.props
+    const {
+      appProperties,
+      firstName,
+      handle,
+      modalIsOpen,
+      profilePic
+    } = this.props
     // if an agent handle already exists, there is no need to query for a handle
     return modalIsOpen && !appProperties.Agent_Handle ? (
       <div>
@@ -47,7 +56,10 @@ class App extends Component {
           <div className="fixed-area">
             <div className="col-sm-2 contentcontainer">
               <div className="logo">
-                <img src="/cat-eating-bird-circle.png" alt="cat eating bird" />
+                <img
+                  src={profilePic ? profilePic : DEFAULT_PROFILE_PIC}
+                  alt="user-profile"
+                />
                 <div id="displayName">{firstName}</div>
                 <Link to="/editProfile" id="handle">
                   @{handle}

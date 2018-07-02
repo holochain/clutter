@@ -19,6 +19,8 @@ const initialState = {
   firstName: '',
   // array of hash posts user has favourited
   favourites: [],
+  // active users profile name
+  profilePic: '',
   // active users userHash
   me: ''
 }
@@ -46,6 +48,16 @@ export default function clutterApp(state = initialState, action) {
       return {
         ...state,
         firstName: payload
+      }
+    case A.SET_PROFILE_PIC:
+      return {
+        ...state,
+        profilePic: payload
+      }
+    case A.GET_PROFILE_PIC:
+      return {
+        ...state,
+        profilePic: payload
       }
     case A.GET_FIRST_NAME:
       return {

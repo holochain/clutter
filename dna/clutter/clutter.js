@@ -1,5 +1,6 @@
 var FIRST_NAME = 'firstName';
 var FAVOURITES = 'favourites';
+var PROFILE_PIC = 'profilePic';
 
 function getProperty(name) {
   // The definition of the function you intend to expose
@@ -125,56 +126,81 @@ function updateFavourite(faves) {
   return faves;
 }
 
+/*
+ * @param data is a string representing a 64-bit encoded image
+ * @return data which is a 64-bit encoded image
+ **/
+function setProfilePic(data) {
+  return setProfileProp(data, PROFILE_PIC);
+}
+
 /**
  * @param data is a string representing a firstName
  * @return data which is firstName
  **/
 function setFirstName(data) {
-  var nameHash;
+  return setProfileProp(data, FIRST_NAME);
+}
+
+/**
+ * @param data is a string representing a profile data field
+ * @param tag is the tag used to store the profile data
+ * @return data which is a profile data field
+ **/
+function setProfileProp(data, tag) {
+  var profilePropHash;
   var links;
   try {
-    // Check if name has been set and update if so.
-    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
+    // Check if profile pic has been set and update if so.
+    links = getLinks(App.Agent.Hash, tag, { Load: true });
   } catch (exception) {
     return 'Error getting links: ' + exception;
   }
   try {
     if (links && links.length > 0) {
-      nameHash = update(FIRST_NAME, data, links[0].Hash);
+      profilePropHash = update(tag, data, links[0].Hash);
 
       // Delete the old hash, so we only ever have one record
-      var delHash = remove(links[0].Hash, 'delete Message');
       commit('profile_links', {
         Links: [
           {
             Base: App.Agent.Hash,
             Link: links[0].Hash,
-            Tag: FIRST_NAME,
+            Tag: tag,
             LinkAction: HC.LinkAction.Del
           }
         ]
       });
     } else {
       // Otherwise add it for the first time:
-      nameHash = commit(FIRST_NAME, data);
+      profilePropHash = commit(tag, data);
     }
     // On the DHT, put a link from my hash to the hash of firstName
     commit('profile_links', {
-      Links: [{ Base: App.Agent.Hash, Link: nameHash, Tag: FIRST_NAME }]
+      Links: [{ Base: App.Agent.Hash, Link: profilePropHash, Tag: tag }]
     });
   } catch (exception) {
     return 'Error updating or committing: ' + exception;
   }
   return data;
 }
+
 /**
  * @param none
- * @return firstName associated with this user
+ * @return profilePic associated with this user
  **/
-function getFirstName() {
+function getProfilePic() {
+  return getProfileProp(PROFILE_PIC);
+}
+
+/**
+ * @param tag associated with the property we want to retrieve
+ * @return profileProp associated with the tag and current user
+ **/
+function getProfileProp(tag) {
   var links;
   try {
-    links = getLinks(App.Agent.Hash, FIRST_NAME, { Load: true });
+    links = getLinks(App.Agent.Hash, tag, { Load: true });
 
     if (links.length < 1) {
       return '';
@@ -183,6 +209,14 @@ function getFirstName() {
     return 'Error (getting firstName): ' + exception;
   }
   return links[0].Entry;
+}
+
+/**
+ * @param none
+ * @return firstName associated with this user
+ **/
+function getFirstName() {
+  return getProfileProp(FIRST_NAME);
 }
 
 function appProperty(name) {
