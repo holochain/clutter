@@ -14,6 +14,10 @@ const DEFAULT_PROFILE_PIC = '/cat-eating-bird-circle.png'
 
 class App extends Component {
   componentWillMount() {
+    // if the server has reset we need to reset our state too
+    if (!this.props.appProperties.Agent_Handle) {
+      this.props.resetState()
+    }
     // this fetches the hash which represents the active users userHash
     this.props.getMyHandle()
     this.props.getHandles()

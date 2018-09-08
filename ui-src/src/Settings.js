@@ -46,7 +46,7 @@ class Settings extends Component {
     }
 
     // check if a name has been set, and if not default to handle
-    if (!getFirstName() || getFirstName().length > 1) {
+    if (!(getFirstName() && getFirstName().length > 1)) {
       setFirstName(newHandleText)
     }
     toggleModal()

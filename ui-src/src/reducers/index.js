@@ -29,6 +29,8 @@ export default function clutterApp(state = initialState, action) {
   const { type, meta, payload } = action
   // console.log('reducer type ' + type)
   switch (type) {
+    case A.RESET_STATE:
+      return initialState
     case A.ADD_FAVOURITE:
       return {
         ...state,
