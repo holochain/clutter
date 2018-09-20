@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/es/integration/react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import AppContainer from './AppContainer'
 
-const Root = ({ store }) => (
+const Root = ({ store, persistor }) => (
   <Provider store={store}>
-    <Router>
-      <Route path='/' component={AppContainer} />
-    </Router>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>
+        <Route path='/' component={AppContainer} />
+      </Router>
+    </PersistGate>
   </Provider>
 )
 

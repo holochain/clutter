@@ -1,4 +1,5 @@
 // UI actions
+export const RESET_STATE = 'resetState'
 export const TOGGLE_MODAL = 'toggleModal'
 
 // Holochain actions
@@ -22,6 +23,19 @@ export const ADD_FAVOURITE = 'addFavourite'
 export const REMOVE_FAVOURITE = 'removeFavourite'
 export const GET_FAVOURITES = 'getFavourites'
 export const GET_PROFILE_PIC = 'getProfilePic'
+
+// UI actions
+export function resetState() {
+  return {
+    type: RESET_STATE
+  }
+}
+
+export function toggleModal() {
+  return {
+    type: TOGGLE_MODAL
+  }
+}
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -109,12 +123,6 @@ export function setProfilePic(value) {
       namespace: 'clutter',
       data: value
     }
-  }
-}
-
-export function toggleModal() {
-  return {
-    type: TOGGLE_MODAL
   }
 }
 

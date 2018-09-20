@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import App from './App'
 import {
   appProperty,
+  resetState,
   getFirstName,
   getHandle,
   getHandles,
@@ -18,6 +19,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    resetState: () => {
+      dispatch(resetState())
+    },
     getFirstName: () => {
       dispatch(getFirstName())
     },
