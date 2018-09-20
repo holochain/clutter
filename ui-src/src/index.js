@@ -6,7 +6,9 @@ import registerServiceWorker from './registerServiceWorker'
 
 import CreateStore from './store'
 
-let store = CreateStore()
+let stored = CreateStore()
 
-ReactDOM.render(<Root store={store} />, document.getElementById('root'))
+ReactDOM.render(
+  <Root store={stored.store} persistor={stored.persistor} />,
+  document.getElementById('root'))
 registerServiceWorker()
