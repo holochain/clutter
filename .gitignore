@@ -8,3 +8,7 @@ npm-debug.log
 yarn.lock
 logs/
 release/
+ui/asset-manifest.json
+ui/index.html
+ui/service-worker.js
+ui/static/js/
