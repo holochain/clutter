@@ -175,6 +175,11 @@
           "Exposure": "public"
         },
         {
+          "Name": "logOut",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
           "Name": "getAgent",
           "CallingType": "string",
           "Exposure": "public"

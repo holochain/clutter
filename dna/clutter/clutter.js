@@ -346,6 +346,41 @@ function useHandle(handle) {
         ' to "directory_links"</mermaid>'
     );
     return useHandleKey;
+  } else if (getAgent(handle) === App.Key.Hash) {
+    // Logged out user is requesting old handle
+    useHandleKey = makeHash('handle', anchor('handle', handle));
+    debug(
+      '<mermaid>' +
+      App.Agent.String +
+      '->>' +
+      App.Agent.String +
+      ':restore handle ' +
+      handle +
+      '</mermaid>'
+    );
+    debug(
+      '</mermaid>' +
+      App.Agent.String +
+      '->>DHT:Publish ' +
+      handle +
+      '</mermaid>'
+    );
+    commit('handle_links', {
+      Links: [
+        {
+          Base: App.Key.Hash,
+          Link: useHandleKey,
+          Tag: 'handle'
+        }
+      ]
+    });
+    debug(
+      '<mermaid>' +
+      '->>DHT:Link ' +
+      useHandleKey +
+      ' to "handle_links"</mermaid>'
+    );
+    return useHandleKey;
   } else {
     // debug('HandleInUse')
     return 'HandleInUse';
@@ -359,6 +394,34 @@ function getHandle(agentKey) {
   if (links.length > 0) {
     var anchorHash = links[0].Entry.replace(/"/g, '');
     return get(anchorHash).anchorText;
+  } else {
+    return '';
+  }
+}
+
+function logOut() {
+  var handles = getLinks(App.Key.Hash, 'handle');
+  if (handles.length > 0) {
+    var handleKey = handles[0].Hash;
+    debug(
+      '<mermaid>' +
+      App.Agent.String +
+      '->>' +
+      App.Agent.String +
+      ':logout from handle' +
+      '</mermaid>'
+    );
+    commit('handle_links', {
+      Links: [
+        {
+          Base: App.Key.Hash,
+          Link: handleKey,
+          Tag: 'handle',
+          LinkAction: HC.LinkAction.Del
+        }
+      ]
+    });
+    return 'LoggedOut';
   } else {
     return '';
   }

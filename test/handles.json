@@ -31,6 +31,46 @@
             "Regexp": ""
         },
         {
+            "Convey":"We can log out to blank retrieved handle",
+            "Zome": "clutter",
+            "FnName": "logOut",
+            "Input": "",
+            "Output": "LoggedOut",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Retrieved handle is now blank",
+            "Zome": "clutter",
+            "FnName": "getHandle",
+            "Input": "%key%",
+            "Output": "",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Logging out twice does nothing",
+            "Zome": "clutter",
+            "FnName": "logOut",
+            "Input": "",
+            "Output": "",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"We can log back in to our old handle",
+            "Zome": "clutter",
+            "FnName": "useHandle",
+            "Input": "buffaloBill",
+            "Output": "%h4%",
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
             "Convey":"We can update our handle to a unique handle",
             "Zome": "clutter",
             "FnName": "useHandle",
