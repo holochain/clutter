@@ -165,7 +165,7 @@
           "Exposure": "public"
         },
         {
-          "Name": "newHandle",
+          "Name": "useHandle",
           "CallingType": "string",
           "Exposure": "public"
         },

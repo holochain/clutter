@@ -238,7 +238,7 @@ function appProperty(name) {
   return 'Error: No App Property with name: ' + name;
 }
 
-function newHandle(handle) {
+function useHandle(handle) {
   debug(
     '<mermaid>' +
       App.Agent.String +
@@ -312,7 +312,7 @@ function newHandle(handle) {
     }
   }
   if (anchorExists('handle', handle) === 'false') {
-    var newHandleKey = commit('handle', anchor('handle', handle));
+    var useHandleKey = commit('handle', anchor('handle', handle));
     debug(
       '<mermaid>' +
         App.Agent.String +
@@ -326,17 +326,17 @@ function newHandle(handle) {
       '<mermaid>' + App.Agent.String + '->>DHT:Publish ' + handle + '</mermaid>'
     );
     commit('handle_links', {
-      Links: [{ Base: App.Key.Hash, Link: newHandleKey, Tag: 'handle' }]
+      Links: [{ Base: App.Key.Hash, Link: useHandleKey, Tag: 'handle' }]
     });
     debug(
       '<mermaid>' +
         App.Agent.String +
         '->>DHT:Link ' +
-        newHandleKey +
+        useHandleKey +
         ' to "handle_links"</mermaid>'
     );
     commit('directory_links', {
-      Links: [{ Base: App.DNA.Hash, Link: newHandleKey, Tag: 'directory' }]
+      Links: [{ Base: App.DNA.Hash, Link: useHandleKey, Tag: 'directory' }]
     });
     debug(
       '<mermaid>' +
@@ -345,7 +345,7 @@ function newHandle(handle) {
         handle +
         ' to "directory_links"</mermaid>'
     );
-    return newHandleKey;
+    return useHandleKey;
   } else {
     // debug('HandleInUse')
     return 'HandleInUse';

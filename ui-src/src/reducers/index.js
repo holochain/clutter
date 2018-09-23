@@ -188,7 +188,7 @@ export default function clutterApp(state = initialState, action) {
       }
     case A.GET_AGENT:
       return state
-    case A.NEW_HANDLE:
+    case A.USE_HANDLE:
       //console.log("HandleInUse" + payload);
       if (payload === 'HandleInUse') {
         return {

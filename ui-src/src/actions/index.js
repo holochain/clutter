@@ -14,7 +14,7 @@ export const FOLLOW = 'follow'
 export const GET_POSTS_BY = 'getPostsBy'
 export const GET_POSTS_HASHTAG = 'getPostsWithHashtag'
 export const GET_AGENT = 'getAgent'
-export const NEW_HANDLE = 'newHandle'
+export const USE_HANDLE = 'useHandle'
 export const UNFOLLOW = 'unfollow'
 export const SET_FIRST_NAME = 'setFirstName'
 export const SET_PROFILE_PIC = 'setProfilePic'
@@ -137,9 +137,9 @@ export function getHandles(then) {
   }
 }
 
-export function newHandle(handle, then) {
+export function useHandle(handle, then) {
   return {
-    type: NEW_HANDLE,
+    type: USE_HANDLE,
     meta: {
       isHc: true,
       namespace: 'clutter',

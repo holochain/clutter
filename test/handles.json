@@ -13,7 +13,7 @@
       {
             "Convey":"We can create a new handle",
             "Zome": "clutter",
-            "FnName": "newHandle",
+            "FnName": "useHandle",
             "Input": "buffaloBill",
             "Output": "%h2%",
             "Exposure":"public",
@@ -33,7 +33,7 @@
         {
             "Convey":"We can update our handle to a unique handle",
             "Zome": "clutter",
-            "FnName": "newHandle",
+            "FnName": "useHandle",
             "Input": "phil",
             "Output": "%h2%",
             "Exposure":"public",
@@ -43,7 +43,7 @@
         {
             "Convey":"Trying to use a handle that another person is using returns 'HandleInUse'",
             "Zome": "clutter",
-            "FnName": "newHandle",
+            "FnName": "useHandle",
             "Input": "phil",
             "Output": "HandleInUse",
             "Exposure":"public",

@@ -3,7 +3,7 @@ import Settings from './Settings'
 import {
   appProperty,
   getFirstName,
-  newHandle,
+  useHandle,
   setFirstName,
   toggleModal
 } from './actions'
@@ -25,8 +25,8 @@ const mapDispatchToProps = dispatch => {
     getMyHandle: () => {
       dispatch(appProperty('Agent_Handle'))
     },
-    newHandle: (handle, then) => {
-      dispatch(newHandle(handle))
+    useHandle: (handle, then) => {
+      dispatch(useHandle(handle))
     },
     setFirstName: firstName => {
       dispatch(setFirstName(firstName))

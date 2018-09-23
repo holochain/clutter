@@ -4,7 +4,7 @@
         "Convey":"Jane creates a new handle the first time she uses Clutter",
         "Detail": "deddd",
         "Zome": "clutter",
-        "FnName": "newHandle",
+        "FnName": "useHandle",
         "Input": "Jane",
         "Output": "%h2%",
         "Exposure":"public",
