@@ -37,6 +37,16 @@ class App extends Component {
     if (this.interval) clearInterval(this.interval)
   }
 
+  onLogoutSubmit() {
+    const {
+      logOut,
+      history
+    } = this.props
+
+    logOut();
+    history.push('/');
+  }
+
   render() {
     const {
       appProperties,
@@ -119,6 +129,19 @@ class App extends Component {
                       holochain.org
                     </a>.
                   </p>
+                  <form
+                    id="logout-form"
+                    onSubmit={this.onLogoutSubmit.bind(this)}
+                    action=""
+                  >
+                    <button
+                      type="submit"
+                      id="logout"
+                      className="btn btn-default btn-sm"
+                    >
+                      Logout
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

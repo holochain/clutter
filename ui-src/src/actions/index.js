@@ -3,6 +3,7 @@ export const RESET_STATE = 'resetState'
 export const TOGGLE_MODAL = 'toggleModal'
 
 // Holochain actions
+export const LOG_OUT = 'logOut'
 export const GET_HANDLE = 'getHandle'
 export const GET_HANDLES = 'getHandles'
 export const GET_FOLLOW = 'getFollow'
@@ -47,6 +48,17 @@ export function getHandle(userHash, isMe = false, then) {
       data: userHash,
       isMe,
       then
+    }
+  }
+}
+
+export function logOut() {
+  console.log("logOut() called.")
+  return {
+    type: LOG_OUT,
+    meta: {
+      isHc: true,
+      namespace: 'clutter'
     }
   }
 }

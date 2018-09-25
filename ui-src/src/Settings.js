@@ -17,7 +17,6 @@ class Settings extends Component {
   onHandleSubmit = e => {
     const {
       getFirstName,
-      handles,
       useHandle,
       setFirstName,
       toggleModal
@@ -36,14 +35,6 @@ class Settings extends Component {
     }
 
     useHandle(useHandleText)
-
-    const handleExists = handles.find(
-      handleObj => handleObj.handle === useHandleText
-    )
-    if (handleExists) {
-      useHandle('')
-      return
-    }
 
     // check if a name has been set, and if not default to handle
     if (!(getFirstName() && getFirstName().length > 1)) {
