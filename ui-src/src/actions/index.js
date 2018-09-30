@@ -1,7 +1,9 @@
 // UI actions
+export const RESET_STATE = 'resetState'
 export const TOGGLE_MODAL = 'toggleModal'
 
 // Holochain actions
+export const LOG_OUT = 'logOut'
 export const GET_HANDLE = 'getHandle'
 export const GET_HANDLES = 'getHandles'
 export const GET_FOLLOW = 'getFollow'
@@ -13,7 +15,7 @@ export const FOLLOW = 'follow'
 export const GET_POSTS_BY = 'getPostsBy'
 export const GET_POSTS_HASHTAG = 'getPostsWithHashtag'
 export const GET_AGENT = 'getAgent'
-export const NEW_HANDLE = 'newHandle'
+export const USE_HANDLE = 'useHandle'
 export const UNFOLLOW = 'unfollow'
 export const SET_FIRST_NAME = 'setFirstName'
 export const SET_PROFILE_PIC = 'setProfilePic'
@@ -22,6 +24,19 @@ export const ADD_FAVOURITE = 'addFavourite'
 export const REMOVE_FAVOURITE = 'removeFavourite'
 export const GET_FAVOURITES = 'getFavourites'
 export const GET_PROFILE_PIC = 'getProfilePic'
+
+// UI actions
+export function resetState() {
+  return {
+    type: RESET_STATE
+  }
+}
+
+export function toggleModal() {
+  return {
+    type: TOGGLE_MODAL
+  }
+}
 
 // Holochain actions
 export function getHandle(userHash, isMe = false, then) {
@@ -33,6 +48,17 @@ export function getHandle(userHash, isMe = false, then) {
       data: userHash,
       isMe,
       then
+    }
+  }
+}
+
+export function logOut() {
+  console.log("logOut() called.")
+  return {
+    type: LOG_OUT,
+    meta: {
+      isHc: true,
+      namespace: 'clutter'
     }
   }
 }
@@ -112,12 +138,6 @@ export function setProfilePic(value) {
   }
 }
 
-export function toggleModal() {
-  return {
-    type: TOGGLE_MODAL
-  }
-}
-
 export function getHandles(then) {
   return {
     type: GET_HANDLES,
@@ -129,9 +149,9 @@ export function getHandles(then) {
   }
 }
 
-export function newHandle(handle, then) {
+export function useHandle(handle, then) {
   return {
-    type: NEW_HANDLE,
+    type: USE_HANDLE,
     meta: {
       isHc: true,
       namespace: 'clutter',

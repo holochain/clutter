@@ -1,8 +1,10 @@
 import { connect } from 'react-redux'
 import App from './App'
 import {
-  appProperty,
+  logOut,
+  resetState,
   getFirstName,
+  appProperty,
   getHandle,
   getHandles,
   getFollow,
@@ -18,6 +20,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    logOut: () => {
+      dispatch(logOut())
+    },
+    resetState: () => {
+      dispatch(resetState())
+    },
     getFirstName: () => {
       dispatch(getFirstName())
     },

@@ -3,7 +3,7 @@
     {
       "Convey": "setup handle for posting",
       "Zome": "clutter",
-      "FnName": "newHandle",
+      "FnName": "useHandle",
       "Input": "buffaloBill",
       "Output": "%h2%",
       "Exposure": "public",

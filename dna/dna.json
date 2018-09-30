@@ -165,12 +165,17 @@
           "Exposure": "public"
         },
         {
-          "Name": "newHandle",
+          "Name": "useHandle",
           "CallingType": "string",
           "Exposure": "public"
         },
         {
           "Name": "getHandle",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "logOut",
           "CallingType": "string",
           "Exposure": "public"
         },

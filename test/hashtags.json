@@ -27,7 +27,7 @@
     {
       "Convey": "A handle is set up correctly",
       "Zome": "clutter",
-      "FnName": "newHandle",
+      "FnName": "useHandle",
       "Input": "hashmasterBill",
       "Output": "%h2%",
       "Exposure": "public",

@@ -3,7 +3,7 @@
     {
       "Convey": "Setting up a new handle to test favourites",
       "Zome": "clutter",
-      "FnName": "newHandle",
+      "FnName": "useHandle",
       "Input": "lindsey",
       "Output": "%h2%",
       "Exposure": "public",

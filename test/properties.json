@@ -12,7 +12,7 @@
       {
             "Convey":"We can create a new handle",
             "Zome": "clutter",
-            "FnName": "newHandle",
+            "FnName": "useHandle",
             "Input": "buffaloBill",
             "Output": "%h2%",
             "Exposure":"public",

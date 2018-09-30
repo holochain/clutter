@@ -5,49 +5,40 @@ class Settings extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      newHandleText: ''
+      useHandleText: ''
     }
   }
 
   updateHandleText = e => {
     this.setState({
-      newHandleText: e.target.value
+      useHandleText: e.target.value
     })
   }
   onHandleSubmit = e => {
     const {
       getFirstName,
-      handles,
-      newHandle,
+      useHandle,
       setFirstName,
       toggleModal
     } = this.props
-    const { newHandleText } = this.state
+    const { useHandleText } = this.state
 
     e.preventDefault()
 
     // empty string given as input
-    if (!newHandleText) return
+    if (!useHandleText) return
 
     // max characters exceeded
-    if (newHandleText.length > MAX_HANDLE_LENGTH) {
-      this.setState({ newHandleText: '' })
+    if (useHandleText.length > MAX_HANDLE_LENGTH) {
+      this.setState({ useHandleText: '' })
       return
     }
 
-    newHandle(newHandleText)
-
-    const handleExists = handles.find(
-      handleObj => handleObj.handle === newHandleText
-    )
-    if (handleExists) {
-      newHandle('')
-      return
-    }
+    useHandle(useHandleText)
 
     // check if a name has been set, and if not default to handle
-    if (!getFirstName() || getFirstName().length > 1) {
-      setFirstName(newHandleText)
+    if (!(getFirstName() && getFirstName().length > 1)) {
+      setFirstName(useHandleText)
     }
     toggleModal()
   }
@@ -60,7 +51,7 @@ class Settings extends Component {
               className="text-info"
               style={{
                 display:
-                  this.state.newHandleText.length === 0 &&
+                  this.state.useHandleText.length === 0 &&
                   this.props.handleTaken === false
                     ? 'inline'
                     : 'none'
@@ -88,7 +79,7 @@ class Settings extends Component {
               <div className="form-group input-icon">
                 <i>@</i>
                 <input
-                  value={this.state.newHandleText}
+                  value={this.state.useHandleText}
                   onChange={this.updateHandleText}
                   type="text"
                   className="form-control"

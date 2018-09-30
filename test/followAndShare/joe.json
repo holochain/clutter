@@ -4,7 +4,7 @@
             "Time":2000,
             "Convey":"setup handle for posting",
             "Zome": "clutter",
-            "FnName": "newHandle",
+            "FnName": "useHandle",
             "Input": "joe",
             "Output": "%h2%",
             "Exposure":"public",
